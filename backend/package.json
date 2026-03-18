@@ -1,0 +1,11 @@
+{
+  "name": "creator-hub-backend",
+  "version": "1.0.0",
+  "description": "Backend for Project Creator Hub",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Vincenzo Santonastasio",
+  "license": "MIT"
+}
