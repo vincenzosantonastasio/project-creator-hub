@@ -1,4 +1,5 @@
 const http = require("http");
+const creators = require("./creators");
 
 const server = http.createServer((req, res) => {
   if (req.url === "/") {
@@ -7,11 +8,7 @@ const server = http.createServer((req, res) => {
   } else if (req.url === "/creator") {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(
-      JSON.stringify({
-        id: 1,
-        name: "Sample Creator",
-        platforms: ["YouTube", "TikTok"]
-      })
+    JSON.stringify(creators)  
     );
   } else {
     res.writeHead(404);
