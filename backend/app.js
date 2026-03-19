@@ -1,176 +1,211 @@
-const http = require("http");
-const creators = require("./creators");
-const content = require("./content");
-const users = require("./users");
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Creator Hub</title>
 
-// ensure last_seen exists
-users.forEach(user => {
-  if (!user.last_seen) {
-    user.last_seen = {};
-  }
-});
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #f5f6fa;
+    }
 
-const server = http.createServer((req, res) => {
+    header {
+      background: #000;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 20px;
+    }
 
-  if (req.url === "/" && req.method === "GET") {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ message: "Creator Hub API running" }));
+    .nav {
+      display: flex;
+      justify-content: center;
+      background: white;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
 
-  } else if (req.url === "/creator" && req.method === "GET") {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(creators));
+    .nav button {
+      margin: 0 5px;
+      padding: 8px 12px;
+      border: none;
+      background: #eee;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-  } else if (req.url === "/content" && req.method === "GET") {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(content));
+    .container {
+      padding: 15px;
+    }
 
-  // GLOBAL FEED
-  } else if (req.url === "/feed" && req.method === "GET") {
-    const sortedContent = [...content].sort((a, b) => b.id - a.id);
+    .card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
 
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(sortedContent));
+    .title {
+      font-weight: bold;
+      font-size: 16px;
+    }
 
-  // PERSONALIZED FEED WITH CATCH-UP
-  } else if (req.url.startsWith("/feed/user/") && req.method === "GET") {
-    const userId = parseInt(req.url.split("/")[3]);
+    .platform {
+      color: gray;
+      font-size: 13px;
+      margin-top: 4px;
+    }
 
-    const user = users.find(u => u.id === userId);
+    .new-badge {
+      color: white;
+      background: red;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      margin-left: 6px;
+    }
 
-    if (user) {
-      const personalizedContent = content
-        .filter(c => user.followed_creators.includes(c.creator_id))
-        .filter(c => {
-          const lastSeen = user.last_seen[c.creator_id] || 0;
-          return c.id > lastSeen;
+    .back {
+      margin-bottom: 10px;
+      color: blue;
+      cursor: pointer;
+    }
+
+    .follow-btn {
+      margin: 10px 0;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: black;
+      color: white;
+    }
+
+  </style>
+
+</head>
+<body>
+
+  <header>Creator Hub</header>
+
+  <div class="nav">
+    <button onclick="loadCreators()">Creators</button>
+    <button onclick="loadFeed()">Feed</button>
+    <button onclick="loadMyFeed()">My Feed</button>
+  </div>
+
+  <div class="container" id="output"></div>
+
+  <script>
+    const USER_ID = 1;
+
+    async function loadCreators() {
+      const res = await fetch("http://localhost:3000/creator");
+      const data = await res.json();
+
+      const html = data.map(c => `
+        <div class="card" onclick="loadCreator(${c.id})">
+          <div class="title">${c.name}</div>
+          <div class="platform">${c.platforms.join(", ")}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("output").innerHTML = html;
+    }
+
+    async function loadCreator(id) {
+      const res = await fetch("http://localhost:3000/creator/" + id);
+      const data = await res.json();
+
+      const isFollowing = await checkFollowing(id);
+
+      const contentHtml = data.content.map(c => `
+        <div class="card" onclick="markSeen(${id}, ${c.id})">
+          <div class="title">${c.title}</div>
+          <div class="platform">${c.platform}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("output").innerHTML = `
+        <div class="back" onclick="loadCreators()">← Back</div>
+        <h2>${data.name}</h2>
+        <button class="follow-btn" onclick="toggleFollow(${id}, ${isFollowing})">
+          ${isFollowing ? "Unfollow" : "Follow"}
+        </button>
+        ${contentHtml}
+      `;
+    }
+
+    async function markSeen(creatorId, contentId) {
+      await fetch("http://localhost:3000/mark-seen", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          userId: USER_ID,
+          creatorId: creatorId,
+          contentId: contentId
         })
-        .sort((a, b) => b.id - a.id);
-
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(personalizedContent));
-    } else {
-      res.writeHead(404);
-      res.end();
+      });
     }
 
-  // MARK CONTENT AS SEEN
-  } else if (req.url === "/mark-seen" && req.method === "POST") {
-    let body = "";
-
-    req.on("data", chunk => {
-      body += chunk.toString();
-    });
-
-    req.on("end", () => {
-      const { userId, creatorId, contentId } = JSON.parse(body);
-
-      const user = users.find(u => u.id === userId);
-
-      if (user) {
-        user.last_seen[creatorId] = contentId;
-      }
-
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ success: true }));
-    });
-
-  // USER FOLLOWING
-  } else if (req.url.startsWith("/user/") && req.url.endsWith("/following") && req.method === "GET") {
-    const userId = parseInt(req.url.split("/")[2]);
-
-    const user = users.find(u => u.id === userId);
-
-    if (user) {
-      const following = creators.filter(c =>
-        user.followed_creators.includes(c.id)
-      );
-
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(following));
-    } else {
-      res.writeHead(404);
-      res.end();
+    async function checkFollowing(creatorId) {
+      const res = await fetch("http://localhost:3000/user/1/following");
+      const data = await res.json();
+      return data.some(c => c.id === creatorId);
     }
 
-  // FOLLOW
-  } else if (req.url === "/follow" && req.method === "POST") {
-    let body = "";
+    async function toggleFollow(creatorId, isFollowing) {
+      const endpoint = isFollowing ? "unfollow" : "follow";
 
-    req.on("data", chunk => {
-      body += chunk.toString();
-    });
+      await fetch("http://localhost:3000/" + endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          userId: USER_ID,
+          creatorId: creatorId
+        })
+      });
 
-    req.on("end", () => {
-      const { userId, creatorId } = JSON.parse(body);
-
-      const user = users.find(u => u.id === userId);
-
-      if (user && !user.followed_creators.includes(creatorId)) {
-        user.followed_creators.push(creatorId);
-      }
-
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ success: true }));
-    });
-
-  // UNFOLLOW
-  } else if (req.url === "/unfollow" && req.method === "POST") {
-    let body = "";
-
-    req.on("data", chunk => {
-      body += chunk.toString();
-    });
-
-    req.on("end", () => {
-      const { userId, creatorId } = JSON.parse(body);
-
-      const user = users.find(u => u.id === userId);
-
-      if (user) {
-        user.followed_creators = user.followed_creators.filter(
-          id => id !== creatorId
-        );
-      }
-
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ success: true }));
-    });
-
-  // CREATOR CONTENT
-  } else if (req.url.startsWith("/creator/") && req.url.endsWith("/content") && req.method === "GET") {
-    const id = parseInt(req.url.split("/")[2]);
-
-    const creatorContent = content.filter(c => c.creator_id === id);
-
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(creatorContent));
-
-  // CREATOR PAGE
-  } else if (req.url.startsWith("/creator/") && req.method === "GET") {
-    const id = parseInt(req.url.split("/")[2]);
-
-    const creator = creators.find(c => c.id === id);
-
-    if (creator) {
-      const creatorContent = content.filter(c => c.creator_id === creator.id);
-
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({
-        ...creator,
-        content: creatorContent
-      }));
-    } else {
-      res.writeHead(404);
-      res.end();
+      loadCreator(creatorId);
     }
 
-  } else {
-    res.writeHead(404);
-    res.end();
-  }
+    async function loadFeed() {
+      const res = await fetch("http://localhost:3000/feed");
+      const data = await res.json();
 
-});
+      const html = data.map(c => `
+        <div class="card">
+          <div class="title">${c.title}</div>
+          <div class="platform">${c.platform}</div>
+        </div>
+      `).join("");
 
-server.listen(3000, () => {
-  console.log("Server running on port 3000");
-});
+      document.getElementById("output").innerHTML = html;
+    }
+
+    async function loadMyFeed() {
+      const res = await fetch("http://localhost:3000/feed/user/1");
+      const data = await res.json();
+
+      const html = data.map(c => `
+        <div class="card">
+          <div class="title">
+            ${c.title}
+            <span class="new-badge">NEW</span>
+          </div>
+          <div class="platform">${c.platform}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("output").innerHTML = html;
+    }
+  </script>
+
+</body>
+</html>
