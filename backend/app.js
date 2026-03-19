@@ -1,14 +1,7 @@
 const http = require("http");
 const creators = require("./creators");
 const content = require("./content");
-
-// 🔥 USERS (in-memory storage)
-let users = [
-  {
-    id: 1,
-    followed_creators: [1, 3]
-  }
-];
+const users = require("./users");
 
 const server = http.createServer((req, res) => {
 
@@ -24,14 +17,14 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(content));
 
-  // 🔥 GLOBAL FEED
+  // GLOBAL FEED
   } else if (req.url === "/feed" && req.method === "GET") {
     const sortedContent = [...content].sort((a, b) => b.id - a.id);
 
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(sortedContent));
 
-  // 🔥 PERSONALIZED FEED
+  // PERSONALIZED FEED
   } else if (req.url.startsWith("/feed/user/") && req.method === "GET") {
     const userId = parseInt(req.url.split("/")[3]);
 
@@ -49,7 +42,7 @@ const server = http.createServer((req, res) => {
       res.end();
     }
 
-  // 🔥 FOLLOW CREATOR
+  // FOLLOW CREATOR
   } else if (req.url === "/follow" && req.method === "POST") {
     let body = "";
 
@@ -70,7 +63,7 @@ const server = http.createServer((req, res) => {
       res.end(JSON.stringify({ success: true, user }));
     });
 
-  // 🔥 UNFOLLOW CREATOR
+  // UNFOLLOW CREATOR
   } else if (req.url === "/unfollow" && req.method === "POST") {
     let body = "";
 
@@ -93,7 +86,7 @@ const server = http.createServer((req, res) => {
       res.end(JSON.stringify({ success: true, user }));
     });
 
-  // 🔥 CREATOR CONTENT
+  // CREATOR CONTENT
   } else if (req.url.startsWith("/creator/") && req.url.endsWith("/content") && req.method === "GET") {
     const id = parseInt(req.url.split("/")[2]);
 
@@ -102,7 +95,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(creatorContent));
 
-  // 🔥 CREATOR WITH CONTENT
+  // CREATOR WITH CONTENT
   } else if (req.url.startsWith("/creator/") && req.method === "GET") {
     const id = parseInt(req.url.split("/")[2]);
 
