@@ -20,16 +20,6 @@
       top: 0;
     }
 
-    .nav {
-      display: flex;
-      justify-content: space-around;
-      background: white;
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
-      position: sticky;
-      top: 50px;
-    }
-
     .container {
       max-width: 500px;
       margin: auto;
@@ -63,33 +53,20 @@
       border-radius: 50%;
     }
 
-    .count-badge {
-      background: red;
-      color: white;
-      padding: 4px 8px;
-      border-radius: 20px;
-      font-size: 12px;
-    }
-
     .post {
       padding: 6px 0;
       cursor: pointer;
       transition: transform 0.2s, opacity 0.2s;
     }
 
-    .post:hover {
-      opacity: 0.6;
-    }
-
-    /* 🔥 ANIMATION */
     .removing {
       opacity: 0;
       transform: translateX(20px);
     }
 
-    .empty {
+    .loading {
       text-align: center;
-      padding: 20px;
+      padding: 10px;
       color: gray;
     }
 
@@ -100,39 +77,46 @@
 
 <header>Creator Hub</header>
 
-<div class="nav">
-  <button onclick="loadMyFeed()">My Feed</button>
-</div>
-
 <div class="container" id="output"></div>
+<div class="loading" id="loading">Loading...</div>
 
 <script>
 const USER_ID = 1;
 
-let currentFeed = [];
+let allFeed = [];
+let visibleFeed = [];
 let creatorsData = [];
 
-async function loadMyFeed() {
+const PAGE_SIZE = 4;
+let index = 0;
+
+async function init() {
   const res = await fetch("http://localhost:3000/feed/user/1");
-  currentFeed = await res.json();
+  allFeed = await res.json();
 
   const creatorsRes = await fetch("http://localhost:3000/creator");
   creatorsData = await creatorsRes.json();
 
+  loadMore();
+}
+
+function loadMore() {
+  const next = allFeed.slice(index, index + PAGE_SIZE);
+  visibleFeed = visibleFeed.concat(next);
+  index += PAGE_SIZE;
+
   render();
+
+  if (index >= allFeed.length) {
+    document.getElementById("loading").innerText = "No more content";
+  }
 }
 
 function render() {
 
-  if (currentFeed.length === 0) {
-    document.getElementById("output").innerHTML =
-      "<div class='empty'>You're all caught up ✔️</div>";
-    return;
-  }
-
   const grouped = {};
 
-  currentFeed.forEach(c => {
+  visibleFeed.forEach(c => {
     if (!grouped[c.creator_id]) grouped[c.creator_id] = [];
     grouped[c.creator_id].push(c);
   });
@@ -148,10 +132,6 @@ function render() {
           <div class="creator-info">
             <img src="${creator.avatar}" class="avatar"/>
             <strong>${creator.name}</strong>
-          </div>
-
-          <div class="count-badge">
-            ${posts.length}
           </div>
         </div>
 
@@ -171,14 +151,11 @@ function render() {
 async function markSeen(creatorId, contentId) {
 
   const el = document.getElementById("post-" + contentId);
+  if (el) el.classList.add("removing");
 
-  if (el) {
-    el.classList.add("removing");
-  }
-
-  // wait animation
   setTimeout(() => {
-    currentFeed = currentFeed.filter(c => c.id !== contentId);
+    visibleFeed = visibleFeed.filter(c => c.id !== contentId);
+    allFeed = allFeed.filter(c => c.id !== contentId);
     render();
   }, 200);
 
@@ -194,6 +171,15 @@ async function markSeen(creatorId, contentId) {
     })
   });
 }
+
+// 🔥 SCROLL DETECTION
+window.addEventListener("scroll", () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+    loadMore();
+  }
+});
+
+init();
 </script>
 
 </body>
