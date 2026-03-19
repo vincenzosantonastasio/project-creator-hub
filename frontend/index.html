@@ -87,7 +87,6 @@ async function loadFeed() {
 
   const html = data.map(item => {
 
-    // immagini fake (temporanee)
     const image = item.platform === "YouTube"
       ? "https://picsum.photos/500/300?random=" + item.id
       : "https://picsum.photos/500/300?grayscale&random=" + item.id;
@@ -112,7 +111,20 @@ async function loadFeed() {
 }
 
 function openContent(title) {
-  alert("Opening: " + title);
+  document.body.innerHTML = `
+    <div style="padding:20px;font-family:Arial">
+      <h2>${title}</h2>
+      <p>Content opened</p>
+      <button onclick="location.reload()" style="
+        margin-top:20px;
+        padding:10px;
+        border:none;
+        background:black;
+        color:white;
+        border-radius:6px;
+      ">Back</button>
+    </div>
+  `;
 }
 
 loadFeed();
