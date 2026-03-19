@@ -46,8 +46,8 @@
 
     .creator-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 10px;
     }
 
@@ -71,30 +71,20 @@
       font-size: 12px;
     }
 
-    .main-post {
-      font-weight: bold;
-      margin-bottom: 6px;
+    .post {
+      padding: 6px 0;
       cursor: pointer;
       transition: 0.2s;
     }
 
-    .sub-post {
-      font-size: 14px;
-      margin-bottom: 4px;
-      cursor: pointer;
-      transition: 0.2s;
+    .post:hover {
+      opacity: 0.6;
     }
 
-    /* 🔥 SEEN STATE */
-    .seen {
-      opacity: 0.4;
-      text-decoration: line-through;
-    }
-
-    .back {
-      margin: 10px 0;
-      color: blue;
-      cursor: pointer;
+    .empty {
+      text-align: center;
+      padding: 20px;
+      color: gray;
     }
 
   </style>
@@ -105,7 +95,6 @@
 <header>Creator Hub</header>
 
 <div class="nav">
-  <button onclick="loadCreators()">Creators</button>
   <button onclick="loadMyFeed()">My Feed</button>
 </div>
 
@@ -114,35 +103,37 @@
 <script>
 const USER_ID = 1;
 
-// 🔥 LOCAL STATE (visual only)
-let seenMap = {};
+// 🔥 local state (REAL-TIME)
+let currentFeed = [];
+let creatorsData = [];
 
 async function loadMyFeed() {
   const res = await fetch("http://localhost:3000/feed/user/1");
-  const data = await res.json();
+  currentFeed = await res.json();
 
   const creatorsRes = await fetch("http://localhost:3000/creator");
-  const creators = await creatorsRes.json();
+  creatorsData = await creatorsRes.json();
 
-  renderCatchUp(data, creators);
+  render();
 }
 
-function renderCatchUp(data, creators) {
+function render() {
 
-  if (data.length === 0) {
+  if (currentFeed.length === 0) {
     document.getElementById("output").innerHTML =
-      "<div>You’re all caught up ✔️</div>";
+      "<div class='empty'>You're all caught up ✔️</div>";
     return;
   }
 
   const grouped = {};
-  data.forEach(c => {
+
+  currentFeed.forEach(c => {
     if (!grouped[c.creator_id]) grouped[c.creator_id] = [];
     grouped[c.creator_id].push(c);
   });
 
   const html = Object.keys(grouped).map(id => {
-    const creator = creators.find(c => c.id == id);
+    const creator = creatorsData.find(c => c.id == id);
     const posts = grouped[id];
 
     return `
@@ -155,22 +146,15 @@ function renderCatchUp(data, creators) {
           </div>
 
           <div class="count-badge">
-            ${posts.length} new
+            ${posts.length}
           </div>
         </div>
 
-        ${posts.map((p, index) => {
-          const isSeen = seenMap[p.id];
-
-          return `
-            <div 
-              class="${index === 0 ? 'main-post' : 'sub-post'} ${isSeen ? 'seen' : ''}"
-              onclick="markSeen(${p.creator_id}, ${p.id})"
-            >
-              ${p.title}
-            </div>
-          `;
-        }).join("")}
+        ${posts.map(p => `
+          <div class="post" onclick="markSeen(${p.creator_id}, ${p.id})">
+            ${p.title}
+          </div>
+        `).join("")}
 
       </div>
     `;
@@ -181,9 +165,12 @@ function renderCatchUp(data, creators) {
 
 async function markSeen(creatorId, contentId) {
 
-  // visual feedback immediato
-  seenMap[contentId] = true;
+  // 🔥 REMOVE IMMEDIATELY (UX MAGIC)
+  currentFeed = currentFeed.filter(c => c.id !== contentId);
 
+  render();
+
+  // sync backend
   await fetch("http://localhost:3000/mark-seen", {
     method: "POST",
     headers: {
@@ -195,32 +182,6 @@ async function markSeen(creatorId, contentId) {
       contentId
     })
   });
-
-  loadMyFeed();
-}
-
-async function loadCreators() {
-  const res = await fetch("http://localhost:3000/creator");
-  const data = await res.json();
-
-  const html = data.map(c => `
-    <div onclick="loadCreator(${c.id})">
-      ${c.name}
-    </div>
-  `).join("");
-
-  document.getElementById("output").innerHTML = html;
-}
-
-async function loadCreator(id) {
-  const res = await fetch("http://localhost:3000/creator/" + id);
-  const data = await res.json();
-
-  const html = data.content.map(c => `
-    <div>${c.title}</div>
-  `).join("");
-
-  document.getElementById("output").innerHTML = html;
 }
 </script>
 
