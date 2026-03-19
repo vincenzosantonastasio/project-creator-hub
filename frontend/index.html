@@ -36,16 +36,6 @@
       padding: 10px;
     }
 
-    .banner {
-      background: black;
-      color: white;
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      text-align: center;
-      font-weight: bold;
-    }
-
     .creator-group {
       margin-bottom: 20px;
       background: white;
@@ -85,39 +75,25 @@
       font-weight: bold;
       margin-bottom: 6px;
       cursor: pointer;
+      transition: 0.2s;
     }
 
     .sub-post {
       font-size: 14px;
-      color: gray;
       margin-bottom: 4px;
       cursor: pointer;
+      transition: 0.2s;
     }
 
-    .creator-card {
-      background: white;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
+    /* 🔥 SEEN STATE */
+    .seen {
+      opacity: 0.4;
+      text-decoration: line-through;
     }
 
     .back {
       margin: 10px 0;
       color: blue;
-      cursor: pointer;
-    }
-
-    .follow-btn {
-      margin: 10px 0;
-      padding: 8px 12px;
-      border: none;
-      border-radius: 6px;
-      background: black;
-      color: white;
       cursor: pointer;
     }
 
@@ -130,7 +106,6 @@
 
 <div class="nav">
   <button onclick="loadCreators()">Creators</button>
-  <button onclick="loadFeed()">Feed</button>
   <button onclick="loadMyFeed()">My Feed</button>
 </div>
 
@@ -138,6 +113,9 @@
 
 <script>
 const USER_ID = 1;
+
+// 🔥 LOCAL STATE (visual only)
+let seenMap = {};
 
 async function loadMyFeed() {
   const res = await fetch("http://localhost:3000/feed/user/1");
@@ -153,11 +131,10 @@ function renderCatchUp(data, creators) {
 
   if (data.length === 0) {
     document.getElementById("output").innerHTML =
-      "<div class='banner'>You're all caught up ✔️</div>";
+      "<div>You’re all caught up ✔️</div>";
     return;
   }
 
-  // group
   const grouped = {};
   data.forEach(c => {
     if (!grouped[c.creator_id]) grouped[c.creator_id] = [];
@@ -167,9 +144,6 @@ function renderCatchUp(data, creators) {
   const html = Object.keys(grouped).map(id => {
     const creator = creators.find(c => c.id == id);
     const posts = grouped[id];
-
-    const latest = posts[0];
-    const others = posts.slice(1);
 
     return `
       <div class="creator-group">
@@ -185,15 +159,18 @@ function renderCatchUp(data, creators) {
           </div>
         </div>
 
-        <div class="main-post" onclick="markSeen(${latest.creator_id}, ${latest.id})">
-          ${latest.title}
-        </div>
+        ${posts.map((p, index) => {
+          const isSeen = seenMap[p.id];
 
-        ${others.map(p => `
-          <div class="sub-post" onclick="markSeen(${p.creator_id}, ${p.id})">
-            ${p.title}
-          </div>
-        `).join("")}
+          return `
+            <div 
+              class="${index === 0 ? 'main-post' : 'sub-post'} ${isSeen ? 'seen' : ''}"
+              onclick="markSeen(${p.creator_id}, ${p.id})"
+            >
+              ${p.title}
+            </div>
+          `;
+        }).join("")}
 
       </div>
     `;
@@ -203,6 +180,10 @@ function renderCatchUp(data, creators) {
 }
 
 async function markSeen(creatorId, contentId) {
+
+  // visual feedback immediato
+  seenMap[contentId] = true;
+
   await fetch("http://localhost:3000/mark-seen", {
     method: "POST",
     headers: {
@@ -223,12 +204,8 @@ async function loadCreators() {
   const data = await res.json();
 
   const html = data.map(c => `
-    <div class="creator-card" onclick="loadCreator(${c.id})">
-      <img src="${c.avatar}" class="avatar"/>
-      <div>
-        <strong>${c.name}</strong><br/>
-        ${c.platforms.join(", ")}
-      </div>
+    <div onclick="loadCreator(${c.id})">
+      ${c.name}
     </div>
   `).join("");
 
@@ -239,23 +216,11 @@ async function loadCreator(id) {
   const res = await fetch("http://localhost:3000/creator/" + id);
   const data = await res.json();
 
-  const contentHtml = data.content.map(c => `
-    <div class="main-post">${c.title}</div>
+  const html = data.content.map(c => `
+    <div>${c.title}</div>
   `).join("");
 
-  document.getElementById("output").innerHTML = `
-    <div class="back" onclick="loadCreators()">← Back</div>
-    <h2>${data.name}</h2>
-    ${contentHtml}
-  `;
-}
-
-async function loadFeed() {
-  const res = await fetch("http://localhost:3000/feed");
-  const data = await res.json();
-
-  document.getElementById("output").innerHTML =
-    "<div class='banner'>Global feed loaded</div>";
+  document.getElementById("output").innerHTML = html;
 }
 </script>
 
