@@ -74,11 +74,17 @@
     .post {
       padding: 6px 0;
       cursor: pointer;
-      transition: 0.2s;
+      transition: transform 0.2s, opacity 0.2s;
     }
 
     .post:hover {
       opacity: 0.6;
+    }
+
+    /* 🔥 ANIMATION */
+    .removing {
+      opacity: 0;
+      transform: translateX(20px);
     }
 
     .empty {
@@ -103,7 +109,6 @@
 <script>
 const USER_ID = 1;
 
-// 🔥 local state (REAL-TIME)
 let currentFeed = [];
 let creatorsData = [];
 
@@ -151,7 +156,7 @@ function render() {
         </div>
 
         ${posts.map(p => `
-          <div class="post" onclick="markSeen(${p.creator_id}, ${p.id})">
+          <div class="post" id="post-${p.id}" onclick="markSeen(${p.creator_id}, ${p.id})">
             ${p.title}
           </div>
         `).join("")}
@@ -165,12 +170,18 @@ function render() {
 
 async function markSeen(creatorId, contentId) {
 
-  // 🔥 REMOVE IMMEDIATELY (UX MAGIC)
-  currentFeed = currentFeed.filter(c => c.id !== contentId);
+  const el = document.getElementById("post-" + contentId);
 
-  render();
+  if (el) {
+    el.classList.add("removing");
+  }
 
-  // sync backend
+  // wait animation
+  setTimeout(() => {
+    currentFeed = currentFeed.filter(c => c.id !== contentId);
+    render();
+  }, 200);
+
   await fetch("http://localhost:3000/mark-seen", {
     method: "POST",
     headers: {
