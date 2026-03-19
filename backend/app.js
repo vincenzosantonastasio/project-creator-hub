@@ -42,6 +42,24 @@ const server = http.createServer((req, res) => {
       res.end();
     }
 
+  // 🔥 USER FOLLOWING (NEW)
+  } else if (req.url.startsWith("/user/") && req.url.endsWith("/following") && req.method === "GET") {
+    const userId = parseInt(req.url.split("/")[2]);
+
+    const user = users.find(u => u.id === userId);
+
+    if (user) {
+      const following = creators.filter(c =>
+        user.followed_creators.includes(c.id)
+      );
+
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(following));
+    } else {
+      res.writeHead(404);
+      res.end();
+    }
+
   // FOLLOW CREATOR
   } else if (req.url === "/follow" && req.method === "POST") {
     let body = "";
