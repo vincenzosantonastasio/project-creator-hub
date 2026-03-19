@@ -22,6 +22,7 @@
       margin: 10px 0;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      cursor: pointer;
     }
 
     .title {
@@ -33,6 +34,13 @@
       color: gray;
       font-size: 14px;
     }
+
+    .back {
+      margin-bottom: 10px;
+      display: inline-block;
+      cursor: pointer;
+      color: blue;
+    }
   </style>
 
 </head>
@@ -40,8 +48,8 @@
 
   <h1>Creator Hub</h1>
 
-  <button onclick="loadCreators()">Load Creators</button>
-  <button onclick="loadFeed()">Load Feed</button>
+  <button onclick="loadCreators()">Creators</button>
+  <button onclick="loadFeed()">Feed</button>
 
   <div id="output"></div>
 
@@ -51,13 +59,31 @@
       const data = await res.json();
 
       const html = data.map(c => `
-        <div class="card">
+        <div class="card" onclick="loadCreator(${c.id})">
           <div class="title">${c.name}</div>
           <div class="platform">${c.platforms.join(", ")}</div>
         </div>
       `).join("");
 
       document.getElementById("output").innerHTML = html;
+    }
+
+    async function loadCreator(id) {
+      const res = await fetch("http://localhost:3000/creator/" + id);
+      const data = await res.json();
+
+      const contentHtml = data.content.map(c => `
+        <div class="card">
+          <div class="title">${c.title}</div>
+          <div class="platform">${c.platform}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("output").innerHTML = `
+        <div class="back" onclick="loadCreators()">← Back</div>
+        <h2>${data.name}</h2>
+        ${contentHtml}
+      `;
     }
 
     async function loadFeed() {
