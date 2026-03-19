@@ -1,211 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Creator Hub</title>
+const http = require("http");
+const creators = require("./creators");
+const content = require("./content");
+const users = require("./users");
 
-  <style>
-    body {
-      font-family: Arial;
-      margin: 0;
-      background: #f5f6fa;
-    }
+const server = http.createServer((req, res) => {
 
-    header {
-      background: #000;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      font-size: 20px;
-    }
+  if (req.url === "/" && req.method === "GET") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ message: "Creator Hub API running" }));
 
-    .nav {
-      display: flex;
-      justify-content: center;
-      background: white;
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
-    }
+  } else if (req.url === "/creator" && req.method === "GET") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(creators));
 
-    .nav button {
-      margin: 0 5px;
-      padding: 8px 12px;
-      border: none;
-      background: #eee;
-      border-radius: 6px;
-      cursor: pointer;
-    }
+  } else if (req.url === "/content" && req.method === "GET") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(content));
 
-    .container {
-      padding: 15px;
-    }
+  } else if (req.url === "/feed" && req.method === "GET") {
+    const sortedContent = [...content].sort((a, b) => b.id - a.id);
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(sortedContent));
 
-    .card {
-      background: white;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
+  } else {
+    res.writeHead(404);
+    res.end();
+  }
 
-    .title {
-      font-weight: bold;
-      font-size: 16px;
-    }
+});
 
-    .platform {
-      color: gray;
-      font-size: 13px;
-      margin-top: 4px;
-    }
-
-    .new-badge {
-      color: white;
-      background: red;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 10px;
-      margin-left: 6px;
-    }
-
-    .back {
-      margin-bottom: 10px;
-      color: blue;
-      cursor: pointer;
-    }
-
-    .follow-btn {
-      margin: 10px 0;
-      padding: 8px 12px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background: black;
-      color: white;
-    }
-
-  </style>
-
-</head>
-<body>
-
-  <header>Creator Hub</header>
-
-  <div class="nav">
-    <button onclick="loadCreators()">Creators</button>
-    <button onclick="loadFeed()">Feed</button>
-    <button onclick="loadMyFeed()">My Feed</button>
-  </div>
-
-  <div class="container" id="output"></div>
-
-  <script>
-    const USER_ID = 1;
-
-    async function loadCreators() {
-      const res = await fetch("http://localhost:3000/creator");
-      const data = await res.json();
-
-      const html = data.map(c => `
-        <div class="card" onclick="loadCreator(${c.id})">
-          <div class="title">${c.name}</div>
-          <div class="platform">${c.platforms.join(", ")}</div>
-        </div>
-      `).join("");
-
-      document.getElementById("output").innerHTML = html;
-    }
-
-    async function loadCreator(id) {
-      const res = await fetch("http://localhost:3000/creator/" + id);
-      const data = await res.json();
-
-      const isFollowing = await checkFollowing(id);
-
-      const contentHtml = data.content.map(c => `
-        <div class="card" onclick="markSeen(${id}, ${c.id})">
-          <div class="title">${c.title}</div>
-          <div class="platform">${c.platform}</div>
-        </div>
-      `).join("");
-
-      document.getElementById("output").innerHTML = `
-        <div class="back" onclick="loadCreators()">← Back</div>
-        <h2>${data.name}</h2>
-        <button class="follow-btn" onclick="toggleFollow(${id}, ${isFollowing})">
-          ${isFollowing ? "Unfollow" : "Follow"}
-        </button>
-        ${contentHtml}
-      `;
-    }
-
-    async function markSeen(creatorId, contentId) {
-      await fetch("http://localhost:3000/mark-seen", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          userId: USER_ID,
-          creatorId: creatorId,
-          contentId: contentId
-        })
-      });
-    }
-
-    async function checkFollowing(creatorId) {
-      const res = await fetch("http://localhost:3000/user/1/following");
-      const data = await res.json();
-      return data.some(c => c.id === creatorId);
-    }
-
-    async function toggleFollow(creatorId, isFollowing) {
-      const endpoint = isFollowing ? "unfollow" : "follow";
-
-      await fetch("http://localhost:3000/" + endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          userId: USER_ID,
-          creatorId: creatorId
-        })
-      });
-
-      loadCreator(creatorId);
-    }
-
-    async function loadFeed() {
-      const res = await fetch("http://localhost:3000/feed");
-      const data = await res.json();
-
-      const html = data.map(c => `
-        <div class="card">
-          <div class="title">${c.title}</div>
-          <div class="platform">${c.platform}</div>
-        </div>
-      `).join("");
-
-      document.getElementById("output").innerHTML = html;
-    }
-
-    async function loadMyFeed() {
-      const res = await fetch("http://localhost:3000/feed/user/1");
-      const data = await res.json();
-
-      const html = data.map(c => `
-        <div class="card">
-          <div class="title">
-            ${c.title}
-            <span class="new-badge">NEW</span>
-          </div>
-          <div class="platform">${c.platform}</div>
-        </div>
-      `).join("");
-
-      document.getElementById("output").innerHTML = html;
-    }
-  </script>
-
-</body>
-</html>
+server.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
