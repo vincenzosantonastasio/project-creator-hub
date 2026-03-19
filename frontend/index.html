@@ -12,7 +12,7 @@
 
     button {
       margin: 5px;
-      padding: 10px;
+      padding: 8px 12px;
       cursor: pointer;
     }
 
@@ -41,6 +41,10 @@
       cursor: pointer;
       color: blue;
     }
+
+    .follow-btn {
+      margin-top: 10px;
+    }
   </style>
 
 </head>
@@ -50,10 +54,13 @@
 
   <button onclick="loadCreators()">Creators</button>
   <button onclick="loadFeed()">Feed</button>
+  <button onclick="loadMyFeed()">My Feed</button>
 
   <div id="output"></div>
 
   <script>
+    const USER_ID = 1;
+
     async function loadCreators() {
       const res = await fetch("http://localhost:3000/creator");
       const data = await res.json();
@@ -72,6 +79,8 @@
       const res = await fetch("http://localhost:3000/creator/" + id);
       const data = await res.json();
 
+      const isFollowing = await checkFollowing(id);
+
       const contentHtml = data.content.map(c => `
         <div class="card">
           <div class="title">${c.title}</div>
@@ -82,12 +91,53 @@
       document.getElementById("output").innerHTML = `
         <div class="back" onclick="loadCreators()">← Back</div>
         <h2>${data.name}</h2>
+        <button class="follow-btn" onclick="toggleFollow(${id}, ${isFollowing})">
+          ${isFollowing ? "Unfollow" : "Follow"}
+        </button>
         ${contentHtml}
       `;
     }
 
+    async function checkFollowing(creatorId) {
+      const res = await fetch("http://localhost:3000/user/1/following");
+      const data = await res.json();
+
+      return data.some(c => c.id === creatorId);
+    }
+
+    async function toggleFollow(creatorId, isFollowing) {
+      const endpoint = isFollowing ? "unfollow" : "follow";
+
+      await fetch("http://localhost:3000/" + endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          userId: USER_ID,
+          creatorId: creatorId
+        })
+      });
+
+      loadCreator(creatorId);
+    }
+
     async function loadFeed() {
       const res = await fetch("http://localhost:3000/feed");
+      const data = await res.json();
+
+      const html = data.map(c => `
+        <div class="card">
+          <div class="title">${c.title}</div>
+          <div class="platform">${c.platform}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("output").innerHTML = html;
+    }
+
+    async function loadMyFeed() {
+      const res = await fetch("http://localhost:3000/feed/user/1");
       const data = await res.json();
 
       const html = data.map(c => `
