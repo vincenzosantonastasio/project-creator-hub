@@ -2,11 +2,11 @@ const http = require("http");
 const creators = require("./creators");
 const content = require("./content");
 
-// 🔥 NUOVO: utenti (semplice simulazione)
+// 🔥 USERS (basic simulation)
 const users = [
   {
     id: 1,
-    followed_creators: [1, 3] // segue MrBeast e Logan Paul
+    followed_creators: [1, 3] // follows MrBeast and Logan Paul
   }
 ];
 
@@ -24,7 +24,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(content));
 
-  // 🔥 FEED GLOBALE
+  // 🔥 GLOBAL FEED
   } else if (req.url === "/feed") {
     res.writeHead(200, { "Content-Type": "application/json" });
 
@@ -32,7 +32,7 @@ const server = http.createServer((req, res) => {
 
     res.end(JSON.stringify(sortedContent));
 
-  // 🔥 FEED PERSONALIZZATO
+  // 🔥 PERSONALIZED FEED
   } else if (req.url.startsWith("/feed/user/")) {
     const userId = parseInt(req.url.split("/")[3]);
 
@@ -50,7 +50,7 @@ const server = http.createServer((req, res) => {
       res.end();
     }
 
-  // 🔥 CONTENUTI PER CREATOR
+  // 🔥 CREATOR CONTENT
   } else if (req.url.startsWith("/creator/") && req.url.endsWith("/content")) {
     const id = parseInt(req.url.split("/")[2]);
 
@@ -59,7 +59,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(creatorContent));
 
-  // 🔥 CREATOR + CONTENT
+  // 🔥 CREATOR WITH CONTENT
   } else if (req.url.startsWith("/creator/")) {
     const id = parseInt(req.url.split("/")[2]);
 
