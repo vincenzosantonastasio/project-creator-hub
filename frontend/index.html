@@ -43,6 +43,12 @@
       padding: 10px;
     }
 
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+
     .feed-card {
       background: white;
       border-radius: 12px;
@@ -52,6 +58,9 @@
     }
 
     .feed-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       padding: 10px;
       font-size: 14px;
       color: gray;
@@ -84,6 +93,9 @@
       margin-bottom: 10px;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 10px;
       cursor: pointer;
     }
 
@@ -125,33 +137,44 @@
       const res = await fetch("http://localhost:3000/feed");
       const data = await res.json();
 
-      renderFeed(data, false);
+      const creatorsRes = await fetch("http://localhost:3000/creator");
+      const creators = await creatorsRes.json();
+
+      renderFeed(data, creators, false);
     }
 
     async function loadMyFeed() {
       const res = await fetch("http://localhost:3000/feed/user/1");
       const data = await res.json();
 
-      renderFeed(data, true);
+      const creatorsRes = await fetch("http://localhost:3000/creator");
+      const creators = await creatorsRes.json();
+
+      renderFeed(data, creators, true);
     }
 
-    function renderFeed(data, isPersonalized) {
-      const html = data.map(c => `
-        <div class="feed-card" onclick="markSeen(${c.creator_id}, ${c.id})">
-          <div class="feed-header">
-            Creator #${c.creator_id}
-          </div>
+    function renderFeed(data, creators, isPersonalized) {
+      const html = data.map(c => {
+        const creator = creators.find(cr => cr.id === c.creator_id);
 
-          <div class="feed-title">
-            ${c.title}
-            ${isPersonalized ? '<span class="new-badge">NEW</span>' : ''}
-          </div>
+        return `
+          <div class="feed-card" onclick="markSeen(${c.creator_id}, ${c.id})">
+            <div class="feed-header">
+              <img src="${creator.avatar}" class="avatar"/>
+              <div>${creator.name}</div>
+            </div>
 
-          <div class="feed-footer">
-            ${c.platform}
+            <div class="feed-title">
+              ${c.title}
+              ${isPersonalized ? '<span class="new-badge">NEW</span>' : ''}
+            </div>
+
+            <div class="feed-footer">
+              ${c.platform}
+            </div>
           </div>
-        </div>
-      `).join("");
+        `;
+      }).join("");
 
       document.getElementById("output").innerHTML = html;
     }
@@ -176,8 +199,11 @@
 
       const html = data.map(c => `
         <div class="creator-card" onclick="loadCreator(${c.id})">
-          <strong>${c.name}</strong><br/>
-          ${c.platforms.join(", ")}
+          <img src="${c.avatar}" class="avatar"/>
+          <div>
+            <strong>${c.name}</strong><br/>
+            ${c.platforms.join(", ")}
+          </div>
         </div>
       `).join("");
 
