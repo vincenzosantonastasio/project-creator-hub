@@ -12,6 +12,10 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(creators));
 
+  } else if (req.url === "/content") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(content));
+
   } else if (req.url.startsWith("/creator/")) {
     const id = parseInt(req.url.split("/")[2]);
 
