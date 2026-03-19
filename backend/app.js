@@ -16,6 +16,14 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(content));
 
+  // 🔥 NUOVO: FEED
+  } else if (req.url === "/feed") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+
+    const sortedContent = [...content].sort((a, b) => b.id - a.id);
+
+    res.end(JSON.stringify(sortedContent));
+
   // 🔥 QUESTO DEVE STARE PRIMA
   } else if (req.url.startsWith("/creator/") && req.url.endsWith("/content")) {
     const id = parseInt(req.url.split("/")[2]);
