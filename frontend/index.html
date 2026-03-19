@@ -46,6 +46,17 @@
       font-weight: bold;
     }
 
+    .creator-group {
+      margin-bottom: 20px;
+    }
+
+    .creator-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
     .avatar {
       width: 32px;
       height: 32px;
@@ -54,31 +65,11 @@
 
     .feed-card {
       background: white;
-      border-radius: 12px;
-      margin-bottom: 15px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .feed-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      border-radius: 10px;
+      margin-bottom: 8px;
       padding: 10px;
-      font-size: 14px;
-      color: gray;
-    }
-
-    .feed-title {
-      padding: 0 10px 10px 10px;
-      font-size: 16px;
-      font-weight: bold;
-    }
-
-    .feed-footer {
-      padding: 10px;
-      font-size: 12px;
-      color: gray;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      cursor: pointer;
     }
 
     .new-badge {
@@ -98,7 +89,6 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
       cursor: pointer;
     }
 
@@ -143,7 +133,7 @@ async function loadMyFeed() {
   const creatorsRes = await fetch("http://localhost:3000/creator");
   const creators = await creatorsRes.json();
 
-  renderFeed(data, creators, true);
+  renderGroupedFeed(data, creators, true);
 }
 
 async function loadFeed() {
@@ -153,32 +143,43 @@ async function loadFeed() {
   const creatorsRes = await fetch("http://localhost:3000/creator");
   const creators = await creatorsRes.json();
 
-  renderFeed(data, creators, false);
+  renderGroupedFeed(data, creators, false);
 }
 
-function renderFeed(data, creators, isPersonalized) {
+function renderGroupedFeed(data, creators, isPersonalized) {
 
   let banner = "";
   if (isPersonalized && data.length > 0) {
     banner = `<div class="banner">You have ${data.length} new content</div>`;
   }
 
-  const html = data.map(c => {
-    const creator = creators.find(cr => cr.id === c.creator_id);
+  // group by creator
+  const grouped = {};
+
+  data.forEach(c => {
+    if (!grouped[c.creator_id]) {
+      grouped[c.creator_id] = [];
+    }
+    grouped[c.creator_id].push(c);
+  });
+
+  const html = Object.keys(grouped).map(creatorId => {
+    const creator = creators.find(c => c.id == creatorId);
+
+    const posts = grouped[creatorId].map(post => `
+      <div class="feed-card" onclick="markSeen(${post.creator_id}, ${post.id})">
+        ${post.title}
+        ${isPersonalized ? '<span class="new-badge">NEW</span>' : ''}
+      </div>
+    `).join("");
 
     return `
-      <div class="feed-card" onclick="markSeen(${c.creator_id}, ${c.id})">
-        <div class="feed-header">
+      <div class="creator-group">
+        <div class="creator-header">
           <img src="${creator.avatar}" class="avatar"/>
-          <div>${creator.name}</div>
+          <strong>${creator.name}</strong>
         </div>
-
-        <div class="feed-title">
-          ${c.title}
-          ${isPersonalized ? '<span class="new-badge">NEW</span>' : ''}
-        </div>
-
-        <div class="feed-footer">${c.platform}</div>
+        ${posts}
       </div>
     `;
   }).join("");
@@ -225,8 +226,7 @@ async function loadCreator(id) {
 
   const contentHtml = data.content.map(c => `
     <div class="feed-card" onclick="markSeen(${id}, ${c.id})">
-      <div class="feed-title">${c.title}</div>
-      <div class="feed-footer">${c.platform}</div>
+      ${c.title}
     </div>
   `).join("");
 
