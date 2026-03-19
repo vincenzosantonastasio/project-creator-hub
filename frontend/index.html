@@ -6,57 +6,89 @@
   <style>
     body {
       font-family: Arial;
-      padding: 20px;
-      background: #f5f5f5;
+      margin: 0;
+      background: #f5f6fa;
     }
 
-    button {
-      margin: 5px;
+    header {
+      background: #000;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      background: white;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .nav button {
+      margin: 0 5px;
       padding: 8px 12px;
+      border: none;
+      background: #eee;
+      border-radius: 6px;
       cursor: pointer;
+    }
+
+    .container {
+      padding: 15px;
     }
 
     .card {
       background: white;
       padding: 15px;
-      margin: 10px 0;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
       cursor: pointer;
     }
 
     .title {
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .platform {
       color: gray;
-      font-size: 14px;
+      font-size: 13px;
+      margin-top: 4px;
     }
 
     .back {
       margin-bottom: 10px;
-      display: inline-block;
-      cursor: pointer;
       color: blue;
+      cursor: pointer;
     }
 
     .follow-btn {
-      margin-top: 10px;
+      margin: 10px 0;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: black;
+      color: white;
     }
+
   </style>
 
 </head>
 <body>
 
-  <h1>Creator Hub</h1>
+  <header>Creator Hub</header>
 
-  <button onclick="loadCreators()">Creators</button>
-  <button onclick="loadFeed()">Feed</button>
-  <button onclick="loadMyFeed()">My Feed</button>
+  <div class="nav">
+    <button onclick="loadCreators()">Creators</button>
+    <button onclick="loadFeed()">Feed</button>
+    <button onclick="loadMyFeed()">My Feed</button>
+  </div>
 
-  <div id="output"></div>
+  <div class="container" id="output"></div>
 
   <script>
     const USER_ID = 1;
@@ -101,7 +133,6 @@
     async function checkFollowing(creatorId) {
       const res = await fetch("http://localhost:3000/user/1/following");
       const data = await res.json();
-
       return data.some(c => c.id === creatorId);
     }
 
@@ -110,9 +141,7 @@
 
       await fetch("http://localhost:3000/" + endpoint, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: USER_ID,
           creatorId: creatorId
