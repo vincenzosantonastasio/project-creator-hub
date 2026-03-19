@@ -1,5 +1,6 @@
 const http = require("http");
 const creators = require("./creators");
+const content = require("./content");
 
 const server = http.createServer((req, res) => {
 
@@ -17,8 +18,13 @@ const server = http.createServer((req, res) => {
     const creator = creators.find(c => c.id === id);
 
     if (creator) {
+      const creatorContent = content.filter(c => c.creator_id === creator.id);
+
       res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(creator));
+      res.end(JSON.stringify({
+        ...creator,
+        content: creatorContent
+      }));
     } else {
       res.writeHead(404);
       res.end();
