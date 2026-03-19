@@ -29,9 +29,25 @@
     .card {
       background: white;
       border-radius: 12px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    .thumbnail {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .content {
       padding: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
     .title {
@@ -39,9 +55,19 @@
       margin-bottom: 5px;
     }
 
-    .platform {
+    .meta {
       font-size: 12px;
       color: gray;
+    }
+
+    .badge {
+      display: inline-block;
+      background: red;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 5px;
     }
   </style>
 </head>
@@ -56,23 +82,37 @@
 
 <script>
 async function loadFeed() {
-  try {
-    const res = await fetch("/feed");
-    const data = await res.json();
+  const res = await fetch("/feed");
+  const data = await res.json();
 
-    const html = data.map(item => `
-      <div class="card">
-        <div class="title">${item.title}</div>
-        <div class="platform">${item.platform}</div>
+  const html = data.map(item => {
+
+    // immagini fake (temporanee)
+    const image = item.platform === "YouTube"
+      ? "https://picsum.photos/500/300?random=" + item.id
+      : "https://picsum.photos/500/300?grayscale&random=" + item.id;
+
+    return `
+      <div class="card" onclick="openContent('${item.title}')">
+        <img class="thumbnail" src="${image}" />
+
+        <div class="content">
+          <div class="title">
+            ${item.title}
+            <span class="badge">NEW</span>
+          </div>
+
+          <div class="meta">${item.platform}</div>
+        </div>
       </div>
-    `).join("");
+    `;
+  }).join("");
 
-    document.getElementById("app").innerHTML = html;
+  document.getElementById("app").innerHTML = html;
+}
 
-  } catch (err) {
-    document.getElementById("app").innerHTML = "Error loading data";
-    console.error(err);
-  }
+function openContent(title) {
+  alert("Opening: " + title);
 }
 
 loadFeed();
