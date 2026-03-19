@@ -30,17 +30,20 @@
       top: 50px;
     }
 
-    .nav button {
-      border: none;
-      background: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
     .container {
       max-width: 500px;
       margin: auto;
       padding: 10px;
+    }
+
+    .banner {
+      background: black;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      text-align: center;
+      font-weight: bold;
     }
 
     .avatar {
@@ -92,10 +95,10 @@
       padding: 15px;
       margin-bottom: 10px;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
       display: flex;
       align-items: center;
       gap: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
       cursor: pointer;
     }
 
@@ -116,148 +119,150 @@
     }
 
   </style>
-
 </head>
+
 <body>
 
-  <header>Creator Hub</header>
+<header>Creator Hub</header>
 
-  <div class="nav">
-    <button onclick="loadCreators()">Creators</button>
-    <button onclick="loadFeed()">Feed</button>
-    <button onclick="loadMyFeed()">My Feed</button>
-  </div>
+<div class="nav">
+  <button onclick="loadCreators()">Creators</button>
+  <button onclick="loadFeed()">Feed</button>
+  <button onclick="loadMyFeed()">My Feed</button>
+</div>
 
-  <div class="container" id="output"></div>
+<div class="container" id="output"></div>
 
-  <script>
-    const USER_ID = 1;
+<script>
+const USER_ID = 1;
 
-    async function loadFeed() {
-      const res = await fetch("http://localhost:3000/feed");
-      const data = await res.json();
+async function loadMyFeed() {
+  const res = await fetch("http://localhost:3000/feed/user/1");
+  const data = await res.json();
 
-      const creatorsRes = await fetch("http://localhost:3000/creator");
-      const creators = await creatorsRes.json();
+  const creatorsRes = await fetch("http://localhost:3000/creator");
+  const creators = await creatorsRes.json();
 
-      renderFeed(data, creators, false);
-    }
+  renderFeed(data, creators, true);
+}
 
-    async function loadMyFeed() {
-      const res = await fetch("http://localhost:3000/feed/user/1");
-      const data = await res.json();
+async function loadFeed() {
+  const res = await fetch("http://localhost:3000/feed");
+  const data = await res.json();
 
-      const creatorsRes = await fetch("http://localhost:3000/creator");
-      const creators = await creatorsRes.json();
+  const creatorsRes = await fetch("http://localhost:3000/creator");
+  const creators = await creatorsRes.json();
 
-      renderFeed(data, creators, true);
-    }
+  renderFeed(data, creators, false);
+}
 
-    function renderFeed(data, creators, isPersonalized) {
-      const html = data.map(c => {
-        const creator = creators.find(cr => cr.id === c.creator_id);
+function renderFeed(data, creators, isPersonalized) {
 
-        return `
-          <div class="feed-card" onclick="markSeen(${c.creator_id}, ${c.id})">
-            <div class="feed-header">
-              <img src="${creator.avatar}" class="avatar"/>
-              <div>${creator.name}</div>
-            </div>
+  let banner = "";
+  if (isPersonalized && data.length > 0) {
+    banner = `<div class="banner">You have ${data.length} new content</div>`;
+  }
 
-            <div class="feed-title">
-              ${c.title}
-              ${isPersonalized ? '<span class="new-badge">NEW</span>' : ''}
-            </div>
+  const html = data.map(c => {
+    const creator = creators.find(cr => cr.id === c.creator_id);
 
-            <div class="feed-footer">
-              ${c.platform}
-            </div>
-          </div>
-        `;
-      }).join("");
-
-      document.getElementById("output").innerHTML = html;
-    }
-
-    async function markSeen(creatorId, contentId) {
-      await fetch("http://localhost:3000/mark-seen", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          userId: USER_ID,
-          creatorId: creatorId,
-          contentId: contentId
-        })
-      });
-    }
-
-    async function loadCreators() {
-      const res = await fetch("http://localhost:3000/creator");
-      const data = await res.json();
-
-      const html = data.map(c => `
-        <div class="creator-card" onclick="loadCreator(${c.id})">
-          <img src="${c.avatar}" class="avatar"/>
-          <div>
-            <strong>${c.name}</strong><br/>
-            ${c.platforms.join(", ")}
-          </div>
+    return `
+      <div class="feed-card" onclick="markSeen(${c.creator_id}, ${c.id})">
+        <div class="feed-header">
+          <img src="${creator.avatar}" class="avatar"/>
+          <div>${creator.name}</div>
         </div>
-      `).join("");
 
-      document.getElementById("output").innerHTML = html;
-    }
-
-    async function loadCreator(id) {
-      const res = await fetch("http://localhost:3000/creator/" + id);
-      const data = await res.json();
-
-      const isFollowing = await checkFollowing(id);
-
-      const contentHtml = data.content.map(c => `
-        <div class="feed-card" onclick="markSeen(${id}, ${c.id})">
-          <div class="feed-title">${c.title}</div>
-          <div class="feed-footer">${c.platform}</div>
+        <div class="feed-title">
+          ${c.title}
+          ${isPersonalized ? '<span class="new-badge">NEW</span>' : ''}
         </div>
-      `).join("");
 
-      document.getElementById("output").innerHTML = `
-        <div class="back" onclick="loadCreators()">← Back</div>
-        <h2>${data.name}</h2>
+        <div class="feed-footer">${c.platform}</div>
+      </div>
+    `;
+  }).join("");
 
-        <button class="follow-btn" onclick="toggleFollow(${id}, ${isFollowing})">
-          ${isFollowing ? "Unfollow" : "Follow"}
-        </button>
+  document.getElementById("output").innerHTML = banner + html;
+}
 
-        ${contentHtml}
-      `;
-    }
+async function markSeen(creatorId, contentId) {
+  await fetch("http://localhost:3000/mark-seen", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      userId: USER_ID,
+      creatorId,
+      contentId
+    })
+  });
+}
 
-    async function checkFollowing(creatorId) {
-      const res = await fetch("http://localhost:3000/user/1/following");
-      const data = await res.json();
-      return data.some(c => c.id === creatorId);
-    }
+async function loadCreators() {
+  const res = await fetch("http://localhost:3000/creator");
+  const data = await res.json();
 
-    async function toggleFollow(creatorId, isFollowing) {
-      const endpoint = isFollowing ? "unfollow" : "follow";
+  const html = data.map(c => `
+    <div class="creator-card" onclick="loadCreator(${c.id})">
+      <img src="${c.avatar}" class="avatar"/>
+      <div>
+        <strong>${c.name}</strong><br/>
+        ${c.platforms.join(", ")}
+      </div>
+    </div>
+  `).join("");
 
-      await fetch("http://localhost:3000/" + endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          userId: USER_ID,
-          creatorId: creatorId
-        })
-      });
+  document.getElementById("output").innerHTML = html;
+}
 
-      loadCreator(creatorId);
-    }
-  </script>
+async function loadCreator(id) {
+  const res = await fetch("http://localhost:3000/creator/" + id);
+  const data = await res.json();
+
+  const isFollowing = await checkFollowing(id);
+
+  const contentHtml = data.content.map(c => `
+    <div class="feed-card" onclick="markSeen(${id}, ${c.id})">
+      <div class="feed-title">${c.title}</div>
+      <div class="feed-footer">${c.platform}</div>
+    </div>
+  `).join("");
+
+  document.getElementById("output").innerHTML = `
+    <div class="back" onclick="loadCreators()">← Back</div>
+    <h2>${data.name}</h2>
+
+    <button class="follow-btn" onclick="toggleFollow(${id}, ${isFollowing})">
+      ${isFollowing ? "Unfollow" : "Follow"}
+    </button>
+
+    ${contentHtml}
+  `;
+}
+
+async function checkFollowing(creatorId) {
+  const res = await fetch("http://localhost:3000/user/1/following");
+  const data = await res.json();
+  return data.some(c => c.id === creatorId);
+}
+
+async function toggleFollow(creatorId, isFollowing) {
+  const endpoint = isFollowing ? "unfollow" : "follow";
+
+  await fetch("http://localhost:3000/" + endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      userId: USER_ID,
+      creatorId
+    })
+  });
+
+  loadCreator(creatorId);
+}
+</script>
 
 </body>
 </html>
