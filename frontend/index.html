@@ -26,50 +26,23 @@
       padding: 10px;
     }
 
-    .creator-group {
-      margin-bottom: 20px;
+    .card {
       background: white;
-      padding: 10px;
       border-radius: 12px;
+      margin-bottom: 15px;
+      padding: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
-    .creator-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
+    .title {
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
-    .creator-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-    }
-
-    .post {
-      padding: 6px 0;
-      cursor: pointer;
-      transition: transform 0.2s, opacity 0.2s;
-    }
-
-    .removing {
-      opacity: 0;
-      transform: translateX(20px);
-    }
-
-    .loading {
-      text-align: center;
-      padding: 10px;
+    .platform {
+      font-size: 12px;
       color: gray;
     }
-
   </style>
 </head>
 
@@ -77,109 +50,32 @@
 
 <header>Creator Hub</header>
 
-<div class="container" id="output"></div>
-<div class="loading" id="loading">Loading...</div>
+<div class="container" id="app">
+  Loading...
+</div>
 
 <script>
-const USER_ID = 1;
+async function loadFeed() {
+  try {
+    const res = await fetch("/feed");
+    const data = await res.json();
 
-let allFeed = [];
-let visibleFeed = [];
-let creatorsData = [];
-
-const PAGE_SIZE = 4;
-let index = 0;
-
-async function init() {
-  const res = await fetch("http://localhost:3000/feed/user/1");
-  allFeed = await res.json();
-
-  const creatorsRes = await fetch("http://localhost:3000/creator");
-  creatorsData = await creatorsRes.json();
-
-  loadMore();
-}
-
-function loadMore() {
-  const next = allFeed.slice(index, index + PAGE_SIZE);
-  visibleFeed = visibleFeed.concat(next);
-  index += PAGE_SIZE;
-
-  render();
-
-  if (index >= allFeed.length) {
-    document.getElementById("loading").innerText = "No more content";
-  }
-}
-
-function render() {
-
-  const grouped = {};
-
-  visibleFeed.forEach(c => {
-    if (!grouped[c.creator_id]) grouped[c.creator_id] = [];
-    grouped[c.creator_id].push(c);
-  });
-
-  const html = Object.keys(grouped).map(id => {
-    const creator = creatorsData.find(c => c.id == id);
-    const posts = grouped[id];
-
-    return `
-      <div class="creator-group">
-
-        <div class="creator-header">
-          <div class="creator-info">
-            <img src="${creator.avatar}" class="avatar"/>
-            <strong>${creator.name}</strong>
-          </div>
-        </div>
-
-        ${posts.map(p => `
-          <div class="post" id="post-${p.id}" onclick="markSeen(${p.creator_id}, ${p.id})">
-            ${p.title}
-          </div>
-        `).join("")}
-
+    const html = data.map(item => `
+      <div class="card">
+        <div class="title">${item.title}</div>
+        <div class="platform">${item.platform}</div>
       </div>
-    `;
-  }).join("");
+    `).join("");
 
-  document.getElementById("output").innerHTML = html;
-}
+    document.getElementById("app").innerHTML = html;
 
-async function markSeen(creatorId, contentId) {
-
-  const el = document.getElementById("post-" + contentId);
-  if (el) el.classList.add("removing");
-
-  setTimeout(() => {
-    visibleFeed = visibleFeed.filter(c => c.id !== contentId);
-    allFeed = allFeed.filter(c => c.id !== contentId);
-    render();
-  }, 200);
-
-  await fetch("http://localhost:3000/mark-seen", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      userId: USER_ID,
-      creatorId,
-      contentId
-    })
-  });
-}
-
-// 🔥 SCROLL DETECTION
-window.addEventListener("scroll", () => {
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
-    loadMore();
+  } catch (err) {
+    document.getElementById("app").innerHTML = "Error loading data";
+    console.error(err);
   }
-});
+}
 
-init();
+loadFeed();
 </script>
 
 </body>
