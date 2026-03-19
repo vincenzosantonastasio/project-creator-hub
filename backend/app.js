@@ -8,7 +8,7 @@ const users = require("./users");
 
 const server = http.createServer((req, res) => {
 
-  // 👉 SERVE FRONTEND
+  // SERVE FRONTEND
   if (req.url === "/" && req.method === "GET") {
     const filePath = path.join(__dirname, "../frontend/index.html");
 
@@ -27,4 +27,22 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(creators));
 
-  } else if
+  } else if (req.url === "/content" && req.method === "GET") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(content));
+
+  } else if (req.url === "/feed" && req.method === "GET") {
+    const sortedContent = [...content].sort((a, b) => b.id - a.id);
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(sortedContent));
+
+  } else {
+    res.writeHead(404);
+    res.end();
+  }
+
+});
+
+server.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
