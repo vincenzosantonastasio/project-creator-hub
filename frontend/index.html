@@ -50,6 +50,12 @@
       padding: 10px;
     }
 
+    .creator-name {
+      font-size: 12px;
+      color: gray;
+      margin-bottom: 6px;
+    }
+
     .title {
       font-weight: bold;
       margin-bottom: 5px;
@@ -69,6 +75,20 @@
       border-radius: 4px;
       margin-left: 5px;
     }
+
+    .detail-page {
+      padding: 20px;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      padding: 10px 14px;
+      border: none;
+      background: black;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -82,49 +102,66 @@
 
 <script>
 async function loadFeed() {
-  const res = await fetch("/feed");
-  const data = await res.json();
+  try {
+    const [feedRes, creatorsRes] = await Promise.all([
+      fetch("/feed"),
+      fetch("/creator")
+    ]);
 
-  const html = data.map(item => {
+    const feed = await feedRes.json();
+    const creators = await creatorsRes.json();
 
-    const image = item.platform === "YouTube"
-      ? "https://picsum.photos/500/300?random=" + item.id
-      : "https://picsum.photos/500/300?grayscale&random=" + item.id;
+    const html = feed.map(item => {
+      const creator = creators.find(c => c.id === item.creator_id);
 
-    return `
-      <div class="card" onclick="openContent('${item.title}')">
-        <img class="thumbnail" src="${image}" />
+      const image = item.platform === "YouTube"
+        ? "https://picsum.photos/500/300?random=" + item.id
+        : "https://picsum.photos/500/300?grayscale&random=" + item.id;
 
-        <div class="content">
-          <div class="title">
-            ${item.title}
-            <span class="badge">NEW</span>
+      return `
+        <div class="card" onclick="openContent('${escapeHtml(item.title)}', '${creator ? escapeHtml(creator.name) : ""}', '${escapeHtml(item.platform)}', '${image}')">
+          <img class="thumbnail" src="${image}" />
+
+          <div class="content">
+            <div class="creator-name">${creator ? creator.name : ""}</div>
+
+            <div class="title">
+              ${item.title}
+              <span class="badge">NEW</span>
+            </div>
+
+            <div class="meta">${item.platform}</div>
           </div>
-
-          <div class="meta">${item.platform}</div>
         </div>
-      </div>
-    `;
-  }).join("");
+      `;
+    }).join("");
 
-  document.getElementById("app").innerHTML = html;
+    document.getElementById("app").innerHTML = html;
+  } catch (err) {
+    document.getElementById("app").innerHTML = "Error loading feed";
+    console.error(err);
+  }
 }
 
-function openContent(title) {
-  document.body.innerHTML = `
-    <div style="padding:20px;font-family:Arial">
+function openContent(title, creatorName, platform, image) {
+  document.getElementById("app").innerHTML = `
+    <div class="detail-page">
+      <img class="thumbnail" src="${image}" />
+      <div class="creator-name" style="margin-top:10px;">${creatorName}</div>
       <h2>${title}</h2>
-      <p>Content opened</p>
-      <button onclick="location.reload()" style="
-        margin-top:20px;
-        padding:10px;
-        border:none;
-        background:black;
-        color:white;
-        border-radius:6px;
-      ">Back</button>
+      <div class="meta">${platform}</div>
+      <button class="back-btn" onclick="loadFeed()">Back</button>
     </div>
   `;
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 loadFeed();
