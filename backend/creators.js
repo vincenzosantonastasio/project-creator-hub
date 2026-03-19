@@ -1,13 +1,18 @@
 const creators = [
   {
     id: 1,
-    name: "Sample Creator",
-    platforms: ["YouTube", "TikTok"]
+    name: "MrBeast",
+    platforms: ["YouTube"]
   },
   {
     id: 2,
-    name: "Another Creator",
-    platforms: ["Instagram"]
+    name: "Khaby Lame",
+    platforms: ["TikTok", "Instagram"]
+  },
+  {
+    id: 3,
+    name: "Logan Paul",
+    platforms: ["YouTube", "Instagram"]
   }
 ];
 
