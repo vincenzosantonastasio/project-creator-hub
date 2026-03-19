@@ -3,6 +3,13 @@ const creators = require("./creators");
 const content = require("./content");
 const users = require("./users");
 
+// ensure last_seen exists
+users.forEach(user => {
+  if (!user.last_seen) {
+    user.last_seen = {};
+  }
+});
+
 const server = http.createServer((req, res) => {
 
   if (req.url === "/" && req.method === "GET") {
@@ -24,7 +31,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(sortedContent));
 
-  // PERSONALIZED FEED
+  // PERSONALIZED FEED WITH CATCH-UP
   } else if (req.url.startsWith("/feed/user/") && req.method === "GET") {
     const userId = parseInt(req.url.split("/")[3]);
 
@@ -33,6 +40,10 @@ const server = http.createServer((req, res) => {
     if (user) {
       const personalizedContent = content
         .filter(c => user.followed_creators.includes(c.creator_id))
+        .filter(c => {
+          const lastSeen = user.last_seen[c.creator_id] || 0;
+          return c.id > lastSeen;
+        })
         .sort((a, b) => b.id - a.id);
 
       res.writeHead(200, { "Content-Type": "application/json" });
@@ -42,7 +53,28 @@ const server = http.createServer((req, res) => {
       res.end();
     }
 
-  // 🔥 USER FOLLOWING (NEW)
+  // MARK CONTENT AS SEEN
+  } else if (req.url === "/mark-seen" && req.method === "POST") {
+    let body = "";
+
+    req.on("data", chunk => {
+      body += chunk.toString();
+    });
+
+    req.on("end", () => {
+      const { userId, creatorId, contentId } = JSON.parse(body);
+
+      const user = users.find(u => u.id === userId);
+
+      if (user) {
+        user.last_seen[creatorId] = contentId;
+      }
+
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ success: true }));
+    });
+
+  // USER FOLLOWING
   } else if (req.url.startsWith("/user/") && req.url.endsWith("/following") && req.method === "GET") {
     const userId = parseInt(req.url.split("/")[2]);
 
@@ -60,7 +92,7 @@ const server = http.createServer((req, res) => {
       res.end();
     }
 
-  // FOLLOW CREATOR
+  // FOLLOW
   } else if (req.url === "/follow" && req.method === "POST") {
     let body = "";
 
@@ -78,10 +110,10 @@ const server = http.createServer((req, res) => {
       }
 
       res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ success: true, user }));
+      res.end(JSON.stringify({ success: true }));
     });
 
-  // UNFOLLOW CREATOR
+  // UNFOLLOW
   } else if (req.url === "/unfollow" && req.method === "POST") {
     let body = "";
 
@@ -101,7 +133,7 @@ const server = http.createServer((req, res) => {
       }
 
       res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ success: true, user }));
+      res.end(JSON.stringify({ success: true }));
     });
 
   // CREATOR CONTENT
@@ -113,7 +145,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(creatorContent));
 
-  // CREATOR WITH CONTENT
+  // CREATOR PAGE
   } else if (req.url.startsWith("/creator/") && req.method === "GET") {
     const id = parseInt(req.url.split("/")[2]);
 
