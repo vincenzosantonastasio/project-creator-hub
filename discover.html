@@ -1,234 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Discover</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discover - Creator Hub</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(180deg, #ede7f6, #e3f2fd);
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+}
 
-    .container {
-      max-width: 420px;
-      margin: auto;
-      padding: 16px;
-    }
+body {
+  background: linear-gradient(135deg, #f3eaff, #e6dcff);
+  display: flex;
+  justify-content: center;
+}
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.app {
+  width: 100%;
+  max-width: 420px;
+  min-height: 100vh;
+  padding: 20px;
+}
 
-    .title {
-      font-size: 20px;
-      font-weight: bold;
-    }
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
 
-    .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-    }
+.header h1 {
+  font-size: 22px;
+}
 
-    .search {
-      margin: 16px 0;
-    }
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
 
-    .search input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      border: none;
-      outline: none;
-      background: #fff;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
+/* SEARCH */
+.search {
+  margin-bottom: 16px;
+}
 
-    .tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
+.search input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: #fff;
+}
 
-    .tab {
-      padding: 8px 14px;
-      border-radius: 20px;
-      background: #eee;
-      font-size: 12px;
-    }
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
 
-    .tab.active {
-      background: linear-gradient(90deg, #7b61ff, #9c6bff);
-      color: white;
-    }
+.tab {
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: #eee;
+  font-size: 12px;
+}
 
-    .section-title {
-      font-weight: bold;
-      margin: 16px 0 8px;
-    }
+.tab.active {
+  background: #6c4eff;
+  color: white;
+}
 
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-    }
+/* SECTION */
+.section-title {
+  font-weight: bold;
+  margin: 16px 0 8px;
+}
 
-    .left {
-      display: flex;
-      align-items: center;
-    }
+/* CARD */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: black;
+}
 
-    .left img {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
+.left {
+  display: flex;
+  align-items: center;
+}
 
-    .name {
-      font-weight: bold;
-    }
+.left img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
 
-    .meta {
-      font-size: 12px;
-      color: gray;
-    }
+.name {
+  font-weight: bold;
+}
 
-    .button {
-      background: linear-gradient(90deg, #7b61ff, #9c6bff);
-      color: white;
-      padding: 8px 14px;
-      border-radius: 10px;
-      font-size: 12px;
-    }
+.meta {
+  font-size: 12px;
+  color: gray;
+}
 
-    .topics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+.button {
+  background: #6c4eff;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+}
 
-    .topic {
-      background: #f0f0f0;
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-size: 12px;
-    }
+/* TOPICS */
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      max-width: 420px;
-      background: white;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      border-top: 1px solid #eee;
-    }
+.topic {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+}
 
-    .nav-item {
-      font-size: 12px;
-      color: gray;
-    }
+/* NAV */
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 12px 0;
+  border-top: 1px solid #eee;
+}
 
-    .nav-item.active {
-      color: #7b61ff;
-      font-weight: bold;
-    }
+.nav-item {
+  font-size: 12px;
+  color: #777;
+  text-decoration: none;
+}
 
-  </style>
+.nav-item.active {
+  color: #6c4eff;
+  font-weight: 600;
+}
+</style>
+
 </head>
 
 <body>
 
-  <div class="container">
+<div class="app">
 
-    <!-- HEADER -->
-    <div class="header">
-      <div class="title">Discover</div>
-      <img class="avatar" src="https://i.pravatar.cc/100" />
-    </div>
-
-    <!-- SEARCH -->
-    <div class="search">
-      <input placeholder="Search creators, topics..." />
-    </div>
-
-    <!-- TABS -->
-    <div class="tabs">
-      <div class="tab active">Popular</div>
-      <div class="tab">Trending</div>
-      <div class="tab">Finance</div>
-      <div class="tab">Gaming</div>
-    </div>
-
-    <!-- TRENDING -->
-    <div class="section-title">Trending Creators</div>
-
-    <div class="card">
-      <div class="left">
-        <img src="https://i.pravatar.cc/100?img=1" />
-        <div>
-          <div class="name">Jordan Parker</div>
-          <div class="meta">2.1M followers</div>
-        </div>
-      </div>
-      <div class="button">Follow</div>
-    </div>
-
-    <div class="card">
-      <div class="left">
-        <img src="https://i.pravatar.cc/100?img=4" />
-        <div>
-          <div class="name">Sarah Donovan</div>
-          <div class="meta">1.8M followers</div>
-        </div>
-      </div>
-      <div class="button">Follow</div>
-    </div>
-
-    <div class="card">
-      <div class="left">
-        <img src="https://i.pravatar.cc/100?img=7" />
-        <div>
-          <div class="name">Alex Gomez</div>
-          <div class="meta">1.5M followers</div>
-        </div>
-      </div>
-      <div class="button">Follow</div>
-    </div>
-
-    <!-- TOPICS -->
-    <div class="section-title">Popular Topics</div>
-
-    <div class="topics">
-      <div class="topic">Personal Finance</div>
-      <div class="topic">YouTube Growth</div>
-      <div class="topic">Self Improvement</div>
-      <div class="topic">Startups</div>
-      <div class="topic">AI Tools</div>
-    </div>
-
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Discover</h1>
+    <img class="avatar" src="https://i.pravatar.cc/100">
   </div>
 
-  <!-- NAV -->
-  <div class="bottom-nav">
-    <div class="nav-item">Home</div>
-    <div class="nav-item">Following</div>
-    <div class="nav-item active">Discover</div>
-    <div class="nav-item">Saved</div>
+  <!-- SEARCH -->
+  <div class="search">
+    <input placeholder="Search creators, topics...">
   </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active">Popular</div>
+    <div class="tab">Trending</div>
+    <div class="tab">Finance</div>
+    <div class="tab">Gaming</div>
+  </div>
+
+  <!-- TRENDING -->
+  <div class="section-title">Trending Creators</div>
+
+  <a href="./creator.html" class="card">
+    <div class="left">
+      <img src="https://i.pravatar.cc/100?img=1">
+      <div>
+        <div class="name">Jordan Parker</div>
+        <div class="meta">2.1M followers</div>
+      </div>
+    </div>
+    <div class="button">Follow</div>
+  </a>
+
+  <a href="./creator.html" class="card">
+    <div class="left">
+      <img src="https://i.pravatar.cc/100?img=4">
+      <div>
+        <div class="name">Sarah Donovan</div>
+        <div class="meta">1.8M followers</div>
+      </div>
+    </div>
+    <div class="button">Follow</div>
+  </a>
+
+  <a href="./creator.html" class="card">
+    <div class="left">
+      <img src="https://i.pravatar.cc/100?img=7">
+      <div>
+        <div class="name">Alex Gomez</div>
+        <div class="meta">1.5M followers</div>
+      </div>
+    </div>
+    <div class="button">Follow</div>
+  </a>
+
+  <!-- TOPICS -->
+  <div class="section-title">Popular Topics</div>
+
+  <div class="topics">
+    <div class="topic">Personal Finance</div>
+    <div class="topic">YouTube Growth</div>
+    <div class="topic">Self Improvement</div>
+    <div class="topic">Startups</div>
+    <div class="topic">AI Tools</div>
+  </div>
+
+</div>
+
+<!-- NAVBAR -->
+<div class="nav">
+  <a href="./index.html" class="nav-item">Home</a>
+  <a href="./following.html" class="nav-item">Following</a>
+  <a href="./discover.html" class="nav-item active">Discover</a>
+  <a href="./saved.html" class="nav-item">Saved</a>
+  <a href="./profile.html" class="nav-item">Profile</a>
+</div>
 
 </body>
 </html>
