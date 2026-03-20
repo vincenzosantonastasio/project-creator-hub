@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Detail</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(180deg, #ede7f6, #e3f2fd);
+    }
+
+    .container {
+      max-width: 420px;
+      margin: auto;
+      padding: 16px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .back {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .video {
+      width: 100%;
+      border-radius: 16px;
+    }
+
+    .creator {
+      display: flex;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .creator img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .creator-name {
+      font-weight: bold;
+    }
+
+    .meta {
+      font-size: 12px;
+      color: gray;
+    }
+
+    .button {
+      margin-top: 16px;
+      background: linear-gradient(90deg, #7b61ff, #9c6bff);
+      color: white;
+      padding: 14px;
+      border-radius: 14px;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .description {
+      margin-top: 16px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .tags {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: #f0f0f0;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      border-top: 1px solid #eee;
+    }
+
+    .nav-item {
+      font-size: 12px;
+      text-align: center;
+      color: gray;
+    }
+
+    .nav-item.active {
+      color: #7b61ff;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="back">←</div>
+      <div class="title">Content Detail</div>
+      <img class="avatar" src="https://i.pravatar.cc/100" />
+    </div>
+
+    <!-- CARD -->
+    <div class="card">
+
+      <h2>When Tesla is Better than a Porsche</h2>
+
+      <img class="video" src="https://picsum.photos/400/220" />
+
+      <!-- CREATOR -->
+      <div class="creator">
+        <img src="https://i.pravatar.cc/100?img=3" />
+        <div>
+          <div class="creator-name">Marques Brownlee</div>
+          <div class="meta">YouTube • 601K views • 1 day ago</div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="button">
+        ▶ Watch on YouTube
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="description">
+        Tesla Model S Plaid versus
