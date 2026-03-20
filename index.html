@@ -24,7 +24,6 @@ body {
   max-width: 420px;
   min-height: 100vh;
   padding: 20px;
-  padding-bottom: 80px;
 }
 
 /* HEADER */
@@ -63,7 +62,6 @@ body {
   border-radius: 10px;
   font-weight: 600;
   color: #888;
-  text-decoration: none;
 }
 
 .tab.active {
@@ -78,7 +76,7 @@ body {
   padding: 12px;
   margin-bottom: 12px;
   text-decoration: none;
-  color: inherit;
+  color: black;
   display: block;
 }
 
@@ -105,7 +103,7 @@ body {
   color: #777;
 }
 
-/* THUMB */
+/* IMAGE */
 .thumb {
   width: 100%;
   border-radius: 12px;
@@ -115,23 +113,22 @@ body {
 /* TITLE */
 .title {
   font-weight: 600;
-  margin-top: 4px;
 }
 
-/* NAVBAR */
+/* NAV */
 .nav {
   position: fixed;
   bottom: 0;
   width: 100%;
   max-width: 420px;
   display: flex;
+  justify-content: space-around;
   background: white;
   padding: 12px 0;
   border-top: 1px solid #eee;
 }
 
 .nav-item {
-  flex: 1;
   text-align: center;
   font-size: 12px;
   color: #777;
@@ -158,12 +155,12 @@ body {
 
   <!-- TABS -->
   <div class="tabs">
-    <a href="index.html" class="tab active">Feed</a>
-    <a href="catchup.html" class="tab">Catch-Up</a>
+    <div class="tab active">Feed</div>
+    <div class="tab">Catch-Up</div>
   </div>
 
   <!-- CARD 1 -->
-  <a href="content-detail.html" class="card">
+  <a href="./content-detail.html" class="card">
     <div class="creator">
       <img src="https://i.pravatar.cc/150?img=3">
       <div>
@@ -176,7 +173,7 @@ body {
   </a>
 
   <!-- CARD 2 -->
-  <a href="content-detail.html" class="card">
+  <a href="./content-detail.html" class="card">
     <div class="creator">
       <img src="https://i.pravatar.cc/150?img=5">
       <div>
@@ -189,7 +186,7 @@ body {
   </a>
 
   <!-- CARD 3 -->
-  <a href="content-detail.html" class="card">
+  <a href="./content-detail.html" class="card">
     <div class="creator">
       <img src="https://i.pravatar.cc/150?img=7">
       <div>
@@ -205,11 +202,11 @@ body {
 
 <!-- NAVBAR -->
 <div class="nav">
-  <a href="index.html" class="nav-item active">Home</a>
-  <a href="following.html" class="nav-item">Following</a>
-  <a href="discover.html" class="nav-item">Discover</a>
-  <a href="saved.html" class="nav-item">Saved</a>
-  <a href="profile.html" class="nav-item">Profile</a>
+  <a href="./index.html" class="nav-item active">Home</a>
+  <a href="./following.html" class="nav-item">Following</a>
+  <a href="./discover.html" class="nav-item">Discover</a>
+  <a href="./saved.html" class="nav-item">Saved</a>
+  <a href="./profile.html" class="nav-item">Profile</a>
 </div>
 
 </body>
