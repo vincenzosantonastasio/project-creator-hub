@@ -1,34 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Following</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Following - Creator Hub</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(180deg, #ede7f6, #e3f2fd);
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+}
 
-    .container {
-      max-width: 420px;
-      margin: auto;
-      padding: 16px;
-    }
+body {
+  background: linear-gradient(135deg, #f3eaff, #e6dcff);
+  display: flex;
+  justify-content: center;
+}
 
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
+.app {
+  width: 100%;
+  max-width: 420px;
+  min-height: 100vh;
+  padding: 20px;
+  padding-bottom: 80px;
+}
 
-    .back {
-      font-size: 20px;
-    }
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
 
-    .title {
-      font-size: 18px;
-      font-weight: bold;
+.header h1 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: url('https://i.pravatar.cc/100') center/cover;
+}
+
+/* SEARCH */
+.search {
+  margin-bottom: 16px;
+}
+
+.search input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+/* CARD */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.left img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.meta {
+  font-size: 12px;
+  color: #777;
+}
+
+/* BUTTON */
+.button {
+  background: #6c4eff;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+/* NAVBAR */
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  background: white;
+  padding: 12px 0;
+  border-top: 1px solid #eee;
+}
+
+.nav-item {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  color: #777;
+  text-decoration: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Following</h1>
+    <div class="avatar"></div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search">
+    <input type="text" placeholder="Search creators...">
+  </div>
+
+  <!-- CARD -->
+  <a href="creator.html" style="text-decoration:none; color:inherit;">
+    <div class="card">
+      <div class="left">
+        <img src="https://i.pravatar.cc/150?img=3">
+        <div>
+          <div class="name">MrBeast</div>
+          <div class="meta">YouTube • New content</div>
+        </div>
+      </div>
+      <div class="button">Following</div>
+    </div>
+  </a>
+
+  <!-- CARD -->
+  <a href="creator.html" style="text-decoration:none; color:inherit;">
+    <div class="card">
+      <div class="left">
+        <img src="https://i.pravatar.cc/150?img=5">
+        <div>
+          <div class="name">Nathan Berry</div>
+          <div class="meta">TikTok • 1 day ago</div>
+        </div>
+      </div>
+      <div class="button">Following</div>
+    </div>
+  </a>
+
+  <!-- CARD -->
+  <a href="creator.html" style="text-decoration:none; color:inherit;">
+    <div class="card">
+      <div class="left">
+        <img src="https://i.pravatar.cc/150?img=7">
+        <div>
+          <div class="name">Marques Brownlee</div>
+          <div class="meta">Instagram • 2 days ago</div>
+        </div>
+      </div>
+      <div class="button">Following</div>
+    </div>
+  </a>
+
+</div>
+
+<!-- NAVBAR -->
+<div class="nav">
+  <a href="index.html" class="nav-item">Home</a>
+  <a href="following.html" class="nav-item">Following</a>
+  <a href="discover.html" class="nav-item">Discover</a>
+  <a href="saved.html" class="nav-item">Saved</a>
+  <a href="profile.html" class="nav-item">Profile</a>
+</div>
+
+</body>
+</html>
