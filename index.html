@@ -27,7 +27,6 @@ body {
 }
 
 /* HEADER */
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -48,7 +47,6 @@ body {
 }
 
 /* TABS */
-
 .tabs {
   display: flex;
   background: #fff;
@@ -64,6 +62,7 @@ body {
   border-radius: 10px;
   font-weight: 600;
   color: #888;
+  text-decoration: none;
 }
 
 .tab.active {
@@ -72,16 +71,17 @@ body {
 }
 
 /* CARD */
-
 .card {
   background: white;
   border-radius: 16px;
   padding: 12px;
   margin-bottom: 12px;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 /* CREATOR INFO */
-
 .creator {
   display: flex;
   align-items: center;
@@ -105,7 +105,6 @@ body {
 }
 
 /* THUMB */
-
 .thumb {
   width: 100%;
   border-radius: 12px;
@@ -113,14 +112,12 @@ body {
 }
 
 /* TITLE */
-
 .title {
   font-weight: 600;
   margin-top: 4px;
 }
 
-/* FOOTER NAV */
-
+/* NAVBAR */
 .nav {
   position: fixed;
   bottom: 0;
@@ -137,6 +134,7 @@ body {
   text-align: center;
   font-size: 12px;
   color: #777;
+  text-decoration: none;
 }
 
 .nav-item.active {
@@ -159,12 +157,12 @@ body {
 
   <!-- TABS -->
   <div class="tabs">
-    <div class="tab active">Feed</div>
-    <div class="tab">Catch-Up</div>
+    <a href="index.html" class="tab active">Feed</a>
+    <a href="catchup.html" class="tab">Catch-Up</a>
   </div>
 
   <!-- CARD 1 -->
-  <div class="card">
+  <a href="content-detail.html" class="card">
     <div class="creator">
       <img src="https://i.pravatar.cc/150?img=3">
       <div>
@@ -174,12 +172,11 @@ body {
     </div>
 
     <img class="thumb" src="https://picsum.photos/400/200">
-
     <div class="title">I Gave Away My Channel...</div>
-  </div>
+  </a>
 
   <!-- CARD 2 -->
-  <div class="card">
+  <a href="content-detail.html" class="card">
     <div class="creator">
       <img src="https://i.pravatar.cc/150?img=5">
       <div>
@@ -189,12 +186,11 @@ body {
     </div>
 
     <img class="thumb" src="https://picsum.photos/400/201">
-
     <div class="title">6 Passive Income Ideas</div>
-  </div>
+  </a>
 
   <!-- CARD 3 -->
-  <div class="card">
+  <a href="content-detail.html" class="card">
     <div class="creator">
       <img src="https://i.pravatar.cc/150?img=7">
       <div>
@@ -204,18 +200,17 @@ body {
     </div>
 
     <img class="thumb" src="https://picsum.photos/400/202">
-
     <div class="title">The New Tesla is Real</div>
-  </div>
+  </a>
 
 </div>
 
 <!-- NAVBAR -->
 <div class="nav">
-  <div class="nav-item active">Home</div>
-  <div class="nav-item">Following</div>
-  <div class="nav-item">Discover</div>
-  <div class="nav-item">Saved</div>
+  <a href="index.html" class="nav-item active">Home</a>
+  <a href="following.html" class="nav-item">Following</a>
+  <a href="discover.html" class="nav-item">Discover</a>
+  <a href="#">Saved</a>
 </div>
 
 </body>
