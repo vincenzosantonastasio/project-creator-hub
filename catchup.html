@@ -24,6 +24,7 @@ body {
   max-width: 420px;
   min-height: 100vh;
   padding: 20px;
+  padding-bottom: 80px;
 }
 
 /* HEADER */
@@ -59,6 +60,9 @@ body {
   border-radius: 16px;
   padding: 12px;
   margin-bottom: 12px;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .creator {
@@ -110,16 +114,17 @@ body {
   width: 100%;
   max-width: 420px;
   display: flex;
-  justify-content: space-around;
   background: white;
   padding: 12px 0;
   border-top: 1px solid #eee;
 }
 
 .nav-item {
+  flex: 1;
   text-align: center;
   font-size: 12px;
   color: #777;
+  text-decoration: none;
 }
 
 .nav-item.active {
@@ -143,42 +148,38 @@ body {
   <div class="page-title">Catch-Up (New Content)</div>
 
   <!-- CARD -->
-  <a href="content.html">
-    <div class="card">
-      <div class="creator">
-        <img src="https://i.pravatar.cc/150?img=3">
-        <div>
-          <div class="creator-name">MrBeast</div>
-          <div class="platform">YouTube</div>
-        </div>
+  <a href="content-detail.html" class="card">
+    <div class="creator">
+      <img src="https://i.pravatar.cc/150?img=3">
+      <div>
+        <div class="creator-name">MrBeast</div>
+        <div class="platform">YouTube</div>
       </div>
+    </div>
 
-      <img class="thumb" src="https://picsum.photos/400/210">
+    <img class="thumb" src="https://picsum.photos/400/210">
 
-      <div class="title">
-        I Built 100 Wells in Africa
-        <span class="badge">NEW</span>
-      </div>
+    <div class="title">
+      I Built 100 Wells in Africa
+      <span class="badge">NEW</span>
     </div>
   </a>
 
   <!-- CARD -->
-  <a href="content.html">
-    <div class="card">
-      <div class="creator">
-        <img src="https://i.pravatar.cc/150?img=5">
-        <div>
-          <div class="creator-name">Nathan Berry</div>
-          <div class="platform">TikTok</div>
-        </div>
+  <a href="content-detail.html" class="card">
+    <div class="creator">
+      <img src="https://i.pravatar.cc/150?img=5">
+      <div>
+        <div class="creator-name">Nathan Berry</div>
+        <div class="platform">TikTok</div>
       </div>
+    </div>
 
-      <img class="thumb" src="https://picsum.photos/400/211">
+    <img class="thumb" src="https://picsum.photos/400/211">
 
-      <div class="title">
-        6 Passive Income Ideas
-        <span class="badge">NEW</span>
-      </div>
+    <div class="title">
+      6 Passive Income Ideas
+      <span class="badge">NEW</span>
     </div>
   </a>
 
@@ -190,6 +191,7 @@ body {
   <a href="following.html" class="nav-item">Following</a>
   <a href="discover.html" class="nav-item">Discover</a>
   <a href="saved.html" class="nav-item">Saved</a>
+  <a href="profile.html" class="nav-item">Profile</a>
 </div>
 
 </body>
