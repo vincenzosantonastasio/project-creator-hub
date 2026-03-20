@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catch-Up - Creator Hub</title>
+<title>Creator Hub</title>
 
 <style>
 * {
@@ -59,23 +59,17 @@ body {
 .tab {
   flex: 1;
   text-align: center;
-  padding: 8px;
+  padding: 10px;
   border-radius: 10px;
   font-weight: 600;
   color: #888;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .tab.active {
   background: #6c4eff;
   color: white;
-}
-
-/* TITLE */
-.page-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 12px;
 }
 
 /* CARD */
@@ -84,9 +78,6 @@ body {
   border-radius: 16px;
   padding: 12px;
   margin-bottom: 12px;
-  text-decoration: none;
-  color: inherit;
-  display: block;
 }
 
 .creator {
@@ -119,16 +110,6 @@ body {
 
 .title {
   font-weight: 600;
-}
-
-.badge {
-  display: inline-block;
-  background: #6c4eff;
-  color: white;
-  font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 6px;
-  margin-left: 6px;
 }
 
 /* NAVBAR */
@@ -169,16 +150,14 @@ body {
     <div class="avatar"></div>
   </div>
 
-  <!-- TABS -->
+  <!-- TABS (FIXATI) -->
   <div class="tabs">
-    <a href="index.html" class="tab">Feed</a>
-    <a href="catchup.html" class="tab active">Catch-Up</a>
+    <a href="index.html" class="tab active">Feed</a>
+    <a href="catchup.html" class="tab">Catch-Up</a>
   </div>
 
-  <div class="page-title">Catch-Up (New Content)</div>
-
-  <!-- CARD -->
-  <a href="content-detail.html" class="card">
+  <!-- CARD 1 -->
+  <div class="card">
     <div class="creator">
       <img src="https://i.pravatar.cc/150?img=3">
       <div>
@@ -187,16 +166,13 @@ body {
       </div>
     </div>
 
-    <img class="thumb" src="https://picsum.photos/400/210">
+    <img class="thumb" src="https://picsum.photos/400/200">
 
-    <div class="title">
-      I Built 100 Wells in Africa
-      <span class="badge">NEW</span>
-    </div>
-  </a>
+    <div class="title">I Gave Away My Channel...</div>
+  </div>
 
-  <!-- CARD -->
-  <a href="content-detail.html" class="card">
+  <!-- CARD 2 -->
+  <div class="card">
     <div class="creator">
       <img src="https://i.pravatar.cc/150?img=5">
       <div>
@@ -205,19 +181,31 @@ body {
       </div>
     </div>
 
-    <img class="thumb" src="https://picsum.photos/400/211">
+    <img class="thumb" src="https://picsum.photos/400/201">
 
-    <div class="title">
-      6 Passive Income Ideas
-      <span class="badge">NEW</span>
+    <div class="title">6 Passive Income Ideas</div>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card">
+    <div class="creator">
+      <img src="https://i.pravatar.cc/150?img=7">
+      <div>
+        <div class="creator-name">Marques Brownlee</div>
+        <div class="platform">Instagram</div>
+      </div>
     </div>
-  </a>
+
+    <img class="thumb" src="https://picsum.photos/400/202">
+
+    <div class="title">The New Tesla is Real</div>
+  </div>
 
 </div>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <div class="nav">
-  <a href="index.html" class="nav-item">Home</a>
+  <a href="index.html" class="nav-item active">Home</a>
   <a href="following.html" class="nav-item">Following</a>
   <a href="discover.html" class="nav-item">Discover</a>
   <a href="saved.html" class="nav-item">Saved</a>
