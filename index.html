@@ -37,7 +37,6 @@ body {
 
 .header h1 {
   font-size: 22px;
-  font-weight: 700;
 }
 
 .avatar {
@@ -50,8 +49,8 @@ body {
 /* TABS */
 .tabs {
   display: flex;
-  background: #fff;
-  border-radius: 12px;
+  background: #e6e1f2;
+  border-radius: 16px;
   padding: 4px;
   margin-bottom: 16px;
 }
@@ -60,15 +59,14 @@ body {
   flex: 1;
   text-align: center;
   padding: 10px;
-  border-radius: 10px;
-  font-weight: 600;
-  color: #888;
-  text-decoration: none;
+  border-radius: 12px;
   cursor: pointer;
+  font-weight: 600;
+  color: #777;
 }
 
 .tab.active {
-  background: #6c4eff;
+  background: linear-gradient(135deg, #6c4eff, #7d5fff);
   color: white;
 }
 
@@ -77,7 +75,7 @@ body {
   background: white;
   border-radius: 16px;
   padding: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .creator {
@@ -97,22 +95,31 @@ body {
   font-weight: 600;
 }
 
-.platform {
-  font-size: 12px;
+.platform-label {
+  font-size: 11px;
   color: #777;
+  margin: 6px 0 2px;
 }
 
 .thumb {
   width: 100%;
-  border-radius: 12px;
-  margin: 8px 0;
+  border-radius: 10px;
+  margin-bottom: 6px;
 }
 
-.title {
+.cta {
+  margin-top: 10px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: #6c4eff;
+  color: white;
   font-weight: 600;
+  text-decoration: none;
+  display: block;
 }
 
-/* NAVBAR */
+/* NAV */
 .nav {
   position: fixed;
   bottom: 0;
@@ -150,55 +157,56 @@ body {
     <div class="avatar"></div>
   </div>
 
-  <!-- TABS (FIXATI) -->
+  <!-- TABS -->
   <div class="tabs">
-    <a href="index.html" class="tab active">Feed</a>
-    <a href="catchup.html" class="tab">Catch-Up</a>
+    <div class="tab active" id="feedTab">Feed</div>
+    <div class="tab" id="catchupTab">Catch-Up</div>
   </div>
 
-  <!-- CARD 1 -->
-  <div class="card">
-    <div class="creator">
-      <img src="https://i.pravatar.cc/150?img=3">
-      <div>
+  <!-- FEED -->
+  <div id="feedContent">
+
+    <div class="card">
+      <div class="creator">
+        <img src="https://i.pravatar.cc/150?img=3">
         <div class="creator-name">MrBeast</div>
-        <div class="platform">YouTube</div>
       </div>
+
+      <div class="platform-label">YouTube</div>
+      <img class="thumb" src="https://picsum.photos/400/210">
+
+      <div class="platform-label">TikTok</div>
+      <img class="thumb" src="https://picsum.photos/400/211">
+
+      <div class="platform-label">Instagram</div>
+      <img class="thumb" src="https://picsum.photos/400/212">
+
+      <div class="platform-label">LIVE (Twitch)</div>
+      <img class="thumb" src="https://picsum.photos/400/213">
+
+      <a href="creator.html" class="cta">View Creator Hub</a>
     </div>
 
-    <img class="thumb" src="https://picsum.photos/400/200">
-
-    <div class="title">I Gave Away My Channel...</div>
   </div>
 
-  <!-- CARD 2 -->
-  <div class="card">
-    <div class="creator">
-      <img src="https://i.pravatar.cc/150?img=5">
-      <div>
+  <!-- CATCH-UP -->
+  <div id="catchupContent" style="display:none;">
+
+    <div class="card">
+      <div class="creator">
+        <img src="https://i.pravatar.cc/150?img=5">
         <div class="creator-name">Nathan Berry</div>
-        <div class="platform">TikTok</div>
       </div>
+
+      <div class="platform-label">YouTube • NEW</div>
+      <img class="thumb" src="https://picsum.photos/400/214">
+
+      <div class="platform-label">TikTok • NEW</div>
+      <img class="thumb" src="https://picsum.photos/400/215">
+
+      <a href="creator.html" class="cta">View Creator Hub</a>
     </div>
 
-    <img class="thumb" src="https://picsum.photos/400/201">
-
-    <div class="title">6 Passive Income Ideas</div>
-  </div>
-
-  <!-- CARD 3 -->
-  <div class="card">
-    <div class="creator">
-      <img src="https://i.pravatar.cc/150?img=7">
-      <div>
-        <div class="creator-name">Marques Brownlee</div>
-        <div class="platform">Instagram</div>
-      </div>
-    </div>
-
-    <img class="thumb" src="https://picsum.photos/400/202">
-
-    <div class="title">The New Tesla is Real</div>
   </div>
 
 </div>
@@ -211,6 +219,28 @@ body {
   <a href="saved.html" class="nav-item">Saved</a>
   <a href="profile.html" class="nav-item">Profile</a>
 </div>
+
+<script>
+const feedTab = document.getElementById("feedTab");
+const catchupTab = document.getElementById("catchupTab");
+
+const feedContent = document.getElementById("feedContent");
+const catchupContent = document.getElementById("catchupContent");
+
+feedTab.onclick = () => {
+  feedTab.classList.add("active");
+  catchupTab.classList.remove("active");
+  feedContent.style.display = "block";
+  catchupContent.style.display = "none";
+};
+
+catchupTab.onclick = () => {
+  catchupTab.classList.add("active");
+  feedTab.classList.remove("active");
+  feedContent.style.display = "none";
+  catchupContent.style.display = "block";
+};
+</script>
 
 </body>
 </html>
