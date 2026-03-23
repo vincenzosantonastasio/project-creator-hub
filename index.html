@@ -6,224 +6,164 @@
 <title>Creator Hub</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, sans-serif;
-}
+* {margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
+body {background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-content:center;}
+.app {width:100%;max-width:420px;padding:20px;padding-bottom:80px;}
 
-body {
-  background: linear-gradient(135deg, #f3eaff, #e6dcff);
-  display: flex;
-  justify-content: center;
-}
+.header {display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.avatar {width:36px;height:36px;border-radius:50%;background:url('https://i.pravatar.cc/100') center/cover;}
 
-.app {
-  width: 100%;
-  max-width: 420px;
-  min-height: 100vh;
-  padding: 20px;
-  padding-bottom: 80px;
-}
+.tabs {display:flex;background:#e6e1f2;border-radius:16px;padding:4px;margin-bottom:16px;}
+.tab {flex:1;text-align:center;padding:10px;border-radius:12px;cursor:pointer;font-weight:600;color:#777;}
+.tab.active {background:linear-gradient(135deg,#6c4eff,#7d5fff);color:white;}
 
-/* HEADER */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
+.card {background:white;border-radius:16px;padding:12px;margin-bottom:16px;}
+.creator {display:flex;align-items:center;margin-bottom:10px;}
+.creator img {width:36px;height:36px;border-radius:50%;margin-right:10px;}
+.creator-name {font-weight:600;}
 
-.header h1 {
-  font-size: 22px;
-}
+.platform-label {font-size:11px;color:#777;margin:6px 0 2px;}
+.thumb {width:100%;border-radius:10px;margin-bottom:6px;}
 
-.avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: url('https://i.pravatar.cc/100') center/cover;
-}
+.cta {margin-top:10px;text-align:center;padding:10px;border-radius:10px;background:#6c4eff;color:white;font-weight:600;text-decoration:none;display:block;}
 
-/* TABS */
-.tabs {
-  display: flex;
-  background: #e6e1f2;
-  border-radius: 16px;
-  padding: 4px;
-  margin-bottom: 16px;
-}
-
-.tab {
-  flex: 1;
-  text-align: center;
-  padding: 10px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  color: #777;
-}
-
-.tab.active {
-  background: linear-gradient(135deg, #6c4eff, #7d5fff);
-  color: white;
-}
-
-/* CARD */
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 12px;
-  margin-bottom: 16px;
-}
-
-.creator {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.creator img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.creator-name {
-  font-weight: 600;
-}
-
-.platform-label {
-  font-size: 11px;
-  color: #777;
-  margin: 6px 0 2px;
-}
-
-.thumb {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 6px;
-}
-
-.cta {
-  margin-top: 10px;
-  text-align: center;
-  padding: 10px;
-  border-radius: 10px;
-  background: #6c4eff;
-  color: white;
-  font-weight: 600;
-  text-decoration: none;
-  display: block;
-}
-
-/* NAV */
-.nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  max-width: 420px;
-  display: flex;
-  background: white;
-  padding: 12px 0;
-  border-top: 1px solid #eee;
-}
-
-.nav-item {
-  flex: 1;
-  text-align: center;
-  font-size: 12px;
-  color: #777;
-  text-decoration: none;
-}
-
-.nav-item.active {
-  color: #6c4eff;
-  font-weight: 600;
-}
+.nav {position:fixed;bottom:0;width:100%;max-width:420px;display:flex;background:white;padding:12px 0;border-top:1px solid #eee;}
+.nav-item {flex:1;text-align:center;font-size:12px;color:#777;text-decoration:none;}
+.nav-item.active {color:#6c4eff;font-weight:600;}
 </style>
-
 </head>
 
 <body>
 
 <div class="app">
 
-  <!-- HEADER -->
-  <div class="header">
-    <h1>Creator Hub</h1>
-    <div class="avatar"></div>
-  </div>
+<div class="header">
+<h1>Creator Hub</h1>
+<div class="avatar"></div>
+</div>
 
-  <!-- TABS -->
-  <div class="tabs">
-    <div class="tab active" id="feedTab">Feed</div>
-    <div class="tab" id="catchupTab">Catch-Up</div>
-  </div>
+<div class="tabs">
+<div class="tab active" id="feedTab">Feed</div>
+<div class="tab" id="catchupTab">Catch-Up</div>
+</div>
 
-  <!-- FEED -->
-  <div id="feedContent">
+<!-- FEED -->
+<div id="feedContent">
 
-    <div class="card">
-      <div class="creator">
-        <img src="https://i.pravatar.cc/150?img=3">
-        <div class="creator-name">MrBeast</div>
-      </div>
+<!-- MrBeast -->
+<div class="card">
+<div class="creator">
+<img src="https://i.pravatar.cc/150?img=3">
+<div class="creator-name">MrBeast</div>
+</div>
 
-      <div class="platform-label">YouTube</div>
-      <img class="thumb" src="https://picsum.photos/400/210">
+<div class="platform-label">YouTube</div>
+<img class="thumb" src="https://img.youtube.com/vi/0e3GPea1Tyg/maxresdefault.jpg">
 
-      <div class="platform-label">TikTok</div>
-      <img class="thumb" src="https://picsum.photos/400/211">
+<div class="platform-label">TikTok</div>
+<img class="thumb" src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae">
 
-      <div class="platform-label">Instagram</div>
-      <img class="thumb" src="https://picsum.photos/400/212">
+<div class="platform-label">Instagram</div>
+<img class="thumb" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c">
 
-      <div class="platform-label">LIVE (Twitch)</div>
-      <img class="thumb" src="https://picsum.photos/400/213">
+<div class="platform-label">LIVE</div>
+<img class="thumb" src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28">
 
-      <a href="creator.html" class="cta">View Creator Hub</a>
-    </div>
+<a href="creator.html" class="cta">View Creator Hub</a>
+</div>
 
-  </div>
+<!-- Nathan Berry -->
+<div class="card">
+<div class="creator">
+<img src="https://i.pravatar.cc/150?img=5">
+<div class="creator-name">Nathan Berry</div>
+</div>
 
-  <!-- CATCH-UP -->
-  <div id="catchupContent" style="display:none;">
+<div class="platform-label">YouTube</div>
+<img class="thumb" src="https://img.youtube.com/vi/9No-FiEInLA/maxresdefault.jpg">
 
-    <div class="card">
-      <div class="creator">
-        <img src="https://i.pravatar.cc/150?img=5">
-        <div class="creator-name">Nathan Berry</div>
-      </div>
+<div class="platform-label">TikTok</div>
+<img class="thumb" src="https://images.unsplash.com/photo-1556745757-8d76bdb6984b">
 
-      <div class="platform-label">YouTube • NEW</div>
-      <img class="thumb" src="https://picsum.photos/400/214">
+<div class="platform-label">Instagram</div>
+<img class="thumb" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f">
 
-      <div class="platform-label">TikTok • NEW</div>
-      <img class="thumb" src="https://picsum.photos/400/215">
+<a href="creator.html" class="cta">View Creator Hub</a>
+</div>
 
-      <a href="creator.html" class="cta">View Creator Hub</a>
-    </div>
+<!-- Marques -->
+<div class="card">
+<div class="creator">
+<img src="https://i.pravatar.cc/150?img=8">
+<div class="creator-name">Marques Brownlee</div>
+</div>
 
-  </div>
+<div class="platform-label">YouTube</div>
+<img class="thumb" src="https://img.youtube.com/vi/lUoDwF4nZl4/maxresdefault.jpg">
+
+<div class="platform-label">Instagram</div>
+<img class="thumb" src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
+
+<div class="platform-label">TikTok</div>
+<img class="thumb" src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e">
+
+<a href="creator.html" class="cta">View Creator Hub</a>
+</div>
+
+<!-- Ali Abdaal -->
+<div class="card">
+<div class="creator">
+<img src="https://i.pravatar.cc/150?img=12">
+<div class="creator-name">Ali Abdaal</div>
+</div>
+
+<div class="platform-label">YouTube</div>
+<img class="thumb" src="https://img.youtube.com/vi/ZXsQAXx_ao0/maxresdefault.jpg">
+
+<div class="platform-label">Instagram</div>
+<img class="thumb" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085">
+
+<div class="platform-label">TikTok</div>
+<img class="thumb" src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2">
+
+<a href="creator.html" class="cta">View Creator Hub</a>
+</div>
 
 </div>
 
-<!-- NAV -->
+<!-- CATCH-UP -->
+<div id="catchupContent" style="display:none;">
+
+<div class="card">
+<div class="creator">
+<img src="https://i.pravatar.cc/150?img=3">
+<div class="creator-name">MrBeast</div>
+</div>
+
+<div class="platform-label">YouTube • NEW</div>
+<img class="thumb" src="https://img.youtube.com/vi/0e3GPea1Tyg/maxresdefault.jpg">
+
+<div class="platform-label">TikTok • NEW</div>
+<img class="thumb" src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae">
+
+<a href="creator.html" class="cta">View Creator Hub</a>
+</div>
+
+</div>
+
+</div>
+
 <div class="nav">
-  <a href="index.html" class="nav-item active">Home</a>
-  <a href="following.html" class="nav-item">Following</a>
-  <a href="discover.html" class="nav-item">Discover</a>
-  <a href="saved.html" class="nav-item">Saved</a>
-  <a href="profile.html" class="nav-item">Profile</a>
+<a href="index.html" class="nav-item active">Home</a>
+<a href="following.html" class="nav-item">Following</a>
+<a href="discover.html" class="nav-item">Discover</a>
+<a href="saved.html" class="nav-item">Saved</a>
+<a href="profile.html" class="nav-item">Profile</a>
 </div>
 
 <script>
 const feedTab = document.getElementById("feedTab");
 const catchupTab = document.getElementById("catchupTab");
-
 const feedContent = document.getElementById("feedContent");
 const catchupContent = document.getElementById("catchupContent");
 
