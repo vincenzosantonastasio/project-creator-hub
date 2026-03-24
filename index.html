@@ -15,7 +15,7 @@ body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-con
 .avatar{width:36px;height:36px;border-radius:50%;background:url('https://i.pravatar.cc/100') center/cover}
 
 .toggle{display:flex;background:white;border-radius:12px;padding:4px;margin-bottom:16px}
-.toggle button{flex:1;border:none;padding:8px;border-radius:10px;font-weight:600;background:none;color:#777}
+.toggle button{flex:1;border:none;padding:8px;border-radius:10px;font-weight:600;background:none;color:#777;cursor:pointer}
 .toggle .active{background:#6c4eff;color:white}
 
 .card{background:white;border-radius:16px;padding:12px;margin-bottom:16px}
@@ -23,12 +23,14 @@ body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-con
 .creator img{width:36px;height:36px;border-radius:50%;margin-right:10px}
 
 .platforms{display:flex;gap:6px;margin-bottom:10px}
-.platform{flex:1;text-align:center;padding:6px;border-radius:8px;background:#eee;font-size:11px}
+.platform{flex:1;text-align:center;padding:6px;border-radius:8px;background:#eee;font-size:11px;cursor:pointer}
 .platform.active{background:#6c4eff;color:white}
 
 .item{display:flex;margin-bottom:10px;text-decoration:none;color:black}
 .item img{width:110px;height:70px;border-radius:8px;margin-right:10px;object-fit:cover}
 .meta{font-size:11px;color:#777}
+
+.badge{font-size:10px;background:#6c4eff;color:white;padding:2px 6px;border-radius:6px;margin-left:6px}
 
 .cta{text-align:center;margin-top:10px;font-weight:600;color:#6c4eff;text-decoration:none;display:block}
 
@@ -48,8 +50,8 @@ body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-con
 </div>
 
 <div class="toggle">
-<button class="active">Feed</button>
-<button>Catch-Up</button>
+<button id="feedBtn" class="active" onclick="switchView('feed')">Feed</button>
+<button id="catchBtn" onclick="switchView('catch')">Catch-Up</button>
 </div>
 
 <div class="card">
@@ -60,45 +62,13 @@ body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-con
 </div>
 
 <div class="platforms">
-<div class="platform active">YouTube</div>
-<div class="platform">Instagram</div>
-<div class="platform">TikTok</div>
-<div class="platform">Twitch</div>
+<div class="platform active" onclick="switchPlatform('youtube', this)">YouTube</div>
+<div class="platform" onclick="switchPlatform('ig', this)">Instagram</div>
+<div class="platform" onclick="switchPlatform('tiktok', this)">TikTok</div>
+<div class="platform" onclick="switchPlatform('twitch', this)">Twitch</div>
 </div>
 
-<!-- CONTENT -->
-
-<a class="item">
-<img src="https://img.youtube.com/vi/JFtlf8RoPZY/maxresdefault.jpg">
-<div>
-<div>Trapped On An Island Until I Build a Boat</div>
-<div class="meta">YouTube • VIDEO</div>
-</div>
-</a>
-
-<a class="item">
-<img src="https://img.youtube.com/vi/AoN1K4c7VKE/maxresdefault.jpg">
-<div>
-<div>Survive 30 Days Stranded With Your EX</div>
-<div class="meta">YouTube • VIDEO</div>
-</div>
-</a>
-
-<a class="item">
-<img src="https://img.youtube.com/vi/5OLs1GWB4OA/maxresdefault.jpg">
-<div>
-<div>I Built 10 Schools Around the World</div>
-<div class="meta">YouTube • VIDEO</div>
-</div>
-</a>
-
-<a class="item">
-<img src="https://img.youtube.com/vi/Ah_uuTwGOYU/maxresdefault.jpg">
-<div>
-<div>World's Strongest Man vs Robot</div>
-<div class="meta">YouTube • VIDEO</div>
-</div>
-</a>
+<div id="content"></div>
 
 <a href="creator.html?id=mrbeast" class="cta">View Creator Hub →</a>
 
@@ -113,6 +83,76 @@ body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-con
 <a href="#">Saved</a>
 <a href="#">Profile</a>
 </div>
+
+<script>
+let platform = "youtube";
+let view = "feed";
+
+const youtubeData = [
+  {
+    title:"Trapped On An Island Until I Build a Boat",
+    img:"https://img.youtube.com/vi/JFtlf8RoPZY/maxresdefault.jpg"
+  },
+  {
+    title:"Survive 30 Days Stranded With Your EX",
+    img:"https://img.youtube.com/vi/AoN1K4c7VKE/maxresdefault.jpg"
+  },
+  {
+    title:"I Built 10 Schools Around the World",
+    img:"https://img.youtube.com/vi/5OLs1GWB4OA/maxresdefault.jpg"
+  },
+  {
+    title:"World's Strongest Man vs Robot",
+    img:"https://img.youtube.com/vi/Ah_uuTwGOYU/maxresdefault.jpg"
+  }
+];
+
+function render(){
+  const container = document.getElementById("content");
+  container.innerHTML = "";
+
+  let data = youtubeData;
+
+  data.forEach(item=>{
+    container.innerHTML += `
+      <div class="item">
+        <img src="${item.img}">
+        <div>
+          <div>
+            ${item.title}
+            ${view === "catch" ? '<span class="badge">NEW</span>' : ''}
+          </div>
+          <div class="meta">${platform.toUpperCase()} • VIDEO</div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function switchPlatform(p, el){
+  platform = p;
+  document.querySelectorAll(".platform").forEach(e=>e.classList.remove("active"));
+  el.classList.add("active");
+  render();
+}
+
+function switchView(v){
+  view = v;
+
+  document.getElementById("feedBtn").classList.remove("active");
+  document.getElementById("catchBtn").classList.remove("active");
+
+  if(v === "feed"){
+    document.getElementById("feedBtn").classList.add("active");
+  } else {
+    document.getElementById("catchBtn").classList.add("active");
+  }
+
+  render();
+}
+
+render();
+</script>
 
 </body>
 </html>
