@@ -77,11 +77,11 @@ body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-con
 </div>
 
 <div class="nav">
-<a href="#" class="active">Home</a>
-<a href="#">Following</a>
-<a href="#">Discover</a>
-<a href="#">Saved</a>
-<a href="#">Profile</a>
+<a href="index.html" class="active">Home</a>
+<a href="following.html">Following</a>
+<a href="discover.html">Discover</a>
+<a href="saved.html">Saved</a>
+<a href="profile.html">Profile</a>
 </div>
 
 <script>
@@ -111,9 +111,7 @@ function render(){
   const container = document.getElementById("content");
   container.innerHTML = "";
 
-  let data = youtubeData;
-
-  data.forEach(item=>{
+  youtubeData.forEach(item=>{
     container.innerHTML += `
       <div class="item">
         <img src="${item.img}">
