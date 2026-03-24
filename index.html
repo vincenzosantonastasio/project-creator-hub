@@ -6,30 +6,177 @@
 <title>Creator Hub</title>
 
 <style>
-* {margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
-body {background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-content:center;}
-.app {width:100%;max-width:420px;padding:20px;padding-bottom:80px;}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+}
 
-.header {display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
-.avatar {width:36px;height:36px;border-radius:50%;background:url('https://i.pravatar.cc/100') center/cover;}
+body {
+  background: linear-gradient(135deg, #f3eaff, #e6dcff);
+  display: flex;
+  justify-content: center;
+}
 
-.tabs {display:flex;background:#e6e1f2;border-radius:16px;padding:4px;margin-bottom:16px;}
-.tab {flex:1;text-align:center;padding:10px;border-radius:12px;cursor:pointer;font-weight:600;color:#777;}
-.tab.active {background:linear-gradient(135deg,#6c4eff,#7d5fff);color:white;}
+.app {
+  width: 100%;
+  max-width: 420px;
+  min-height: 100vh;
+  padding: 20px;
+  padding-bottom: 90px;
+}
 
-.card {background:white;border-radius:16px;padding:12px;margin-bottom:16px;}
-.creator {display:flex;align-items:center;margin-bottom:10px;}
-.creator img {width:36px;height:36px;border-radius:50%;margin-right:10px;}
-.creator-name {font-weight:600;}
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
 
-.platform-label {font-size:11px;color:#777;margin:6px 0 2px;}
-.thumb {width:100%;border-radius:10px;margin-bottom:6px;}
+.header h1 {
+  font-size: 22px;
+}
 
-.cta {margin-top:10px;text-align:center;padding:10px;border-radius:10px;background:#6c4eff;color:white;font-weight:600;text-decoration:none;display:block;}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: url('https://i.pravatar.cc/100') center/cover;
+}
 
-.nav {position:fixed;bottom:0;width:100%;max-width:420px;display:flex;background:white;padding:12px 0;border-top:1px solid #eee;}
-.nav-item {flex:1;text-align:center;font-size:12px;color:#777;text-decoration:none;}
-.nav-item.active {color:#6c4eff;font-weight:600;}
+/* TOGGLE */
+.toggle {
+  display: flex;
+  background: white;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 16px;
+}
+
+.toggle button {
+  flex: 1;
+  border: none;
+  padding: 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  background: none;
+  color: #777;
+}
+
+.toggle .active {
+  background: #6c4eff;
+  color: white;
+}
+
+/* CREATOR CARD */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.creator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.creator img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* PLATFORM TABS */
+.platforms {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.platform {
+  flex: 1;
+  text-align: center;
+  padding: 6px;
+  border-radius: 8px;
+  background: #eee;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.platform.active {
+  background: #6c4eff;
+  color: white;
+}
+
+/* CONTENT ITEM */
+.item {
+  display: flex;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.item img {
+  width: 110px;
+  height: 70px;
+  border-radius: 8px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.meta {
+  font-size: 11px;
+  color: #777;
+}
+
+.new {
+  background: #6c4eff;
+  color: white;
+  font-size: 9px;
+  padding: 2px 5px;
+  border-radius: 5px;
+  margin-left: 6px;
+}
+
+/* CTA */
+.cta {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #6c4eff;
+  text-decoration: none;
+  display: block;
+}
+
+/* NAV */
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  background: white;
+  border-top: 1px solid #eee;
+}
+
+.nav a {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 12px;
+  text-decoration: none;
+  color: #777;
+}
+
+.nav a.active {
+  color: #6c4eff;
+  font-weight: 600;
+}
 </style>
 </head>
 
@@ -37,149 +184,107 @@ body {background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-co
 
 <div class="app">
 
-<div class="header">
-<h1>Creator Hub</h1>
-<div class="avatar"></div>
-</div>
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Creator Hub</h1>
+    <div class="avatar"></div>
+  </div>
 
-<div class="tabs">
-<div class="tab active" id="feedTab">Feed</div>
-<div class="tab" id="catchupTab">Catch-Up</div>
-</div>
+  <!-- TOGGLE -->
+  <div class="toggle">
+    <button id="feedBtn" class="active" onclick="showFeed()">Feed</button>
+    <button id="catchBtn" onclick="showCatch()">Catch-Up</button>
+  </div>
 
-<!-- FEED -->
-<div id="feedContent">
+  <!-- CREATOR -->
+  <div class="card">
 
-<!-- MrBeast -->
-<div class="card">
-<div class="creator">
-<img src="https://i.pravatar.cc/150?img=3">
-<div class="creator-name">MrBeast</div>
-</div>
+    <div class="creator">
+      <img src="https://i.pravatar.cc/150?img=3">
+      <strong>MrBeast</strong>
+    </div>
 
-<div class="platform-label">YouTube</div>
-<img class="thumb" src="https://img.youtube.com/vi/0e3GPea1Tyg/maxresdefault.jpg">
+    <!-- PLATFORM TABS -->
+    <div class="platforms">
+      <div class="platform active" onclick="switchPlatform('youtube')">YouTube</div>
+      <div class="platform" onclick="switchPlatform('ig')">Instagram</div>
+      <div class="platform" onclick="switchPlatform('tiktok')">TikTok</div>
+      <div class="platform" onclick="switchPlatform('twitch')">Twitch</div>
+    </div>
 
-<div class="platform-label">TikTok</div>
-<img class="thumb" src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae">
+    <!-- CONTENT -->
+    <div id="content"></div>
 
-<div class="platform-label">Instagram</div>
-<img class="thumb" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c">
+    <a href="creator.html?id=mrbeast" class="cta">View Creator Hub →</a>
 
-<div class="platform-label">LIVE</div>
-<img class="thumb" src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28">
-
-<a href="creator.html" class="cta">View Creator Hub</a>
-</div>
-
-<!-- Nathan Berry -->
-<div class="card">
-<div class="creator">
-<img src="https://i.pravatar.cc/150?img=5">
-<div class="creator-name">Nathan Berry</div>
-</div>
-
-<div class="platform-label">YouTube</div>
-<img class="thumb" src="https://img.youtube.com/vi/9No-FiEInLA/maxresdefault.jpg">
-
-<div class="platform-label">TikTok</div>
-<img class="thumb" src="https://images.unsplash.com/photo-1556745757-8d76bdb6984b">
-
-<div class="platform-label">Instagram</div>
-<img class="thumb" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f">
-
-<a href="creator.html" class="cta">View Creator Hub</a>
-</div>
-
-<!-- Marques -->
-<div class="card">
-<div class="creator">
-<img src="https://i.pravatar.cc/150?img=8">
-<div class="creator-name">Marques Brownlee</div>
-</div>
-
-<div class="platform-label">YouTube</div>
-<img class="thumb" src="https://img.youtube.com/vi/lUoDwF4nZl4/maxresdefault.jpg">
-
-<div class="platform-label">Instagram</div>
-<img class="thumb" src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
-
-<div class="platform-label">TikTok</div>
-<img class="thumb" src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e">
-
-<a href="creator.html" class="cta">View Creator Hub</a>
-</div>
-
-<!-- Ali Abdaal -->
-<div class="card">
-<div class="creator">
-<img src="https://i.pravatar.cc/150?img=12">
-<div class="creator-name">Ali Abdaal</div>
-</div>
-
-<div class="platform-label">YouTube</div>
-<img class="thumb" src="https://img.youtube.com/vi/ZXsQAXx_ao0/maxresdefault.jpg">
-
-<div class="platform-label">Instagram</div>
-<img class="thumb" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085">
-
-<div class="platform-label">TikTok</div>
-<img class="thumb" src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2">
-
-<a href="creator.html" class="cta">View Creator Hub</a>
-</div>
+  </div>
 
 </div>
 
-<!-- CATCH-UP -->
-<div id="catchupContent" style="display:none;">
-
-<div class="card">
-<div class="creator">
-<img src="https://i.pravatar.cc/150?img=3">
-<div class="creator-name">MrBeast</div>
-</div>
-
-<div class="platform-label">YouTube • NEW</div>
-<img class="thumb" src="https://img.youtube.com/vi/0e3GPea1Tyg/maxresdefault.jpg">
-
-<div class="platform-label">TikTok • NEW</div>
-<img class="thumb" src="https://images.unsplash.com/photo-1607082350899-7e105aa886ae">
-
-<a href="creator.html" class="cta">View Creator Hub</a>
-</div>
-
-</div>
-
-</div>
-
+<!-- NAV -->
 <div class="nav">
-<a href="index.html" class="nav-item active">Home</a>
-<a href="following.html" class="nav-item">Following</a>
-<a href="discover.html" class="nav-item">Discover</a>
-<a href="saved.html" class="nav-item">Saved</a>
-<a href="profile.html" class="nav-item">Profile</a>
+  <a href="index.html" class="active">Home</a>
+  <a href="following.html">Following</a>
+  <a href="discover.html">Discover</a>
+  <a href="saved.html">Saved</a>
+  <a href="profile.html">Profile</a>
 </div>
 
 <script>
-const feedTab = document.getElementById("feedTab");
-const catchupTab = document.getElementById("catchupTab");
-const feedContent = document.getElementById("feedContent");
-const catchupContent = document.getElementById("catchupContent");
+let mode = "feed";
+let platform = "youtube";
 
-feedTab.onclick = () => {
-  feedTab.classList.add("active");
-  catchupTab.classList.remove("active");
-  feedContent.style.display = "block";
-  catchupContent.style.display = "none";
+const data = {
+  youtube: [
+    {title:"Trapped On An Island Until I Build a Boat", img:"IMG1"},
+    {title:"Survive 30 Days Stranded With Your EX", img:"IMG2"},
+    {title:"I Built 10 Schools Around the World", img:"IMG3"},
+    {title:"World's Strongest Man vs Robot", img:"IMG4"}
+  ],
+  ig: [{title:"IG Reel Example", img:"https://picsum.photos/200/300"}],
+  tiktok: [{title:"TikTok Example", img:"https://picsum.photos/201/300"}],
+  twitch: [{title:"Live Stream", img:"https://picsum.photos/202/300"}]
 };
 
-catchupTab.onclick = () => {
-  catchupTab.classList.add("active");
-  feedTab.classList.remove("active");
-  feedContent.style.display = "none";
-  catchupContent.style.display = "block";
-};
+function render() {
+  const container = document.getElementById("content");
+  container.innerHTML = "";
+
+  data[platform].forEach(item => {
+    container.innerHTML += `
+      <a href="content-detail.html" class="item">
+        <img src="${item.img}">
+        <div>
+          <div>${item.title} ${mode==="catch" ? '<span class="new">NEW</span>' : ''}</div>
+          <div class="meta">${platform.toUpperCase()}</div>
+        </div>
+      </a>
+    `;
+  });
+}
+
+function switchPlatform(p) {
+  platform = p;
+  document.querySelectorAll(".platform").forEach(el=>el.classList.remove("active"));
+  event.target.classList.add("active");
+  render();
+}
+
+function showFeed() {
+  mode = "feed";
+  document.getElementById("feedBtn").classList.add("active");
+  document.getElementById("catchBtn").classList.remove("active");
+  render();
+}
+
+function showCatch() {
+  mode = "catch";
+  document.getElementById("catchBtn").classList.add("active");
+  document.getElementById("feedBtn").classList.remove("active");
+  render();
+}
+
+render();
 </script>
 
 </body>
