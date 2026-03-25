@@ -6,213 +6,51 @@
 <title>Creator Hub</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif;}
+body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-content:center;}
+.app{width:100%;max-width:420px;min-height:100vh;padding:16px;padding-bottom:90px;}
 
-body {
-  background: linear-gradient(135deg, #f3eaff, #e6dcff);
-  display: flex;
-  justify-content: center;
-}
+.topbar{background:#6c4eff;color:white;text-align:center;padding:8px;border-radius:10px;margin-bottom:10px;font-size:13px;}
 
-.app {
-  width: 100%;
-  max-width: 420px;
-  min-height: 100vh;
-  padding: 16px;
-  padding-bottom: 90px;
-}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.header h1{font-size:20px;}
+.avatar{width:34px;height:34px;border-radius:50%;background:url('https://upload.wikimedia.org/wikipedia/commons/6/60/MrBeast_2023.jpg') center/cover;}
 
-.topbar {
-  background: #6c4eff;
-  color: white;
-  text-align: center;
-  padding: 8px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  font-size: 13px;
-}
+.tabs{display:flex;background:white;border-radius:12px;padding:4px;margin-bottom:12px;}
+.tab{flex:1;text-align:center;padding:8px;border-radius:10px;font-weight:600;color:#888;cursor:pointer;}
+.tab.active{background:#6c4eff;color:white;}
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
+.card{background:white;border-radius:16px;padding:12px;}
 
-.header h1 {
-  font-size: 20px;
-}
+.creator{display:flex;align-items:center;margin-bottom:10px;}
+.creator img{width:36px;height:36px;border-radius:50%;margin-right:10px;}
 
-.avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: url('https://i.pravatar.cc/100') center/cover;
-}
+.platform-tabs{display:flex;gap:6px;margin-bottom:10px;}
+.platform-tab{flex:1;text-align:center;padding:6px;font-size:12px;background:#eee;border-radius:8px;cursor:pointer;}
+.platform-tab.active{background:#6c4eff;color:white;}
 
-.tabs {
-  display: flex;
-  background: white;
-  border-radius: 12px;
-  padding: 4px;
-  margin-bottom: 12px;
-}
+.subtabs{display:flex;gap:6px;margin-bottom:10px;}
+.subtab{flex:1;text-align:center;padding:6px;font-size:12px;background:#ddd;border-radius:8px;cursor:pointer;}
+.subtab.active{background:#6c4eff;color:white;}
 
-.tab {
-  flex: 1;
-  text-align: center;
-  padding: 8px;
-  border-radius: 10px;
-  font-weight: 600;
-  color: #888;
-  cursor: pointer;
-}
+.stories{display:flex;gap:8px;overflow-x:auto;margin-bottom:10px;}
+.story{min-width:60px;height:60px;border-radius:50%;background-size:cover;border:2px solid #6c4eff;}
 
-.tab.active {
-  background: #6c4eff;
-  color: white;
-}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 12px;
-}
+.item{text-decoration:none;color:black;}
+.item img{width:100%;border-radius:10px;}
 
-.creator {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
+.title{font-size:12px;margin-top:4px;}
+.date{font-size:11px;color:#888;}
 
-.creator img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
+.cta{margin-top:10px;text-align:center;padding:10px;background:#6c4eff;color:white;border-radius:10px;font-weight:600;}
 
-.platform-tabs {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 10px;
-}
+.nav{position:fixed;bottom:0;width:100%;max-width:420px;display:flex;background:white;padding:12px 0;border-top:1px solid #eee;}
+.nav-item{flex:1;text-align:center;font-size:12px;text-decoration:none;color:#777;}
+.nav-item.active{color:#6c4eff;font-weight:bold;}
 
-.platform-tab {
-  flex: 1;
-  text-align: center;
-  padding: 6px;
-  font-size: 12px;
-  background: #eee;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.platform-tab.active {
-  background: #6c4eff;
-  color: white;
-}
-
-.subtabs {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-
-.subtab {
-  flex: 1;
-  text-align: center;
-  padding: 6px;
-  font-size: 12px;
-  background: #ddd;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.subtab.active {
-  background: #6c4eff;
-  color: white;
-}
-
-.stories {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  margin-bottom: 10px;
-}
-
-.story {
-  min-width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-size: cover;
-  border: 2px solid #6c4eff;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.item {
-  text-decoration: none;
-  color: black;
-}
-
-.item img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.title {
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.date {
-  font-size: 11px;
-  color: #888;
-}
-
-.cta {
-  margin-top: 10px;
-  text-align: center;
-  padding: 10px;
-  background: #6c4eff;
-  color: white;
-  border-radius: 10px;
-  font-weight: 600;
-}
-
-.nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  max-width: 420px;
-  display: flex;
-  background: white;
-  padding: 12px 0;
-  border-top: 1px solid #eee;
-}
-
-.nav-item {
-  flex: 1;
-  text-align: center;
-  font-size: 12px;
-  text-decoration: none;
-  color: #777;
-}
-
-.nav-item.active {
-  color: #6c4eff;
-  font-weight: bold;
-}
+.twitch-box{padding:30px;text-align:center;background:#eee;border-radius:10px;}
 </style>
 
 </head>
@@ -236,7 +74,7 @@ body {
 <div class="card">
 
 <div class="creator">
-<img src="https://i.pravatar.cc/150?img=3">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/60/MrBeast_2023.jpg">
 <div><strong>MrBeast</strong></div>
 </div>
 
@@ -253,14 +91,14 @@ body {
 <div class="subtab" onclick="switchYT('shorts')">Shorts</div>
 </div>
 
-<!-- STORIES -->
+<!-- STORIES (solo IG) -->
 <div id="stories" class="stories" style="display:none;">
-<div class="story" style="background-image:url('https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...')"></div>
-<div class="story" style="background-image:url('https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...')"></div>
-<div class="story" style="background-image:url('https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...')"></div>
+<div class="story" style="background-image:url('https://picsum.photos/100/100?1')"></div>
+<div class="story" style="background-image:url('https://picsum.photos/100/100?2')"></div>
+<div class="story" style="background-image:url('https://picsum.photos/100/100?3')"></div>
 </div>
 
-<!-- CONTENT -->
+<!-- YOUTUBE VIDEO -->
 <div id="content" class="grid">
 
 <a href="https://youtu.be/JFtlf8RoPZY" class="item">
@@ -275,19 +113,52 @@ body {
 <div class="date">Today</div>
 </a>
 
-<!-- SHORTS (aggiunti) -->
+<a href="https://youtu.be/5OLs1GWB4OA" class="item">
+<img src="https://img.youtube.com/vi/5OLs1GWB4OA/maxresdefault.jpg">
+<div class="title">I Built 10 Schools Around the World</div>
+<div class="date">3d ago</div>
+</a>
+
+<a href="https://youtu.be/Ah_uuTwGOYU" class="item">
+<img src="https://img.youtube.com/vi/Ah_uuTwGOYU/maxresdefault.jpg">
+<div class="title">World's Strongest Man Vs Robot</div>
+<div class="date">5d ago</div>
+</a>
+
+</div>
+
+<!-- YOUTUBE SHORTS -->
+<div id="shorts" class="grid" style="display:none;">
+
 <a href="https://youtube.com/shorts/jCE1Ol3PYDs" class="item">
-<img src="https://img.youtube.com/vi/jCE1Ol3PYDs/oar1.jpg">
+<img src="https://img.youtube.com/vi/jCE1Ol3PYDs/hqdefault.jpg">
 <div class="title">I held $1,000,000 in This Vault</div>
 <div class="date">2d ago</div>
 </a>
 
 <a href="https://youtube.com/shorts/IqL-ZunFfpk" class="item">
-<img src="https://img.youtube.com/vi/IqL-ZunFfpk/oar1.jpg">
+<img src="https://img.youtube.com/vi/IqL-ZunFfpk/hqdefault.jpg">
 <div class="title">Pop the Balloons, Win $10,000</div>
 <div class="date">3d ago</div>
 </a>
 
+<a href="https://youtube.com/shorts/8rW6WlZc6Z8" class="item">
+<img src="https://img.youtube.com/vi/8rW6WlZc6Z8/hqdefault.jpg">
+<div class="title">Fastest Way To Win Money</div>
+<div class="date">5d ago</div>
+</a>
+
+<a href="https://youtube.com/shorts/Yz8WlZc6Z9Q" class="item">
+<img src="https://img.youtube.com/vi/Yz8WlZc6Z9Q/hqdefault.jpg">
+<div class="title">Last To Leave Wins $100,000</div>
+<div class="date">6d ago</div>
+</a>
+
+</div>
+
+<!-- TWITCH -->
+<div id="twitchBox" class="twitch-box" style="display:none;">
+🔴 Creator is not LIVE
 </div>
 
 <div class="cta">View Creator Hub</div>
@@ -309,11 +180,20 @@ function switchPlatform(p){
 document.querySelectorAll('.platform-tab').forEach(e=>e.classList.remove('active'));
 event.target.classList.add('active');
 
-const stories = document.getElementById('stories');
-const yt = document.getElementById('yt-subtabs');
+document.getElementById('stories').style.display = (p==='ig') ? 'flex' : 'none';
+document.getElementById('yt-subtabs').style.display = (p==='yt') ? 'flex' : 'none';
+document.getElementById('twitchBox').style.display = (p==='tw') ? 'block' : 'none';
 
-stories.style.display = (p==='ig') ? 'flex' : 'none';
-yt.style.display = (p==='yt') ? 'flex' : 'none';
+document.getElementById('content').style.display = (p==='yt') ? 'grid' : 'none';
+document.getElementById('shorts').style.display = 'none';
+}
+
+function switchYT(type){
+document.getElementById('content').style.display = type==='video'?'grid':'none';
+document.getElementById('shorts').style.display = type==='shorts'?'grid':'none';
+
+document.querySelectorAll('.subtab').forEach(e=>e.classList.remove('active'));
+event.target.classList.add('active');
 }
 
 function switchMode(m){
