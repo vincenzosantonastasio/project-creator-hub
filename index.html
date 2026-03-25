@@ -6,194 +6,50 @@
 <title>Creator Hub</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif;}
+body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-content:center;}
+.app{width:100%;max-width:420px;min-height:100vh;padding:16px;padding-bottom:90px;}
 
-body {
-  background: linear-gradient(135deg, #f3eaff, #e6dcff);
-  display: flex;
-  justify-content: center;
-}
+.topbar{background:#6c4eff;color:white;text-align:center;padding:8px;border-radius:10px;margin-bottom:10px;font-size:13px;}
 
-.app {
-  width: 100%;
-  max-width: 420px;
-  min-height: 100vh;
-  padding: 16px;
-  padding-bottom: 90px;
-}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.header h1{font-size:20px;}
+.avatar{width:34px;height:34px;border-radius:50%;background:url('https://i.pravatar.cc/100') center/cover;}
 
-.topbar {
-  background: #6c4eff;
-  color: white;
-  text-align: center;
-  padding: 8px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  font-size: 13px;
-}
+.tabs{display:flex;background:white;border-radius:12px;padding:4px;margin-bottom:12px;}
+.tab{flex:1;text-align:center;padding:8px;border-radius:10px;font-weight:600;color:#888;cursor:pointer;}
+.tab.active{background:#6c4eff;color:white;}
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
+.card{background:white;border-radius:16px;padding:12px;}
 
-.header h1 {
-  font-size: 20px;
-}
+.creator{display:flex;align-items:center;margin-bottom:10px;}
+.creator img{width:36px;height:36px;border-radius:50%;margin-right:10px;}
 
-.avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: url('https://i.pravatar.cc/100') center/cover;
-}
+.platform-tabs{display:flex;gap:6px;margin-bottom:10px;}
+.platform-tab{flex:1;text-align:center;padding:6px;font-size:12px;background:#eee;border-radius:8px;cursor:pointer;}
+.platform-tab.active{background:#6c4eff;color:white;}
 
-.tabs {
-  display: flex;
-  background: white;
-  border-radius: 12px;
-  padding: 4px;
-  margin-bottom: 12px;
-}
+/* NEW SUBTABS */
+.subtabs{display:flex;gap:6px;margin-bottom:10px;}
+.subtab{flex:1;text-align:center;padding:6px;font-size:12px;background:#ddd;border-radius:8px;cursor:pointer;}
+.subtab.active{background:#6c4eff;color:white;}
 
-.tab {
-  flex: 1;
-  text-align: center;
-  padding: 8px;
-  border-radius: 10px;
-  font-weight: 600;
-  color: #888;
-  cursor: pointer;
-}
+.stories{display:flex;gap:8px;overflow-x:auto;margin-bottom:10px;}
+.story{min-width:60px;height:60px;border-radius:50%;background-size:cover;border:2px solid #6c4eff;}
 
-.tab.active {
-  background: #6c4eff;
-  color: white;
-}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.item{text-decoration:none;color:black;}
+.item img{width:100%;border-radius:10px;}
 
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 12px;
-}
+.title{font-size:12px;margin-top:4px;}
+.date{font-size:11px;color:#888;}
 
-.creator {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
+.cta{margin-top:10px;text-align:center;padding:10px;background:#6c4eff;color:white;border-radius:10px;font-weight:600;}
 
-.creator img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.platform-tabs {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-
-.platform-tab {
-  flex: 1;
-  text-align: center;
-  padding: 6px;
-  font-size: 12px;
-  background: #eee;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.platform-tab.active {
-  background: #6c4eff;
-  color: white;
-}
-
-.stories {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  margin-bottom: 10px;
-}
-
-.story {
-  min-width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-size: cover;
-  border: 2px solid #6c4eff;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.item {
-  text-decoration: none;
-  color: black;
-}
-
-.item img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.title {
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.date {
-  font-size: 11px;
-  color: #888;
-}
-
-.cta {
-  margin-top: 10px;
-  text-align: center;
-  padding: 10px;
-  background: #6c4eff;
-  color: white;
-  border-radius: 10px;
-  font-weight: 600;
-}
-
-.nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  max-width: 420px;
-  display: flex;
-  background: white;
-  padding: 12px 0;
-  border-top: 1px solid #eee;
-}
-
-.nav-item {
-  flex: 1;
-  text-align: center;
-  font-size: 12px;
-  text-decoration: none;
-  color: #777;
-}
-
-.nav-item.active {
-  color: #6c4eff;
-  font-weight: bold;
-}
+.nav{position:fixed;bottom:0;width:100%;max-width:420px;display:flex;background:white;padding:12px 0;border-top:1px solid #eee;}
+.nav-item{flex:1;text-align:center;font-size:12px;text-decoration:none;color:#777;}
+.nav-item.active{color:#6c4eff;font-weight:bold;}
 </style>
-
 </head>
 
 <body>
@@ -208,8 +64,8 @@ body {
 </div>
 
 <div class="tabs">
-<div class="tab active" onclick="switchMode('feed')">Feed</div>
-<div class="tab" onclick="switchMode('catchup')">Catch-Up</div>
+<div class="tab active" onclick="switchMode(event)">Feed</div>
+<div class="tab" onclick="switchMode(event)">Catch-Up</div>
 </div>
 
 <div class="card">
@@ -220,21 +76,21 @@ body {
 </div>
 
 <div class="platform-tabs">
-<div class="platform-tab active" onclick="switchPlatform('yt')">YouTube</div>
-<div class="platform-tab" onclick="switchPlatform('ig')">Instagram</div>
-<div class="platform-tab" onclick="switchPlatform('tt')">TikTok</div>
-<div class="platform-tab" onclick="switchPlatform('tw')">Twitch</div>
+<div class="platform-tab active">YouTube</div>
+<div class="platform-tab">Instagram</div>
+<div class="platform-tab">TikTok</div>
+<div class="platform-tab">Twitch</div>
 </div>
 
-<div id="stories" class="stories" style="display:none;">
-<div class="story" style="background-image:url('https://picsum.photos/100/100?1')"></div>
-<div class="story" style="background-image:url('https://picsum.photos/100/100?2')"></div>
-<div class="story" style="background-image:url('https://picsum.photos/100/100?3')"></div>
+<!-- YOUTUBE SUBTABS -->
+<div class="subtabs">
+<div class="subtab active" onclick="switchYT(event,'video')">Video</div>
+<div class="subtab" onclick="switchYT(event,'shorts')">Shorts</div>
 </div>
-
-<div id="content" class="grid">
 
 <!-- VIDEO -->
+<div id="yt-video" class="grid">
+
 <a href="https://youtu.be/JFtlf8RoPZY" class="item">
 <img src="https://img.youtube.com/vi/JFtlf8RoPZY/maxresdefault.jpg">
 <div class="title">Trapped On An Island Until I Build a Boat</div>
@@ -259,7 +115,11 @@ body {
 <div class="date">3 days ago</div>
 </a>
 
+</div>
+
 <!-- SHORTS -->
+<div id="yt-shorts" class="grid" style="display:none;">
+
 <a href="https://youtube.com/shorts/jCE1Ol3PYDs" class="item">
 <img src="https://img.youtube.com/vi/jCE1Ol3PYDs/oar1.jpg">
 <div class="title">I hild $1.000.000 in This Vault</div>
@@ -301,22 +161,17 @@ body {
 </div>
 
 <script>
-function switchPlatform(p){
-document.querySelectorAll('.platform-tab').forEach(e=>e.classList.remove('active'));
-event.target.classList.add('active');
+function switchYT(e,type){
+document.getElementById('yt-video').style.display = type==='video' ? 'grid':'none';
+document.getElementById('yt-shorts').style.display = type==='shorts' ? 'grid':'none';
 
-const stories = document.getElementById('stories');
-
-if(p==='ig' || p==='tt'){
-stories.style.display='flex';
-}else{
-stories.style.display='none';
-}
+document.querySelectorAll('.subtab').forEach(el=>el.classList.remove('active'));
+e.target.classList.add('active');
 }
 
-function switchMode(m){
-document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
-event.target.classList.add('active');
+function switchMode(e){
+document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
+e.target.classList.add('active');
 }
 </script>
 
