@@ -6,154 +6,299 @@
 <title>Creator Hub</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-content:center}
-.app{width:100%;max-width:420px;min-height:100vh;padding:20px;padding-bottom:90px}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+}
 
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.header h1{font-size:22px}
-.avatar{width:36px;height:36px;border-radius:50%;background:url('https://i.pravatar.cc/100') center/cover}
+body {
+  background: linear-gradient(135deg, #f3eaff, #e6dcff);
+  display: flex;
+  justify-content: center;
+}
 
-.toggle{display:flex;background:white;border-radius:12px;padding:4px;margin-bottom:16px}
-.toggle button{flex:1;border:none;padding:8px;border-radius:10px;font-weight:600;background:none;color:#777;cursor:pointer}
-.toggle .active{background:#6c4eff;color:white}
+.app {
+  width: 100%;
+  max-width: 420px;
+  min-height: 100vh;
+  padding: 16px;
+  padding-bottom: 90px;
+}
 
-.card{background:white;border-radius:16px;padding:12px;margin-bottom:16px}
-.creator{display:flex;align-items:center;margin-bottom:10px}
-.creator img{width:36px;height:36px;border-radius:50%;margin-right:10px}
+/* TOP BAR */
+.topbar {
+  background: #6c4eff;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
 
-.platforms{display:flex;gap:6px;margin-bottom:10px}
-.platform{flex:1;text-align:center;padding:6px;border-radius:8px;background:#eee;font-size:11px;cursor:pointer}
-.platform.active{background:#6c4eff;color:white}
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
 
-.item{display:flex;margin-bottom:10px;text-decoration:none;color:black}
-.item img{width:110px;height:70px;border-radius:8px;margin-right:10px;object-fit:cover}
-.meta{font-size:11px;color:#777}
+.header h1 {
+  font-size: 20px;
+}
 
-.badge{font-size:10px;background:#6c4eff;color:white;padding:2px 6px;border-radius:6px;margin-left:6px}
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: url('https://i.pravatar.cc/100') center/cover;
+}
 
-.cta{text-align:center;margin-top:10px;font-weight:600;color:#6c4eff;text-decoration:none;display:block}
+/* TABS FEED */
+.tabs {
+  display: flex;
+  background: white;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 12px;
+}
 
-.nav{position:fixed;bottom:0;width:100%;max-width:420px;display:flex;background:white;border-top:1px solid #eee}
-.nav a{flex:1;text-align:center;padding:12px 0;font-size:12px;text-decoration:none;color:#777}
-.nav a.active{color:#6c4eff;font-weight:600}
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #888;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #6c4eff;
+  color: white;
+}
+
+/* CREATOR CARD */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 12px;
+}
+
+/* CREATOR */
+.creator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.creator img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* PLATFORM TABS */
+.platform-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.platform-tab {
+  flex: 1;
+  text-align: center;
+  padding: 6px;
+  font-size: 12px;
+  background: #eee;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.platform-tab.active {
+  background: #6c4eff;
+  color: white;
+}
+
+/* STORIES */
+.stories {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 10px;
+}
+
+.story {
+  min-width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-size: cover;
+  border: 2px solid #6c4eff;
+}
+
+/* CONTENT GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.item {
+  text-decoration: none;
+  color: black;
+}
+
+.item img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* CTA */
+.cta {
+  margin-top: 10px;
+  text-align: center;
+  padding: 10px;
+  background: #6c4eff;
+  color: white;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* NAV */
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  background: white;
+  padding: 12px 0;
+  border-top: 1px solid #eee;
+}
+
+.nav-item {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  text-decoration: none;
+  color: #777;
+}
+
+.nav-item.active {
+  color: #6c4eff;
+  font-weight: bold;
+}
 </style>
+
 </head>
 
 <body>
 
 <div class="app">
 
+<div class="topbar">✨ Join the waitlist — be the first to try Creator Hub</div>
+
 <div class="header">
 <h1>Creator Hub</h1>
 <div class="avatar"></div>
 </div>
 
-<div class="toggle">
-<button id="feedBtn" class="active" onclick="switchView('feed')">Feed</button>
-<button id="catchBtn" onclick="switchView('catch')">Catch-Up</button>
+<!-- FEED / CATCHUP -->
+<div class="tabs">
+<div class="tab active" onclick="switchMode('feed')">Feed</div>
+<div class="tab" onclick="switchMode('catchup')">Catch-Up</div>
 </div>
 
+<!-- CARD -->
 <div class="card">
 
 <div class="creator">
 <img src="https://i.pravatar.cc/150?img=3">
-<strong>MrBeast</strong>
+<div><strong>MrBeast</strong></div>
 </div>
 
-<div class="platforms">
-<div class="platform active" onclick="switchPlatform('youtube', this)">YouTube</div>
-<div class="platform" onclick="switchPlatform('ig', this)">Instagram</div>
-<div class="platform" onclick="switchPlatform('tiktok', this)">TikTok</div>
-<div class="platform" onclick="switchPlatform('twitch', this)">Twitch</div>
+<!-- PLATFORM -->
+<div class="platform-tabs">
+<div class="platform-tab active" onclick="switchPlatform('yt')">YouTube</div>
+<div class="platform-tab" onclick="switchPlatform('ig')">Instagram</div>
+<div class="platform-tab" onclick="switchPlatform('tt')">TikTok</div>
+<div class="platform-tab" onclick="switchPlatform('tw')">Twitch</div>
 </div>
 
-<div id="content"></div>
+<!-- STORIES -->
+<div id="stories" class="stories" style="display:none;">
+<div class="story" style="background-image:url('https://picsum.photos/100/100?1')"></div>
+<div class="story" style="background-image:url('https://picsum.photos/100/100?2')"></div>
+<div class="story" style="background-image:url('https://picsum.photos/100/100?3')"></div>
+</div>
 
-<a href="creator.html?id=mrbeast" class="cta">View Creator Hub →</a>
+<!-- CONTENT -->
+<div id="content" class="grid">
+
+<a href="https://youtu.be/JFtlf8RoPZY" class="item">
+<img src="https://img.youtube.com/vi/JFtlf8RoPZY/maxresdefault.jpg">
+<div class="title">Trapped On An Island Until I Build a Boat</div>
+</a>
+
+<a href="https://youtu.be/AoN1K4c7VKE" class="item">
+<img src="https://img.youtube.com/vi/AoN1K4c7VKE/maxresdefault.jpg">
+<div class="title">Survive 30 Days Stranded With Your EX</div>
+</a>
+
+<a href="https://youtu.be/5OLs1GWB4OA" class="item">
+<img src="https://img.youtube.com/vi/5OLs1GWB4OA/maxresdefault.jpg">
+<div class="title">I Built 10 Schools Around the World</div>
+</a>
+
+<a href="https://youtu.be/Ah_uuTwGOYU" class="item">
+<img src="https://img.youtube.com/vi/Ah_uuTwGOYU/maxresdefault.jpg">
+<div class="title">World's Strongest Man Vs Robot</div>
+</a>
+
+</div>
+
+<div class="cta">View Creator Hub</div>
 
 </div>
 
 </div>
 
+<!-- NAV -->
 <div class="nav">
-<a href="index.html" class="active">Home</a>
-<a href="following.html">Following</a>
-<a href="discover.html">Discover</a>
-<a href="saved.html">Saved</a>
-<a href="profile.html">Profile</a>
+<a href="index.html" class="nav-item active">Home</a>
+<a href="following.html" class="nav-item">Following</a>
+<a href="discover.html" class="nav-item">Discover</a>
+<a href="saved.html" class="nav-item">Saved</a>
+<a href="profile.html" class="nav-item">Profile</a>
 </div>
 
 <script>
-let platform = "youtube";
-let view = "feed";
+function switchPlatform(p){
+document.querySelectorAll('.platform-tab').forEach(e=>e.classList.remove('active'));
+event.target.classList.add('active');
 
-const youtubeData = [
-  {
-    title:"Trapped On An Island Until I Build a Boat",
-    img:"https://img.youtube.com/vi/JFtlf8RoPZY/maxresdefault.jpg",
-    link:"https://youtu.be/JFtlf8RoPZY?is=niWMVcdNEXYA8mKw"
-  },
-  {
-    title:"Survive 30 Days Stranded With Your EX",
-    img:"https://img.youtube.com/vi/AoN1K4c7VKE/maxresdefault.jpg",
-    link:"https://youtu.be/AoN1K4c7VKE?is=H7nk2y-IgAvymfEr"
-  },
-  {
-    title:"I Built 10 Schools Around the World",
-    img:"https://img.youtube.com/vi/5OLs1GWB4OA/maxresdefault.jpg",
-    link:"https://youtu.be/5OLs1GWB4OA?is=I9mA0go_l7cqSvBl"
-  },
-  {
-    title:"World's Strongest Man vs Robot",
-    img:"https://img.youtube.com/vi/Ah_uuTwGOYU/maxresdefault.jpg",
-    link:"https://youtu.be/Ah_uuTwGOYU?is=0sYrsgfF3cv4WoQ3"
-  }
-];
+const stories = document.getElementById('stories');
 
-function render(){
-  const container = document.getElementById("content");
-  container.innerHTML = "";
-
-  youtubeData.forEach(item=>{
-    container.innerHTML += `
-      <a class="item" href="${item.link}" target="_blank">
-        <img src="${item.img}">
-        <div>
-          <div>
-            ${item.title}
-            ${view === "catch" ? '<span class="badge">NEW</span>' : ''}
-          </div>
-          <div class="meta">${platform.toUpperCase()} • VIDEO</div>
-        </div>
-      </a>
-    `;
-  });
+if(p==='ig' || p==='tt'){
+stories.style.display='flex';
+}else{
+stories.style.display='none';
+}
 }
 
-function switchPlatform(p, el){
-  platform = p;
-  document.querySelectorAll(".platform").forEach(e=>e.classList.remove("active"));
-  el.classList.add("active");
-  render();
+function switchMode(m){
+document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
+event.target.classList.add('active');
 }
-
-function switchView(v){
-  view = v;
-
-  document.getElementById("feedBtn").classList.remove("active");
-  document.getElementById("catchBtn").classList.remove("active");
-
-  if(v === "feed"){
-    document.getElementById("feedBtn").classList.add("active");
-  } else {
-    document.getElementById("catchBtn").classList.add("active");
-  }
-
-  render();
-}
-
-render();
 </script>
 
 </body>
