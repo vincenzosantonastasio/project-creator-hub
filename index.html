@@ -6,209 +6,298 @@
 <title>Creator Hub</title>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
 body {
-  margin:0;
-  font-family: Arial;
-  background:#0f0f0f;
-  color:white;
+  background: linear-gradient(135deg, #f3eaff, #e6dcff);
+  display: flex;
+  justify-content: center;
 }
 
-.container {
-  padding:16px;
+.app {
+  width: 100%;
+  max-width: 420px;
+  min-height: 100vh;
+  padding: 16px;
+  padding-bottom: 90px;
 }
 
-.tabs, .subtabs {
-  display:flex;
-  gap:10px;
-  margin-bottom:10px;
+/* TOP BAR */
+.topbar {
+  background: #6c4eff;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
 }
 
-button {
-  background:#1f1f1f;
-  color:white;
-  border:none;
-  padding:8px 12px;
-  border-radius:20px;
-  cursor:pointer;
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
-.active {
-  background:#ff0000;
+.header h1 {
+  font-size: 20px;
 }
 
-.grid {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: url('https://i.pravatar.cc/100') center/cover;
 }
 
+/* TABS FEED */
+.tabs {
+  display: flex;
+  background: white;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 12px;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #888;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #6c4eff;
+  color: white;
+}
+
+/* CREATOR CARD */
 .card {
-  background:#1a1a1a;
-  border-radius:12px;
-  overflow:hidden;
+  background: white;
+  border-radius: 16px;
+  padding: 12px;
 }
 
-.card img {
-  width:100%;
+/* CREATOR */
+.creator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.info {
-  padding:8px;
+.creator img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
-.date {
-  font-size:12px;
-  color:#aaa;
+/* PLATFORM TABS */
+.platform-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.platform-tab {
+  flex: 1;
+  text-align: center;
+  padding: 6px;
+  font-size: 12px;
+  background: #eee;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.platform-tab.active {
+  background: #6c4eff;
+  color: white;
 }
 
 /* STORIES */
 .stories {
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  margin-bottom:12px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 10px;
 }
 
 .story {
-  text-align:center;
+  min-width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-size: cover;
+  border: 2px solid #6c4eff;
 }
 
-.story img {
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  border:2px solid #ff0000;
+/* CONTENT GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
 
-/* Twitch */
-.twitch {
-  background:#1a1a1a;
-  padding:40px;
-  text-align:center;
-  border-radius:12px;
+.item {
+  text-decoration: none;
+  color: black;
+}
+
+.item img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* CTA */
+.cta {
+  margin-top: 10px;
+  text-align: center;
+  padding: 10px;
+  background: #6c4eff;
+  color: white;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* NAV */
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  background: white;
+  padding: 12px 0;
+  border-top: 1px solid #eee;
+}
+
+.nav-item {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  text-decoration: none;
+  color: #777;
+}
+
+.nav-item.active {
+  color: #6c4eff;
+  font-weight: bold;
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-<h2>MrBeast</h2>
+<div class="topbar">✨ Join the waitlist — be the first to try Creator Hub</div>
 
-<!-- FEED / CATCH-UP -->
+<div class="header">
+<h1>Creator Hub</h1>
+<div class="avatar"></div>
+</div>
+
+<!-- FEED / CATCHUP -->
 <div class="tabs">
-  <button class="active">Feed</button>
-  <button>Catch-Up</button>
+<div class="tab active" onclick="switchMode('feed')">Feed</div>
+<div class="tab" onclick="switchMode('catchup')">Catch-Up</div>
+</div>
+
+<!-- CARD -->
+<div class="card">
+
+<div class="creator">
+<img src="https://i.pravatar.cc/150?img=3">
+<div><strong>MrBeast</strong></div>
 </div>
 
 <!-- PLATFORM -->
-<div class="tabs">
-  <button onclick="showPlatform('youtube')" class="active">YouTube</button>
-  <button onclick="showPlatform('instagram')">Instagram</button>
-  <button onclick="showPlatform('twitch')">Twitch</button>
+<div class="platform-tabs">
+<div class="platform-tab active" onclick="switchPlatform('yt')">YouTube</div>
+<div class="platform-tab" onclick="switchPlatform('ig')">Instagram</div>
+<div class="platform-tab" onclick="switchPlatform('tt')">TikTok</div>
+<div class="platform-tab" onclick="switchPlatform('tw')">Twitch</div>
 </div>
-
-<!-- YOUTUBE -->
-<div id="youtube">
-
-<div class="subtabs">
-  <button onclick="showYT('video')" class="active">Video</button>
-  <button onclick="showYT('shorts')">Shorts</button>
-</div>
-
-<!-- VIDEO -->
-<div id="yt-video" class="grid">
-
-<a href="https://youtu.be/JFtlf8RoPZY?is=niWMVcdNEXYA8mKw" target="_blank" class="card">
-<img src="https://img.youtube.com/vi/JFtlf8RoPZY/maxresdefault.jpg">
-<div class="info"><p>Video 1</p><p class="date">Today</p></div>
-</a>
-
-<a href="https://youtu.be/AoN1K4c7VKE?is=H7nk2y-IgAvymfEr" target="_blank" class="card">
-<img src="https://img.youtube.com/vi/AoN1K4c7VKE/maxresdefault.jpg">
-<div class="info"><p>Video 2</p><p class="date">Today</p></div>
-</a>
-
-<a href="https://youtu.be/5OLs1GWB4OA?is=I9mA0go_l7cqSvBl" target="_blank" class="card">
-<img src="https://img.youtube.com/vi/5OLs1GWB4OA/maxresdefault.jpg">
-<div class="info"><p>Video 3</p><p class="date">Today</p></div>
-</a>
-
-<a href="https://youtu.be/Ah_uuTwGOYU?is=0sYrsgfF3cv4WoQ3" target="_blank" class="card">
-<img src="https://img.youtube.com/vi/Ah_uuTwGOYU/maxresdefault.jpg">
-<div class="info"><p>Video 4</p><p class="date">Today</p></div>
-</a>
-
-</div>
-
-<!-- SHORTS -->
-<div id="yt-shorts" class="grid" style="display:none;">
-
-<a href="https://youtube.com/shorts/jCE1Ol3PYDs?is=pcMqBw5WeysySWSV" target="_blank" class="card">
-<img src="https://img.youtube.com/vi/jCE1Ol3PYDs/oar1.jpg">
-<div class="info"><p>I held $1,000,000 in This Vault</p><p class="date">2d ago</p></div>
-</a>
-
-<a href="https://youtube.com/shorts/IqL-ZunFfpk?is=qoYy8NNKlgBX9tjL" target="_blank" class="card">
-<img src="https://img.youtube.com/vi/IqL-ZunFfpk/oar1.jpg">
-<div class="info"><p>Pop the Balloons, Win $10,000</p><p class="date">3d ago</p></div>
-</a>
-
-<a href="https://youtube.com/shorts/purAsH7pXTQ?is=xZZN1q3PG81EzNJ9" target="_blank" class="card">
-<img src="https://img.youtube.com/vi/purAsH7pXTQ/oar1.jpg">
-<div class="info"><p>5 Strangers Split $100,000</p><p class="date">4d ago</p></div>
-</a>
-
-<a href="https://youtube.com/shorts/IEuDUhGIJ5c?is=whsjgUDxJWrYv3-q" target="_blank" class="card">
-<img src="https://img.youtube.com/vi/IEuDUhGIJ5c/oar1.jpg">
-<div class="info"><p>My Chocolate Factory Blew Up</p><p class="date">5d ago</p></div>
-</a>
-
-</div>
-
-</div>
-
-<!-- INSTAGRAM -->
-<div id="instagram" style="display:none;">
 
 <!-- STORIES -->
-<div class="stories">
-
-<div class="story">
-<img src="https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJodHRwczovL3Njb250ZW50LmNkbmluc3RhZ3JhbS5jb20vdi90NTEuODI3ODctMTUvNTU1MDAzNzU2XzE4MDQzNjYyNjA4MzkyNjM5XzU3NTI2MzI5NTgzMzg4NjE5X24uanBnP3N0cD1kc3QtanBnX2UzNV9wNDgweDQ4MF90dDYmX25jX2NhdD0xMDYmaWdfY2FjaGVfa2V5PU1qY3hPVEl3TURVMk5qUXdOalEzTXpRNU1RJTNEJTNELjMtY2NiNy01JmNjYj03LTUmX25jX3NpZD01OGNkYWQmZWZnPWV5SjJaVzVqYjJSbFgzUmhaeUk2SW5od2FXUnpMakV4TnpCNE1qQTRNQzV6WkhJdVF6TWlmUSUzRCUzRCZfbmNfb2hjPVRkR1IzV05jMHg0UTdrTnZ3R2FIcXltJl9uY19vYz1BZG9YN29FZEJFek9vT0J5emdSeXlJcEpGT0ZkVllKT2lIeVE5U1pqTmhVaEhUYU5GWlZMWjdweFQtS2d0MHFkYmhraVVBRm9vVW1XWjBwZU1EeThnVkI5Jl9uY19hZD16LW0mX25jX2NpZD0wJl9uY196dD0yMyZfbmNfaHQ9c2NvbnRlbnQtaGVsMy0xLmNkbmluc3RhZ3JhbS5jb20mX25jX2dpZD1MNmNkQzRFVlZhSE1qWkZSblJUMm9BJl9uY19zcz03YTMyZSZvaD0wMF9BZnpnQjBTMVlucFBiMHFSZGwzZjVGaGhNYWpTLVYybEZTam43MUFvUnFxNkxBJm9lPTY5Qzk4ODU3IiwiZmlsZW5hbWUiOiJTYXZlSW5zdGEudG9fNTU1MDAzNzU2XzE4MDQzNjYyNjA4MzkyNjM5XzU3NTI2MzI5NTgzMzg4NjE5X24uanBnIiwibmJmIjoxNzc0NDM2MzYxLCJleHAiOjE3NzQ0Mzk5NjEsImlhdCI6MTc3NDQzNjM2MX0.9CHNJSf1SOy3jDb04vnxb5jiw7sFaUeqbIYsdQnboJM">
+<div id="stories" class="stories" style="display:none;">
+<div class="story" style="background-image:url('https://picsum.photos/100/100?1')"></div>
+<div class="story" style="background-image:url('https://picsum.photos/100/100?2')"></div>
+<div class="story" style="background-image:url('https://picsum.photos/100/100?3')"></div>
 </div>
 
-<div class="story">
-<img src="https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJodHRwczovL3Njb250ZW50LmNkbmluc3RhZ3JhbS5jb20vdi90NTEuNzE4NzgtMTUvNTYyMDgwOTEyXzE1MjMwMzIzMzg5MzI0MzFfODY1Njc1OTY3NTI1NDc5ODM4X24uanBnP3N0cD1kc3QtanBnX2UxNV90dDYmX25jX2NhdD0xMDMmaWdfY2FjaGVfa2V5PU16SXdOemc1T0RBeE5EVTVOVGsxTXpFeU5BJTNEJTNELjMtY2NiNy01JmNjYj03LTUmX25jX3NpZD01OGNkYWQmZWZnPWV5SjJaVzVqYjJSbFgzUmhaeUk2SW5od2FXUnpMalkwTUhneE1UTTJMbk5rY2k1RE15SjkmX25jX29oYz1mcjFKQ2lEbk1Vc1E3a052d0d5WF80RSZfbmNfb2M9QWRvcGtwUFRKQlRGREs2MUxDNnJVWFo0REZUbFM2a1Z0VTVmRWdGbVJpVi1QRFYxODNSRHkxWlJPV1JhQk1KWExLVmM3SnBUNWgxbjF4bzl4V01vR3NKQiZfbmNfYWQ9ei1tJl9uY19jaWQ9MCZfbmNfenQ9MjMmX25jX2h0PXNjb250ZW50LWhlbDMtMS5jZG5pbnN0YWdyYW0uY29tJl9uY19naWQ9VXhNQ2laMUxqVVRacmQwYUlwb0pUdyZfbmNfc3M9N2EzMmUmb2g9MDBfQWZ3MUNubF85bXRyTEZlOEh0WlN6dFdtUkpLTlNoT1pxVnZTdkUtOEZGMGRZZyZvZT02OUM5QTgwNyIsImZpbGVuYW1lIjoiU2F2ZUluc3RhLnRvXzU2MjA4MDkxMl8xNTIzMDMyMzM4OTMyNDMxXzg2NTY3NTk2NzUyNTQ3OTgzOF9uLmpwZyIsIm5iZiI6MTc3NDQ0ODY4MCwiZXhwIjoxNzc0NDUyMjgwLCJpYXQiOjE3NzQ0NDg2ODB9.xcyZxc1uzx__VTWD46-lTWBSr6Bi72TfNG6BFLmDva8">
+<!-- CONTENT -->
+<div id="content" class="grid">
+
+<a href="https://youtu.be/JFtlf8RoPZY" class="item">
+<img src="https://img.youtube.com/vi/JFtlf8RoPZY/maxresdefault.jpg">
+<div class="title">Trapped On An Island Until I Build a Boat</div>
+</a>
+
+<a href="https://youtu.be/AoN1K4c7VKE" class="item">
+<img src="https://img.youtube.com/vi/AoN1K4c7VKE/maxresdefault.jpg">
+<div class="title">Survive 30 Days Stranded With Your EX</div>
+</a>
+
+<a href="https://youtu.be/5OLs1GWB4OA" class="item">
+<img src="https://img.youtube.com/vi/5OLs1GWB4OA/maxresdefault.jpg">
+<div class="title">I Built 10 Schools Around the World</div>
+</a>
+
+<a href="https://youtu.be/Ah_uuTwGOYU" class="item">
+<img src="https://img.youtube.com/vi/Ah_uuTwGOYU/maxresdefault.jpg">
+<div class="title">World's Strongest Man Vs Robot</div>
+</a>
+
 </div>
 
-<div class="story">
-<img src="https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJodHRwczovL3Njb250ZW50LmNkbmluc3RhZ3JhbS5jb20vdi90NTEuODI3ODctMTUvNTY4NTg0Nzc0XzE4MDkyOTMyODYxODI3NjIxXzExMDU3MzMyMjA0MjQ3NTE3NjFfbi5qcGc_c3RwPWRzdC1qcGdfZTM1X3A0ODB4NDgwX3R0NiZfbmNfY2F0PTEwMSZpZ19jYWNoZV9rZXk9TWprek5ETTNPREk1Tmpnek9EWXhOekV6TUElM0QlM0QuMy1jY2I3LTUmY2NiPTctNSZfbmNfc2lkPTU4Y2RhZCZlZmc9ZXlKMlpXNWpiMlJsWDNSaFp5STZJbmh3YVdSekxqRXhOekI0TWpBNE1DNXpaSEl1UXpNaWZRJTNEJTNEJl9uY19vaGM9NWIyTlpzOGRZTndRN2tOdndFSnJxb0QmX25jX29jPUFkb0x1S2dRRi11RnZPMWMxb1dmNXdYXzJkUWUtZHVmcmhjNElUZkg1cGlubFlTaEc2V2RFcG5WaXdwZHM4NFI0dncwRDYwQUktTExOQTNEZ0RwQTZQMlcmX25jX2FkPXotbSZfbmNfY2lkPTAmX25jX3p0PTIzJl9uY19odD1zY29udGVudC1oZWwzLTEuY2RuaW5zdGFncmFtLmNvbSZfbmNfZ2lkPXZFcUNKS1M1MUNpQ0RTamlySkpXNHcmX25jX3NzPTdhMzJlJm9oPTAwX0FmeGFLNVVnWEowOFluaUNaSV9EQ3RGb3E1SEJoZVhFb1VYNTFpWE1BcXBQeUEmb2U9NjlDOUMwMkQiLCJmaWxlbmFtZSI6IlNhdmVJbnN0YS50b181Njg1ODQ3NzRfMTgwOTI5MzI4NjE4Mjc2MjFfMTEwNTczMzIyMDQyNDc1MTc2MV9uLmpwZyIsIm5iZiI6MTc3NDQ0ODkwOCwiZXhwIjoxNzc0NDUyNTA4LCJpYXQiOjE3NzQ0NDg5MDh9.pQV3gCjdh0fvomPFbTqF6As8PRar6mtrJY1kqUblQ8I">
-</div>
+<div class="cta">View Creator Hub</div>
 
 </div>
 
-<!-- TWITCH -->
-<div id="twitch" style="display:none;">
-<div class="twitch">
-<h3>🔴 Creator is not LIVE</h3>
-</div>
 </div>
 
+<!-- NAV -->
+<div class="nav">
+<a href="index.html" class="nav-item active">Home</a>
+<a href="following.html" class="nav-item">Following</a>
+<a href="discover.html" class="nav-item">Discover</a>
+<a href="saved.html" class="nav-item">Saved</a>
+<a href="profile.html" class="nav-item">Profile</a>
 </div>
 
 <script>
-function showPlatform(p){
-  document.getElementById('youtube').style.display='none';
-  document.getElementById('instagram').style.display='none';
-  document.getElementById('twitch').style.display='none';
-  document.getElementById(p).style.display='block';
+function switchPlatform(p){
+document.querySelectorAll('.platform-tab').forEach(e=>e.classList.remove('active'));
+event.target.classList.add('active');
+
+const stories = document.getElementById('stories');
+
+if(p==='ig' || p==='tt'){
+stories.style.display='flex';
+}else{
+stories.style.display='none';
+}
 }
 
-function showYT(t){
-  document.getElementById('yt-video').style.display = t==='video'?'grid':'none';
-  document.getElementById('yt-shorts').style.display = t==='shorts'?'grid':'none';
+function switchMode(m){
+document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));
+event.target.classList.add('active');
 }
 </script>
 
