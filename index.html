@@ -27,7 +27,6 @@ body {
   padding-bottom: 90px;
 }
 
-/* TOP BAR */
 .topbar {
   background: #6c4eff;
   color: white;
@@ -38,7 +37,6 @@ body {
   font-size: 13px;
 }
 
-/* HEADER */
 .header {
   display: flex;
   justify-content: space-between;
@@ -57,7 +55,6 @@ body {
   background: url('https://i.pravatar.cc/100') center/cover;
 }
 
-/* TABS FEED */
 .tabs {
   display: flex;
   background: white;
@@ -81,14 +78,12 @@ body {
   color: white;
 }
 
-/* CREATOR CARD */
 .card {
   background: white;
   border-radius: 16px;
   padding: 12px;
 }
 
-/* CREATOR */
 .creator {
   display: flex;
   align-items: center;
@@ -102,7 +97,6 @@ body {
   margin-right: 10px;
 }
 
-/* PLATFORM TABS */
 .platform-tabs {
   display: flex;
   gap: 6px;
@@ -124,7 +118,27 @@ body {
   color: white;
 }
 
-/* STORIES */
+.subtabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.subtab {
+  flex: 1;
+  text-align: center;
+  padding: 6px;
+  font-size: 12px;
+  background: #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.subtab.active {
+  background: #6c4eff;
+  color: white;
+}
+
 .stories {
   display: flex;
   gap: 8px;
@@ -140,7 +154,6 @@ body {
   border: 2px solid #6c4eff;
 }
 
-/* CONTENT GRID */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -162,7 +175,11 @@ body {
   margin-top: 4px;
 }
 
-/* CTA */
+.date {
+  font-size: 11px;
+  color: #888;
+}
+
 .cta {
   margin-top: 10px;
   text-align: center;
@@ -173,7 +190,6 @@ body {
   font-weight: 600;
 }
 
-/* NAV */
 .nav {
   position: fixed;
   bottom: 0;
@@ -212,13 +228,11 @@ body {
 <div class="avatar"></div>
 </div>
 
-<!-- FEED / CATCHUP -->
 <div class="tabs">
 <div class="tab active" onclick="switchMode('feed')">Feed</div>
 <div class="tab" onclick="switchMode('catchup')">Catch-Up</div>
 </div>
 
-<!-- CARD -->
 <div class="card">
 
 <div class="creator">
@@ -226,7 +240,6 @@ body {
 <div><strong>MrBeast</strong></div>
 </div>
 
-<!-- PLATFORM -->
 <div class="platform-tabs">
 <div class="platform-tab active" onclick="switchPlatform('yt')">YouTube</div>
 <div class="platform-tab" onclick="switchPlatform('ig')">Instagram</div>
@@ -234,11 +247,17 @@ body {
 <div class="platform-tab" onclick="switchPlatform('tw')">Twitch</div>
 </div>
 
+<!-- YOUTUBE SUB -->
+<div id="yt-subtabs" class="subtabs">
+<div class="subtab active" onclick="switchYT('video')">Video</div>
+<div class="subtab" onclick="switchYT('shorts')">Shorts</div>
+</div>
+
 <!-- STORIES -->
 <div id="stories" class="stories" style="display:none;">
-<div class="story" style="background-image:url('https://picsum.photos/100/100?1')"></div>
-<div class="story" style="background-image:url('https://picsum.photos/100/100?2')"></div>
-<div class="story" style="background-image:url('https://picsum.photos/100/100?3')"></div>
+<div class="story" style="background-image:url('https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...')"></div>
+<div class="story" style="background-image:url('https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...')"></div>
+<div class="story" style="background-image:url('https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...')"></div>
 </div>
 
 <!-- CONTENT -->
@@ -247,21 +266,26 @@ body {
 <a href="https://youtu.be/JFtlf8RoPZY" class="item">
 <img src="https://img.youtube.com/vi/JFtlf8RoPZY/maxresdefault.jpg">
 <div class="title">Trapped On An Island Until I Build a Boat</div>
+<div class="date">Today</div>
 </a>
 
 <a href="https://youtu.be/AoN1K4c7VKE" class="item">
 <img src="https://img.youtube.com/vi/AoN1K4c7VKE/maxresdefault.jpg">
 <div class="title">Survive 30 Days Stranded With Your EX</div>
+<div class="date">Today</div>
 </a>
 
-<a href="https://youtu.be/5OLs1GWB4OA" class="item">
-<img src="https://img.youtube.com/vi/5OLs1GWB4OA/maxresdefault.jpg">
-<div class="title">I Built 10 Schools Around the World</div>
+<!-- SHORTS (aggiunti) -->
+<a href="https://youtube.com/shorts/jCE1Ol3PYDs" class="item">
+<img src="https://img.youtube.com/vi/jCE1Ol3PYDs/oar1.jpg">
+<div class="title">I held $1,000,000 in This Vault</div>
+<div class="date">2d ago</div>
 </a>
 
-<a href="https://youtu.be/Ah_uuTwGOYU" class="item">
-<img src="https://img.youtube.com/vi/Ah_uuTwGOYU/maxresdefault.jpg">
-<div class="title">World's Strongest Man Vs Robot</div>
+<a href="https://youtube.com/shorts/IqL-ZunFfpk" class="item">
+<img src="https://img.youtube.com/vi/IqL-ZunFfpk/oar1.jpg">
+<div class="title">Pop the Balloons, Win $10,000</div>
+<div class="date">3d ago</div>
 </a>
 
 </div>
@@ -272,7 +296,6 @@ body {
 
 </div>
 
-<!-- NAV -->
 <div class="nav">
 <a href="index.html" class="nav-item active">Home</a>
 <a href="following.html" class="nav-item">Following</a>
@@ -287,12 +310,10 @@ document.querySelectorAll('.platform-tab').forEach(e=>e.classList.remove('active
 event.target.classList.add('active');
 
 const stories = document.getElementById('stories');
+const yt = document.getElementById('yt-subtabs');
 
-if(p==='ig' || p==='tt'){
-stories.style.display='flex';
-}else{
-stories.style.display='none';
-}
+stories.style.display = (p==='ig') ? 'flex' : 'none';
+yt.style.display = (p==='yt') ? 'flex' : 'none';
 }
 
 function switchMode(m){
