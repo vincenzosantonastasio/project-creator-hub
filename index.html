@@ -45,6 +45,10 @@ body{background:#f3eaff;display:flex;justify-content:center;}
 .nav{position:fixed;bottom:0;width:100%;max-width:420px;display:flex;background:white;padding:12px 0;border-top:1px solid #eee;}
 .nav-item{flex:1;text-align:center;font-size:12px;text-decoration:none;color:#777;}
 .nav-item.active{color:#6c4eff;font-weight:bold;}
+
+/* Instagram Stories */
+.stories{display:flex;gap:8px;overflow-x:auto;margin-bottom:10px;}
+.story{min-width:60px;height:60px;border-radius:50%;background:#ddd;}
 </style>
 </head>
 
@@ -78,12 +82,17 @@ body{background:#f3eaff;display:flex;justify-content:center;}
 <div class="platform-tab" onclick="switchPlatform(this,'tw')">Twitch</div>
 </div>
 
-<div class="subtabs">
+<div class="subtabs" id="yt-subtabs">
 <div class="subtab active" onclick="switchYT(this,'video')">Video</div>
 <div class="subtab" onclick="switchYT(this,'shorts')">Shorts</div>
 </div>
 
-<!-- VIDEO -->
+<div class="subtabs" id="ig-subtabs" style="display:none;">
+<div class="subtab active" onclick="switchIG(this,'posts')">Post</div>
+<div class="subtab" onclick="switchIG(this,'reels')">Reels</div>
+</div>
+
+<!-- YOUTUBE VIDEO -->
 <div id="yt-video" class="grid">
 <a href="#" class="item">
 <img src="https://img.youtube.com/vi/JFtlf8RoPZY/maxresdefault.jpg">
@@ -110,31 +119,32 @@ body{background:#f3eaff;display:flex;justify-content:center;}
 </a>
 </div>
 
-<!-- SHORTS -->
+<!-- YOUTUBE SHORTS -->
 <div id="yt-shorts" class="grid" style="display:none;">
 <a href="#" class="item">
 <img src="https://img.youtube.com/vi/jCE1Ol3PYDs/oar1.jpg">
 <div class="title">I hild $1.000.000 in This Vault</div>
 <div class="date">1h ago</div>
 </a>
+</div>
 
-<a href="#" class="item">
-<img src="https://img.youtube.com/vi/IqL-ZunFfpk/oar1.jpg">
-<div class="title">Pop the Baloons, Win $10,000</div>
-<div class="date">1d ago</div>
-</a>
+<!-- INSTAGRAM -->
+<div id="ig-container" style="display:none;">
 
-<a href="#" class="item">
-<img src="https://img.youtube.com/vi/purAsH7pXTQ/oar1.jpg">
-<div class="title">5 Strangers Split $100,000</div>
-<div class="date">4d ago</div>
-</a>
+<div id="ig-stories" class="stories">
+<div class="story"></div>
+<div class="story"></div>
+<div class="story"></div>
+</div>
 
-<a href="#" class="item">
-<img src="https://img.youtube.com/vi/IEuDUhGIJ5c/oar1.jpg">
-<div class="title">My Chocolate Factory Blew Up</div>
-<div class="date">6d ago</div>
-</a>
+<div id="ig-posts" class="grid">
+<div class="item"><div class="title">Post placeholder</div></div>
+</div>
+
+<div id="ig-reels" class="grid" style="display:none;">
+<div class="item"><div class="title">Reel placeholder</div></div>
+</div>
+
 </div>
 
 <div class="cta">View Creator Hub</div>
@@ -155,14 +165,41 @@ body{background:#f3eaff;display:flex;justify-content:center;}
 function switchPlatform(el,p){
 document.querySelectorAll('.platform-tab').forEach(e=>e.classList.remove('active'));
 el.classList.add('active');
+
+// reset views
+document.getElementById('yt-video').style.display='none';
+document.getElementById('yt-shorts').style.display='none';
+document.getElementById('ig-container').style.display='none';
+
+// subtabs
+document.getElementById('yt-subtabs').style.display='none';
+document.getElementById('ig-subtabs').style.display='none';
+
+if(p==='yt'){
+document.getElementById('yt-subtabs').style.display='flex';
+document.getElementById('yt-video').style.display='grid';
+}
+
+if(p==='ig'){
+document.getElementById('ig-subtabs').style.display='flex';
+document.getElementById('ig-container').style.display='block';
+}
 }
 
 function switchYT(el,type){
-document.querySelectorAll('.subtab').forEach(e=>e.classList.remove('active'));
+document.querySelectorAll('#yt-subtabs .subtab').forEach(e=>e.classList.remove('active'));
 el.classList.add('active');
 
 document.getElementById('yt-video').style.display = type==='video' ? 'grid':'none';
 document.getElementById('yt-shorts').style.display = type==='shorts' ? 'grid':'none';
+}
+
+function switchIG(el,type){
+document.querySelectorAll('#ig-subtabs .subtab').forEach(e=>e.classList.remove('active'));
+el.classList.add('active');
+
+document.getElementById('ig-posts').style.display = type==='posts' ? 'grid':'none';
+document.getElementById('ig-reels').style.display = type==='reels' ? 'grid':'none';
 }
 </script>
 
