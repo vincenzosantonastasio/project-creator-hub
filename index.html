@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creator Hub</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
+body{background:#f3eaff;display:flex;justify-content:center;}
+.app{width:100%;max-width:420px;padding:16px;padding-bottom:90px;}
+
+.topbar{background:#6c4eff;color:white;text-align:center;padding:8px;border-radius:10px;margin-bottom:10px;font-size:13px;}
+
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.header h1{font-size:20px;}
+.avatar{width:34px;height:34px;border-radius:50%;background:url('https://i.pravatar.cc/100') center/cover;}
+
+.tabs{display:flex;background:white;border-radius:12px;padding:4px;margin-bottom:12px;}
+.tab{flex:1;text-align:center;padding:8px;border-radius:10px;font-weight:600;color:#888;cursor:pointer;}
+.tab.active{background:#6c4eff;color:white;}
+
+.card{background:white;border-radius:16px;padding:12px;}
+
+.creator{display:flex;align-items:center;margin-bottom:10px;}
+.creator img{width:36px;height:36px;border-radius:50%;margin-right:10px;}
+
+.platform-tabs{display:flex;gap:6px;margin-bottom:10px;}
+.platform-tab{flex:1;text-align:center;padding:6px;font-size:12px;background:#eee;border-radius:8px;cursor:pointer;}
+.platform-tab.active{background:#6c4eff;color:white;}
+
+.subtabs{display:flex;gap:6px;margin-bottom:10px;}
+.subtab{flex:1;text-align:center;padding:6px;font-size:12px;background:#ddd;border-radius:8px;cursor:pointer;}
+.subtab.active{background:#6c4eff;color:white;}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.item{text-decoration:none;color:black;}
+.item img{width:100%;border-radius:10px;}
+
+.title{font-size:12px;margin-top:4px;}
+.date{font-size:11px;color:#888;}
+
+.cta{margin-top:10px;text-align:center;padding:10px;background:#6c4eff;color:white;border-radius:10px;font-weight:600;}
+
+.nav{position:fixed;bottom:0;width:100%;max-width:420px;display:flex;background:white;padding:12px 0;border-top:1px solid #eee;}
+.nav-item{flex:1;text-align:center;font-size:12px;text-decoration:none;color:#777;}
+.nav-item.active{color:#6c4eff;font-weight:bold;}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="topbar">✨ Join the waitlist — be the first to try Creator Hub</div>
+
+<div class="header">
+<h1>Creator Hub</h1>
+<div class="avatar"></div>
+</div>
+
+<div class="tabs">
+<div class="tab active" onclick="switchMode(this)">Feed</div>
+<div class="tab" onclick="switchMode(this)">Catch-Up</div>
+</div>
+
+<div class="card">
+
+<div class="creator">
+<img src="https://i.pravatar.cc/150?img=3">
+<div><strong>MrBeast</strong></div>
+</div>
+
+<div class="platform-tabs">
+<div class="platform-tab active" onclick="switchPlatform(this,'yt')">YouTube</div>
+<div class="platform-tab" onclick="switchPlatform(this,'ig')">Instagram</div>
+<div class="platform-tab" onclick="switchPlatform(this,'tt')">TikTok</div>
+<div class="platform-tab" onclick="switchPlatform(this,'tw')">Twitch</div>
+</div>
+
+<div class="subtabs">
+<div class="subtab active" onclick="switchYT(this,'video')">Video</div>
+<div class="subtab" onclick="switchYT(this,'shorts')">Shorts</div>
+</div>
+
+<!-- VIDEO -->
+<div id="yt-video" class="grid">
+<a href="#" class="item">
+<img src="https://img.youtube.com/vi/JFtlf8RoPZY/maxresdefault.jpg">
+<div class="title">Trapped On An Island Until I Build a Boat</div>
+<div class="date">Today</div>
+</a>
+
+<a href="#" class="item">
+<img src="https://img.youtube.com/vi/AoN1K4c7VKE/maxresdefault.jpg">
+<div class="title">Survive 30 Days Stranded With Your EX</div>
+<div class="date">Today</div>
+</a>
+
+<a href="#" class="item">
+<img src="https://img.youtube.com/vi/5OLs1GWB4OA/maxresdefault.jpg">
+<div class="title">I Built 10 Schools Around the World</div>
+<div class="date">2 days ago</div>
+</a>
+
+<a href="#" class="item">
+<img src="https://img.youtube.com/vi/Ah_uuTwGOYU/maxresdefault.jpg">
+<div class="title">World's Strongest Man Vs Robot</div>
+<div class="date">3 days ago</div>
+</a>
+</div>
+
+<!-- SHORTS -->
+<div id="yt-shorts" class="grid" style="display:none;">
+<a href="#" class="item">
+<img src="https://img.youtube.com/vi/jCE1Ol3PYDs/oar1.jpg">
+<div class="title">I hild $1.000.000 in This Vault</div>
+<div class="date">1h ago</div>
+</a>
+
+<a href="#" class="item">
+<img src="https://img.youtube.com/vi/IqL-ZunFfpk/oar1.jpg">
+<div class="title">Pop the Baloons, Win $10,000</div>
+<div class="date">1d ago</div>
+</a>
+
+<a href="#" class="item">
+<img src="https://img.youtube.com/vi/purAsH7pXTQ/oar1.jpg">
+<div class="title">5 Strangers Split $100,000</div>
+<div class="date">4d ago</div>
+</a>
+
+<a href="#" class="item">
+<img src="https://img.youtube.com/vi/IEuDUhGIJ5c/oar1.jpg">
+<div class="title">My Chocolate Factory Blew Up</div>
+<div class="date">6d ago</div>
+</a>
+</div>
+
+<div class="cta">View Creator Hub</div>
+
+</div>
+
+</div>
+
+<div class="nav">
+<a href="#" class="nav-item active">Home</a>
+<a href="#" class="nav-item">Following</a>
+<a href="#" class="nav-item">Discover</a>
+<a href="#" class="nav-item">Saved</a>
+<a href="#" class="nav-item">Profile</a>
+</div>
+
+<script>
+function switchPlatform(el,p){
+document.querySelectorAll('.platform-tab').forEach(e=>e.classList.remove('active'));
+el.classList.add('active');
+}
+
+function switchYT(el,type){
+document.querySelectorAll('.subtab').forEach(e=>e.classList.remove('active'));
+el.classList.add('active');
+
+document.getElementById('yt-video').style.display = type==='video' ? 'grid':'none';
+document.getElementById('yt-shorts').style.display = type==='shorts' ? 'grid':'none';
+}
+</script>
+
+</body>
+</html>
