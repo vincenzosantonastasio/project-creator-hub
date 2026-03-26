@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram</title>
+
+<style>
+body{margin:0;font-family:system-ui;background:white;padding:10px;}
+
+.subtabs{display:flex;gap:6px;margin-bottom:10px;}
+.subtab{flex:1;text-align:center;padding:8px;background:#ddd;border-radius:8px;cursor:pointer;font-size:12px;}
+.subtab.active{background:#6c4eff;color:white;}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.item{text-decoration:none;color:black;}
+.item img{width:100%;border-radius:10px;}
+
+.title{font-size:12px;margin-top:4px;}
+.date{font-size:11px;color:#888;}
+
+.stories{display:flex;gap:10px;overflow-x:auto;margin-bottom:10px;}
+.story{min-width:65px;text-align:center;text-decoration:none;color:black;}
+.story img{width:60px;height:60px;border-radius:50%;border:2px solid #6c4eff;}
+.story-title{font-size:10px;margin-top:4px;}
+</style>
+</head>
+
+<body>
+
+<!-- SUBTABS -->
+<div class="subtabs">
+<div class="subtab active" onclick="switchIG(event,'posts')">Posts</div>
+<div class="subtab" onclick="switchIG(event,'stories')">Stories</div>
+<div class="subtab" onclick="switchIG(event,'reels')">Reels</div>
+</div>
+
+<!-- POSTS -->
+<div id="posts" class="grid">
+
+<a href="https://www.instagram.com/p/DVl0EbaEQQu/?igsh=MTN5NXp1eGJqaGx3Yg==" target="_blank" class="item">
+<img src="https://postimg.cc/bsG3rwv8">
+<div class="title">Would You Spend 30 Days Trapped in the woods with your exes?</div>
+<div class="date">5 Hours ago</div>
+</a>
+
+<a href="https://www.instagram.com/p/DUL4jhOEWYZ/?igsh=MXQ5cTl1ejBjd3Rlaw==" target="_blank" class="item">
+<img src="https://i.postimg.cc/B63B9gHw/Post2-image.jpg">
+<div class="title">MrBeast Recently posted</div>
+<div class="date">2 Days ago</div>
+</a>
+
+<a href="https://www.instagram.com/p/DT6NJTxEVsc/?img_index=1&igsh=ZGZweDI4d25wNDRi" target="_blank" class="item">
+<img src="https://i.postimg.cc/tCrbsvgr/Post3.jpg">
+<div class="title">MrBeast help Spacex</div>
+<div class="date">4 Days ago</div>
+</a>
+
+<a href="https://www.instagram.com/p/DTyICuDgUgX/?igsh=b3g2dDAwbHhlZm12" target="_blank" class="item">
+<img src="https://i.postimg.cc/Gpw5tvvV/Post4.jpg">
+<div class="title">MrBeast Recently posted</div>
+<div class="date">6 Days ago</div>
+</a>
+
+</div>
+
+<!-- STORIES -->
+<div id="stories" class="stories" style="display:none;">
+
+<a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTI5NDQwOTY0ODExODcy?story_media_id=2719200566406473491_2278169415&igsh=MWp1a2EyaGN2dTFxeA==" target="_blank" class="story">
+<img src="https://i.postimg.cc/rpNfbYzQ/story1.jpg">
+<div class="story-title">Operation Chad</div>
+</a>
+
+<a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDE0NjIwMzUxOTE3NTM0?story_media_id=3207898014595953124_2278169415&igsh=bjhwb2c5cGVtam43" target="_blank" class="story">
+<img src="https://i.postimg.cc/W1XnwqyG/Story2.jpg">
+<div class="story-title">Basket Ball 🏀</div>
+</a>
+
+<a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDEyODY5OTY4ODA5NDY5?story_media_id=2934378296838617130_2278169415&igsh=NzhyNHUwdnVuemNz" target="_blank" class="story">
+<img src="https://i.postimg.cc/W1XnwqyG/Story2.jpg">
+<div class="story-title">Soccer ⚽</div>
+</a>
+
+</div>
+
+<!-- REELS -->
+<div id="reels" class="grid" style="display:none;">
+
+<a href="https://www.instagram.com/reel/DWB4EYiDkZh/?igsh=MWx6Y2N3cXJtbzc4eg==" target="_blank" class="item">
+<img src="https://i.postimg.cc/dtCR1p66/Reel1.jpg">
+<div class="title">How Many Balloons would you have...</div>
+<div class="date">2 Hours ago</div>
+</a>
+
+<a href="https://www.instagram.com/reel/DV08ZzXjq4H/?igsh=c2V6dzNhanZjbzhr" target="_blank" class="item">
+<img src="https://i.postimg.cc/T2znVJYQ/Reel2.jpg">
+<div class="title">Thanks for the Pillow</div>
+<div class="date">4 Hours ago</div>
+</a>
+
+<a href="https://www.instagram.com/reel/DVrHAJ9EXo5/?igsh=MTQ5bXlheTF1Z2NveQ==" target="_blank" class="item">
+<img src="https://i.postimg.cc/hGvJWXtw/Reel3.jpg">
+<div class="title">Winner Picks our</div>
+<div class="date">13 Hours ago</div>
+</a>
+
+<a href="https://www.instagram.com/reel/DUqnn90EVn2/?igsh=cXNtYXlsMDNlcjV0" target="_blank" class="item">
+<img src="https://i.postimg.cc/prX4qMZK/Reel4.jpg">
+<div class="title">Only the Best chocolate for my Valentin</div>
+<div class="date">21 Hours ago</div>
+</a>
+
+</div>
+
+<script>
+function switchIG(e,type){
+document.querySelectorAll('.subtab').forEach(el=>el.classList.remove('active'));
+e.target.classList.add('active');
+
+document.getElementById('posts').style.display='none';
+document.getElementById('stories').style.display='none';
+document.getElementById('reels').style.display='none';
+
+if(type==='posts') document.getElementById('posts').style.display='grid';
+if(type==='stories') document.getElementById('stories').style.display='flex';
+if(type==='reels') document.getElementById('reels').style.display='grid';
+}
+</script>
+
+</body>
+</html>
