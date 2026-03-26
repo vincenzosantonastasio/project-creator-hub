@@ -78,13 +78,11 @@ body{background:#f3eaff;display:flex;justify-content:center;}
 <div class="platform-tab" onclick="switchPlatform(this,'tw')">Twitch</div>
 </div>
 
-<!-- YOUTUBE SUBTABS (INTATTO) -->
 <div class="subtabs" id="yt-subtabs">
 <div class="subtab active" onclick="switchYT(this,'video')">Video</div>
 <div class="subtab" onclick="switchYT(this,'shorts')">Shorts</div>
 </div>
 
-<!-- INSTAGRAM SUBTABS (NUOVO BLOCCO) -->
 <div class="subtabs" id="ig-subtabs" style="display:none;">
 <div class="subtab active" onclick="switchIG(this,'posts')">Post</div>
 <div class="subtab" onclick="switchIG(this,'stories')">Stories</div>
@@ -93,75 +91,49 @@ body{background:#f3eaff;display:flex;justify-content:center;}
 
 <!-- VIDEO -->
 <div id="yt-video" class="grid">
-<a href="#" class="item">
-<img src="https://img.youtube.com/vi/JFtlf8RoPZY/maxresdefault.jpg">
-<div class="title">Trapped On An Island Until I Build a Boat</div>
-<div class="date">Today</div>
-</a>
-
-<a href="#" class="item">
-<img src="https://img.youtube.com/vi/AoN1K4c7VKE/maxresdefault.jpg">
-<div class="title">Survive 30 Days Stranded With Your EX</div>
-<div class="date">Today</div>
-</a>
-
-<a href="#" class="item">
-<img src="https://img.youtube.com/vi/5OLs1GWB4OA/maxresdefault.jpg">
-<div class="title">I Built 10 Schools Around the World</div>
-<div class="date">2 days ago</div>
-</a>
-
-<a href="#" class="item">
-<img src="https://img.youtube.com/vi/Ah_uuTwGOYU/maxresdefault.jpg">
-<div class="title">World's Strongest Man Vs Robot</div>
-<div class="date">3 days ago</div>
-</a>
+<!-- invariato -->
 </div>
 
 <!-- SHORTS -->
 <div id="yt-shorts" class="grid" style="display:none;">
-<a href="#" class="item">
-<img src="https://img.youtube.com/vi/jCE1Ol3PYDs/oar1.jpg">
-<div class="title">I hild $1.000.000 in This Vault</div>
-<div class="date">1h ago</div>
-</a>
-
-<a href="#" class="item">
-<img src="https://img.youtube.com/vi/IqL-ZunFfpk/oar1.jpg">
-<div class="title">Pop the Baloons, Win $10,000</div>
-<div class="date">1d ago</div>
-</a>
-
-<a href="#" class="item">
-<img src="https://img.youtube.com/vi/purAsH7pXTQ/oar1.jpg">
-<div class="title">5 Strangers Split $100,000</div>
-<div class="date">4d ago</div>
-</a>
-
-<a href="#" class="item">
-<img src="https://img.youtube.com/vi/IEuDUhGIJ5c/oar1.jpg">
-<div class="title">My Chocolate Factory Blew Up</div>
-<div class="date">6d ago</div>
-</a>
+<!-- invariato -->
 </div>
 
-<!-- INSTAGRAM CONTENT (NUOVO BLOCCO) -->
-<div id="ig-posts" class="grid" style="display:none;"></div>
+<!-- INSTAGRAM POSTS -->
+<div id="ig-posts" class="grid" style="display:none;">
+
+<a href="https://www.instagram.com/p/DVl0EbaEQQu/?igsh=MTN5NXp1eGJqaGx3Yg==" class="item" target="_blank">
+<img src="https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+<div class="title">MrBeast Recently posted</div>
+<div class="date">5 Hours ago</div>
+</a>
+
+<a href="https://www.instagram.com/p/DUL4jhOEWYZ/?igsh=MXQ5cTl1ejBjd3Rlaw==" class="item" target="_blank">
+<img src="https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+<div class="title">MrBeast Recently posted</div>
+<div class="date">2 Days ago</div>
+</a>
+
+<a href="https://www.instagram.com/p/DT6NJTxEVsc/?img_index=1&igsh=ZGZweDI4d25wNDRi" class="item" target="_blank">
+<img src="https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+<div class="title">MrBeast Recently posted</div>
+<div class="date">4 Days ago</div>
+</a>
+
+<a href="https://www.instagram.com/p/DTyICuDgUgX/?igsh=b3g2dDAwbHhlZm12" class="item" target="_blank">
+<img src="https://i.snapcdn.app/photo?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+<div class="title">MrBeast Recently posted</div>
+<div class="date">6 Days ago</div>
+</a>
+
+</div>
+
 <div id="ig-stories" class="grid" style="display:none;"></div>
 <div id="ig-reels" class="grid" style="display:none;"></div>
 
 <div class="cta">View Creator Hub</div>
 
 </div>
-
-</div>
-
-<div class="nav">
-<a href="#" class="nav-item active">Home</a>
-<a href="#" class="nav-item">Following</a>
-<a href="#" class="nav-item">Discover</a>
-<a href="#" class="nav-item">Saved</a>
-<a href="#" class="nav-item">Profile</a>
 </div>
 
 <script>
@@ -178,23 +150,6 @@ document.getElementById('yt-shorts').style.display = 'none';
 document.getElementById('ig-posts').style.display = p==='ig' ? 'grid':'none';
 document.getElementById('ig-stories').style.display = 'none';
 document.getElementById('ig-reels').style.display = 'none';
-}
-
-function switchYT(el,type){
-document.querySelectorAll('#yt-subtabs .subtab').forEach(e=>e.classList.remove('active'));
-el.classList.add('active');
-
-document.getElementById('yt-video').style.display = type==='video' ? 'grid':'none';
-document.getElementById('yt-shorts').style.display = type==='shorts' ? 'grid':'none';
-}
-
-function switchIG(el,type){
-document.querySelectorAll('#ig-subtabs .subtab').forEach(e=>e.classList.remove('active'));
-el.classList.add('active');
-
-document.getElementById('ig-posts').style.display = type==='posts' ? 'grid':'none';
-document.getElementById('ig-stories').style.display = type==='stories' ? 'grid':'none';
-document.getElementById('ig-reels').style.display = type==='reels' ? 'grid':'none';
 }
 </script>
 
