@@ -78,7 +78,7 @@ body{background:#f3eaff;display:flex;justify-content:center;}
 <div class="platform-tab" onclick="switchPlatform(this,'tw')">Twitch</div>
 </div>
 
-<div class="subtabs">
+<div class="subtabs" id="yt-subtabs">
 <div class="subtab active" onclick="switchYT(this,'video')">Video</div>
 <div class="subtab" onclick="switchYT(this,'shorts')">Shorts</div>
 </div>
@@ -137,9 +137,8 @@ body{background:#f3eaff;display:flex;justify-content:center;}
 </a>
 </div>
 
-<!-- INSTAGRAM POSTS (NUOVO BLOCCO - APPEND ONLY) -->
-<div id="ig-posts" class="grid" style="display:none;">
-</div>
+<!-- INSTAGRAM -->
+<div id="ig-posts" class="grid" style="display:none;"></div>
 
 <div class="cta">View Creator Hub</div>
 
@@ -159,6 +158,12 @@ body{background:#f3eaff;display:flex;justify-content:center;}
 function switchPlatform(el,p){
 document.querySelectorAll('.platform-tab').forEach(e=>e.classList.remove('active'));
 el.classList.add('active');
+
+document.getElementById('yt-video').style.display = p==='yt' ? 'grid':'none';
+document.getElementById('yt-shorts').style.display = p==='yt' ? 'grid':'none';
+document.getElementById('ig-posts').style.display = p==='ig' ? 'grid':'none';
+
+document.getElementById('yt-subtabs').style.display = p==='yt' ? 'flex':'none';
 }
 
 function switchYT(el,type){
