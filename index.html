@@ -30,7 +30,15 @@ body{background:#f3eaff;display:flex;justify-content:center;}
 .platform-tab.active{background:#6c4eff;color:white;}
 
 .subtabs{display:flex;gap:6px;margin-bottom:10px;}
-.subtab{flex:1;text-align:center;padding:6px;font-size:12px;background:#ddd;border-radius:8px;cursor:pointer;}
+.subtab{
+flex:1;
+text-align:center;
+padding:5px;
+font-size:11px;
+background:#ddd;
+border-radius:8px;
+cursor:pointer;
+}
 .subtab.active{background:#6c4eff;color:white;}
 
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
@@ -89,6 +97,7 @@ body{background:#f3eaff;display:flex;justify-content:center;}
 
 <div class="subtabs" id="ig-subtabs" style="display:none;">
 <div class="subtab active" onclick="switchIG(this,'posts')">Post</div>
+<div class="subtab" onclick="switchIG(this,'stories')">Stories</div>
 <div class="subtab" onclick="switchIG(this,'reels')">Reels</div>
 </div>
 
@@ -131,14 +140,14 @@ body{background:#f3eaff;display:flex;justify-content:center;}
 <!-- INSTAGRAM -->
 <div id="ig-container" style="display:none;">
 
-<div id="ig-stories" class="stories">
-<div class="story"></div>
-<div class="story"></div>
-<div class="story"></div>
-</div>
-
 <div id="ig-posts" class="grid">
 <div class="item"><div class="title">Post placeholder</div></div>
+</div>
+
+<div id="ig-stories" class="stories" style="display:none;">
+<div class="story"></div>
+<div class="story"></div>
+<div class="story"></div>
 </div>
 
 <div id="ig-reels" class="grid" style="display:none;">
@@ -166,12 +175,10 @@ function switchPlatform(el,p){
 document.querySelectorAll('.platform-tab').forEach(e=>e.classList.remove('active'));
 el.classList.add('active');
 
-// reset views
 document.getElementById('yt-video').style.display='none';
 document.getElementById('yt-shorts').style.display='none';
 document.getElementById('ig-container').style.display='none';
 
-// subtabs
 document.getElementById('yt-subtabs').style.display='none';
 document.getElementById('ig-subtabs').style.display='none';
 
@@ -183,6 +190,7 @@ document.getElementById('yt-video').style.display='grid';
 if(p==='ig'){
 document.getElementById('ig-subtabs').style.display='flex';
 document.getElementById('ig-container').style.display='block';
+switchIG(document.querySelector('#ig-subtabs .subtab.active'),'posts');
 }
 }
 
@@ -198,8 +206,13 @@ function switchIG(el,type){
 document.querySelectorAll('#ig-subtabs .subtab').forEach(e=>e.classList.remove('active'));
 el.classList.add('active');
 
-document.getElementById('ig-posts').style.display = type==='posts' ? 'grid':'none';
-document.getElementById('ig-reels').style.display = type==='reels' ? 'grid':'none';
+document.getElementById('ig-posts').style.display='none';
+document.getElementById('ig-stories').style.display='none';
+document.getElementById('ig-reels').style.display='none';
+
+if(type==='posts') document.getElementById('ig-posts').style.display='grid';
+if(type==='stories') document.getElementById('ig-stories').style.display='flex';
+if(type==='reels') document.getElementById('ig-reels').style.display='grid';
 }
 </script>
 
