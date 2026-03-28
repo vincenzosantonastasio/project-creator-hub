@@ -29,7 +29,6 @@ body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-con
 .platform-tab{flex:1;text-align:center;padding:6px;font-size:12px;background:#eee;border-radius:8px;cursor:pointer;}
 .platform-tab.active{background:#6c4eff;color:white;}
 
-/* NEW SUBTABS */
 .subtabs{display:flex;gap:6px;margin-bottom:10px;}
 .subtab{flex:1;text-align:center;padding:6px;font-size:12px;background:#ddd;border-radius:8px;cursor:pointer;}
 .subtab.active{background:#6c4eff;color:white;}
@@ -50,7 +49,6 @@ body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-con
 .nav-item{flex:1;text-align:center;font-size:12px;text-decoration:none;color:#777;}
 .nav-item.active{color:#6c4eff;font-weight:bold;}
 
-/* FIX CLICK INSTAGRAM (APPEND-ONLY) */
 .platform-tab{
 text-decoration:none;
 display:flex;
@@ -86,17 +84,15 @@ justify-content:center;
 <div class="platform-tabs">
 <div class="platform-tab active">YouTube</div>
 <a href="instagram.html" class="platform-tab">Instagram</a>
-<div class="platform-tab">TikTok</div>
-<div class="platform-tab">Twitch</div>
+<a href="tiktok.html" class="platform-tab">TikTok</a>
+<a href="twitch.html" class="platform-tab">Twitch</a>
 </div>
 
-<!-- YOUTUBE SUBTABS -->
 <div class="subtabs">
 <div class="subtab active" onclick="switchYT(event,'video')">Video</div>
 <div class="subtab" onclick="switchYT(event,'shorts')">Shorts</div>
 </div>
 
-<!-- VIDEO -->
 <div id="yt-video" class="grid">
 
 <a href="https://youtu.be/JFtlf8RoPZY" class="item">
@@ -125,7 +121,6 @@ justify-content:center;
 
 </div>
 
-<!-- SHORTS -->
 <div id="yt-shorts" class="grid" style="display:none;">
 
 <a href="https://youtube.com/shorts/jCE1Ol3PYDs" class="item">
