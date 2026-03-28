@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creator Hub</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif;}
+body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-content:center;}
+.app{width:100%;max-width:420px;min-height:100vh;padding:16px;padding-bottom:90px;}
+
+.topbar{background:#6c4eff;color:white;text-align:center;padding:8px;border-radius:10px;margin-bottom:10px;font-size:13px;}
+
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.header h1{font-size:20px;}
+.avatar{width:34px;height:34px;border-radius:50%;background:url('https://i.pravatar.cc/100') center/cover;}
+
+.tabs{display:flex;background:white;border-radius:12px;padding:4px;margin-bottom:12px;}
+.tab{flex:1;text-align:center;padding:8px;border-radius:10px;font-weight:600;color:#888;}
+.tab.active{background:#6c4eff;color:white;}
+
+.card{background:white;border-radius:16px;padding:12px;}
+
+.creator{display:flex;align-items:center;margin-bottom:10px;}
+.creator img{width:36px;height:36px;border-radius:50%;margin-right:10px;}
+
+.platform-tabs{display:flex;gap:6px;margin-bottom:10px;}
+.platform-tab{flex:1;text-align:center;padding:6px;font-size:12px;background:#eee;border-radius:8px;text-decoration:none;color:black;}
+.platform-tab.active{background:#6c4eff;color:white;}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.item{text-decoration:none;color:black;}
+.item img{width:100%;border-radius:10px;}
+
+.title{font-size:12px;margin-top:4px;}
+.date{font-size:11px;color:#888;}
+
+.cta{margin-top:10px;text-align:center;padding:10px;background:#6c4eff;color:white;border-radius:10px;font-weight:600;}
+
+.nav{position:fixed;bottom:0;width:100%;max-width:420px;display:flex;background:white;padding:12px 0;border-top:1px solid #eee;}
+.nav-item{flex:1;text-align:center;font-size:12px;text-decoration:none;color:#777;}
+.nav-item.active{color:#6c4eff;font-weight:bold;}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="topbar">✨ Join the waitlist — be the first to try Creator Hub</div>
+
+<div class="header">
+<h1>Creator Hub</h1>
+<div class="avatar"></div>
+</div>
+
+<div class="tabs">
+<div class="tab active">Feed</div>
+<div class="tab">Catch-Up</div>
+</div>
+
+<div class="card">
+
+<div class="creator">
+<img src="https://i.pravatar.cc/150?img=3">
+<div><strong>MrBeast</strong></div>
+</div>
+
+<div class="platform-tabs">
+<a href="index.html" class="platform-tab">YouTube</a>
+<a href="instagram.html" class="platform-tab">Instagram</a>
+<a href="tiktok.html" class="platform-tab active">TikTok</a>
+<a href="twitch.html" class="platform-tab">Twitch</a>
+</div>
+
+<div class="grid">
+
+<a href="https://vm.tiktok.com/ZNRQscSmj/" class="item">
+<img src="https://i.postimg.cc/7PRbptDt/o-Qa4j-H6HTQqh-If-IGOCc-Lzy-WIQf-GVl-KA7VAepw-V-tplv-tiktokx-origin.jpg">
+<div class="title">Love making someone’s day</div>
+<div class="date">2 Days ago</div>
+</a>
+
+<a href="https://vm.tiktok.com/ZNRQGxoNT/" class="item">
+<img src="https://i.postimg.cc/6Q7BLt48/o-Qqq-Gf-ATEEAHok-ADEQp-Ew-Da-Cs-IK4SYAfg-AAFCR-tplv-tiktokx-origin.jpg">
+<div class="title">Love making someone’s day 🚀</div>
+<div class="date">5 Days ago</div>
+</a>
+
+<a href="https://vm.tiktok.com/ZNRQGxFaA/" class="item">
+<img src="https://i.postimg.cc/mkpdwfHB/og-Mhi-Jf-BKE0d-II0CGs-Nw-Cxyd-LB2Adim-Ai-AAx-IA-tplv-tiktokx-origin.jpg">
+<div class="title">Bro I swear we look the Same</div>
+<div class="date">12 Days ago</div>
+</a>
+
+<a href="https://vm.tiktok.com/ZNRQGrWhL/" class="item">
+<img src="https://i.postimg.cc/2S70cZv4/o-Un-AWLSNo-GMITYiff-AAz-Awf-QQe-Vn0Pg-I6ng-Af-A-tplv-tiktokx-origin.jpg">
+<div class="title">This Is why you always pick up a call 😭</div>
+<div class="date">16 Days ago</div>
+</a>
+
+</div>
+
+<div class="cta">View Creator Hub</div>
+
+</div>
+
+</div>
+
+<div class="nav">
+<a href="index.html" class="nav-item active">Home</a>
+<a href="following.html" class="nav-item">Following</a>
+<a href="discover.html" class="nav-item">Discover</a>
+<a href="saved.html" class="nav-item">Saved</a>
+<a href="profile.html" class="nav-item">Profile</a>
+</div>
+
+</body>
+</html>
