@@ -74,7 +74,10 @@ border-bottom:1px solid #eee;
 width:120px;
 height:68px;
 object-fit:cover;
+object-position:center;
 border-radius:10px;
+background:#eee;
+display:block;
 }
 
 .item-row.story img.thumb{
@@ -276,6 +279,17 @@ Twitch • 2 missed
 <a class="nav-item" href="#">Saved</a>
 <a class="nav-item" href="#">Profile</a>
 </div>
+
+<!-- FIX DEFINITIVO IMMAGINI -->
+<script>
+document.querySelectorAll('img.thumb').forEach(img => {
+
+  img.addEventListener('error', function(){
+    this.src = "https://i.postimg.cc/fb1Pzzqq/time.png";
+  });
+
+});
+</script>
 
 </body>
 </html>
