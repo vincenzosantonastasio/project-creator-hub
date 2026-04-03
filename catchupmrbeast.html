@@ -14,10 +14,15 @@ body{background:linear-gradient(135deg,#f3eaff,#e6dcff);display:flex;justify-con
 
 .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
 .header h1{font-size:20px;}
-.avatar{width:34px;height:34px;border-radius:50%;background:url('https://i.pravatar.cc/100') center/cover;}
+.avatar{
+width:34px;
+height:34px;
+border-radius:50%;
+background:url('https://i.postimg.cc/T10D5Fw5/Mrbeast-avatar.jpg') center/cover;
+}
 
 .tabs{display:flex;background:white;border-radius:12px;padding:4px;margin-bottom:12px;}
-.tab{flex:1;text-align:center;padding:8px;border-radius:10px;font-weight:600;color:#888;}
+.tab{flex:1;text-align:center;padding:8px;border-radius:10px;font-weight:600;color:#888;text-decoration:none;}
 .tab.active{background:#6c4eff;color:white;}
 
 .card{background:white;border-radius:16px;padding:12px;}
@@ -30,16 +35,15 @@ display:flex;
 align-items:center;
 gap:10px;
 background:#f2edff;
-padding:10px;
+padding:12px;
 border-radius:12px;
-font-size:13px;
-margin-bottom:10px;
+font-size:14px;
+margin-bottom:12px;
 }
 
 .catch-header img{
-width:18px;
-height:18px;
-opacity:0.9;
+width:22px;
+height:22px;
 }
 
 .section{margin-top:12px;}
@@ -68,7 +72,16 @@ border-bottom:1px solid #eee;
 
 .item-row img.thumb{
 width:90px;
+height:60px;
+object-fit:cover;
 border-radius:8px;
+}
+
+/* Story più piccola */
+.item-row.story img.thumb{
+width:55px;
+height:55px;
+border-radius:50%;
 }
 
 .content{
@@ -85,9 +98,29 @@ font-size:11px;
 color:#888;
 }
 
-.nav{position:fixed;bottom:0;width:100%;max-width:420px;display:flex;background:white;padding:12px 0;border-top:1px solid #eee;}
-.nav-item{flex:1;text-align:center;font-size:12px;text-decoration:none;color:#777;}
-.nav-item.active{color:#6c4eff;font-weight:bold;}
+.nav{
+position:fixed;
+bottom:0;
+width:100%;
+max-width:420px;
+display:flex;
+background:white;
+padding:12px 0;
+border-top:1px solid #eee;
+}
+
+.nav-item{
+flex:1;
+text-align:center;
+font-size:12px;
+text-decoration:none;
+color:#777;
+}
+
+.nav-item.active{
+color:#6c4eff;
+font-weight:bold;
+}
 </style>
 </head>
 
@@ -103,14 +136,14 @@ color:#888;
 </div>
 
 <div class="tabs">
-<div class="tab">Feed</div>
+<a href="index.html" class="tab">Feed</a>
 <div class="tab active">Catch-Up</div>
 </div>
 
 <div class="card">
 
 <div class="creator">
-<img src="https://i.pravatar.cc/150?img=3">
+<img src="https://i.postimg.cc/T10D5Fw5/Mrbeast-avatar.jpg">
 <div><strong>MrBeast</strong></div>
 </div>
 
@@ -187,14 +220,14 @@ YouTube • 7 missed
 
 </div>
 
-<!-- INSTAGRAM CORRETTO -->
+<!-- INSTAGRAM -->
 <div class="section">
 <div class="section-title">
 <img src="https://i.postimg.cc/8zjr89n5/Instagram-logo-2016-svg.png">
 Instagram • 5 missed
 </div>
 
-<div class="item-row">
+<div class="item-row story">
 <img class="thumb" src="https://i.postimg.cc/wxhH7ML7/Mrbeast-instastory1.png">
 <div class="content">
 <div class="title">Story Highlight</div>
@@ -236,10 +269,83 @@ Instagram • 5 missed
 
 </div>
 
-<!-- resto invariato -->
+<!-- TIKTOK -->
+<div class="section">
+<div class="section-title">
+<img src="https://i.postimg.cc/QdG5d6Jw/tiktok-icon.png">
+TikTok • 3 missed
+</div>
+
+<div class="item-row">
+<img class="thumb" src="https://i.postimg.cc/3wXK6RkG/tiktok1.png">
+<div class="content">
+<div class="title">Went Wrong</div>
+<div class="meta">Video • Today</div>
+</div>
+</div>
+
+<div class="item-row">
+<img class="thumb" src="https://i.postimg.cc/fW1W9W0G/tiktok2.png">
+<div class="content">
+<div class="title">This Filter is too Real!</div>
+<div class="meta">Video • 1 day ago</div>
+</div>
+</div>
+
+<div class="item-row">
+<img class="thumb" src="https://i.postimg.cc/Z5pG1x8g/tiktok3.png">
+<div class="content">
+<div class="title">I Did This for 24 Hours…</div>
+<div class="meta">Video • 2 days ago</div>
+</div>
+</div>
 
 </div>
 
+<!-- TWITCH -->
+<div class="section">
+<div class="section-title">
+<img src="https://i.postimg.cc/4dQn3Y6z/twitch-icon.png">
+Twitch • 3 missed
+</div>
+
+<div class="item-row">
+<img class="thumb" src="https://i.postimg.cc/k5sQ1VbW/twitch1.png">
+<div class="content">
+<div class="title">Full Stream Beast Games Live Event</div>
+<div class="meta">Live Rec • Today</div>
+</div>
+</div>
+
+<div class="item-row">
+<img class="thumb" src="https://i.postimg.cc/ZR9cXKqM/twitch2.png">
+<div class="content">
+<div class="title">Insane $100,000 Final Moment</div>
+<div class="meta">Clip • 1 day ago</div>
+</div>
+</div>
+
+<div class="item-row">
+<img class="thumb" src="https://i.postimg.cc/9FhXJr3k/twitch3.png">
+<div class="content">
+<div class="title">I Did This for 24 Hours…</div>
+<div class="meta">Clip • 2 days ago</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- NAV -->
+<div class="nav">
+<a class="nav-item" href="index.html">Home</a>
+<a class="nav-item" href="#">Following</a>
+<a class="nav-item active" href="#">Discover</a>
+<a class="nav-item" href="#">Saved</a>
+<a class="nav-item" href="#">Profile</a>
 </div>
 
 </body>
